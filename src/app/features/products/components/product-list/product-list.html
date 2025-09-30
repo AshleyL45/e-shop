@@ -1,0 +1,12 @@
+<div class="product-list">
+    <p>product-list works!</p>
+    <div class="products">
+        @for (product of products; track product) {
+            <app-product-card
+                    [title]="product.title"
+                    [price]="product.price"
+                    [inStock]="product.inStock">
+            </app-product-card>
+        }
+    </div>
+</div>
