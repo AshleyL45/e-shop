@@ -9,12 +9,20 @@ import {Component, Input} from '@angular/core';
 export class ProductCard {
     @Input() title!: string;
     @Input() price!: number;
-    @Input() inStock: boolean = true;
+    @Input() stock: number = 0;
+    @Input() category: string = "other";
+
+
+    discount = 0.1;
 
     onBuyClick() {
-        if (this.inStock) {
+        if (this.stock) {
             console.log(`${this.title} added to cart`);
         }
+    }
+
+    getDiscountPrice(): number {
+        return this.price * (1 - this.discount);
     }
 
 }

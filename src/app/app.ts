@@ -4,10 +4,11 @@ import {ProductCard} from "./features/products/components/product-card/product-c
 import {Footer} from "./features/core/components/footer/footer";
 import {Header} from "./features/core/components/header/header";
 import {ProductList} from "./features/products/components/product-list/product-list";
+import {ImageGallery} from "./features/products/image-gallery/image-gallery";
 
 @Component({
   selector: 'app-root',
-    imports: [RouterOutlet, ProductCard, Footer, Header, ProductList],
+    imports: [RouterOutlet, ProductCard, Footer, Header, ProductList, ImageGallery],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

@@ -1,12 +1,59 @@
 <div class="product-list">
-    <p>product-list works!</p>
+    <h2>Nos produits</h2>
+
     <div class="products">
-        @for (product of products; track product) {
-            <app-product-card
-                    [title]="product.title"
-                    [price]="product.price"
-                    [inStock]="product.inStock">
-            </app-product-card>
+        @for (product of products; track product.id) {
+            <mat-card class="example-card" appearance="outlined">
+
+
+
+                <img mat-card-image class="product-img" [src]="product.imageUrl" [alt]="product.name">
+
+                <mat-card-content>
+                    <div class="title-container">
+                        <mat-card-title>{{ product.name }}</mat-card-title>
+                        <div class="rating">⭐ {{ product.rating }}/5</div>
+                    </div>
+                    <p class="product-price">{{ product.price | currency:'EUR':'symbol':'1.2-2':'fr' }}</p>
+                    <p>{{ product.description }}</p>
+
+                    <div class="category-stock-container">
+                        @switch (product.category) {
+                            @case ('gaming') { <span class="badge">🎮 Jeux vidéo</span> }
+                            @case ('clothing') { <span class="badge">👕 Mode</span> }
+                            @case ('home') { <span class="badge">🏠 Maison</span> }
+                            @case ('electronics') { <span class="badge">📱 High-tech</span> }
+                            @case ('sports') { <span class="badge">⚽ Sport</span> }
+                            @default { <span class="badge">📦 Autre</span> }
+                        }
+
+                        @if (product.inStock) {
+                            <p class="in-stock">✅ Disponible</p>
+                        } @else {
+                            <p class="out-of-stock">❌ En rupture</p>
+                        }
+                    </div>
+
+
+                    <section>
+                        <div class="button">
+                            <button matButton="filled">Ajouter au panier</button>
+                        </div>
+                    </section>
+
+
+
+                </mat-card-content>
+
+
+            </mat-card>
+        } @empty {
+            <p>Aucun produit disponible.</p>
         }
+    </div>
+
+    <div class="stats">
+        <p>{{ totalProducts }} produits au total</p>
+        <p>{{ productsInStock }} produits en stock</p>
     </div>
 </div>

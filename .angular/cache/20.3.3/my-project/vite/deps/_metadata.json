@@ -1,34 +1,76 @@
 {
-  "hash": "e98a30c8",
-  "configHash": "4724af85",
-  "lockfileHash": "d9b9a36f",
-  "browserHash": "f1c322e8",
+  "hash": "373a12e5",
+  "configHash": "4463ec36",
+  "lockfileHash": "b88227c8",
+  "browserHash": "dbb3b0ed",
   "optimized": {
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "3409f4fb",
+      "needsInterop": false
+    },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "a2f3f176",
+      "fileHash": "d49d3ff1",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "ec7f2c0c",
+      "fileHash": "c99aaf75",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "5882acc2",
+      "fileHash": "743872b8",
+      "needsInterop": false
+    },
+    "@angular/material/card": {
+      "src": "../../../../../../node_modules/@angular/material/fesm2022/card.mjs",
+      "file": "@angular_material_card.js",
+      "fileHash": "a3b034fd",
+      "needsInterop": false
+    },
+    "@angular/material/divider": {
+      "src": "../../../../../../node_modules/@angular/material/fesm2022/divider.mjs",
+      "file": "@angular_material_divider.js",
+      "fileHash": "76ee0f94",
+      "needsInterop": false
+    },
+    "@angular/common/locales/fr": {
+      "src": "../../../../../../node_modules/@angular/common/locales/fr.js",
+      "file": "@angular_common_locales_fr.js",
+      "fileHash": "61394dd3",
+      "needsInterop": false
+    },
+    "@angular/material/button": {
+      "src": "../../../../../../node_modules/@angular/material/fesm2022/button.mjs",
+      "file": "@angular_material_button.js",
+      "fileHash": "37bf685c",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-MI5S4CBX": {
-      "file": "chunk-MI5S4CBX.js"
+    "chunk-UGG4O5P3": {
+      "file": "chunk-UGG4O5P3.js"
     },
-    "chunk-RO37OISA": {
-      "file": "chunk-RO37OISA.js"
+    "chunk-IRMRWSRJ": {
+      "file": "chunk-IRMRWSRJ.js"
+    },
+    "chunk-RSVXZEUR": {
+      "file": "chunk-RSVXZEUR.js"
+    },
+    "chunk-XPSQ4ERT": {
+      "file": "chunk-XPSQ4ERT.js"
+    },
+    "chunk-5RFBEPIC": {
+      "file": "chunk-5RFBEPIC.js"
+    },
+    "chunk-GOMI4DH3": {
+      "file": "chunk-GOMI4DH3.js"
     }
   }
 }
