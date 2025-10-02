@@ -14,18 +14,24 @@
                         <mat-card-title>{{ product.name }}</mat-card-title>
                         <div class="rating">⭐ {{ product.rating }}/5</div>
                     </div>
+
+                    @switch (product.category) {
+                        @case ('gaming') { <span class="badge">🎮 Jeux vidéo</span> }
+                        @case ('clothing') { <span class="badge">👕 Mode</span> }
+                        @case ('home') { <span class="badge">🏠 Maison</span> }
+                        @case ('electronics') { <span class="badge">📱 High-tech</span> }
+                        @case ('sports') { <span class="badge">⚽ Sport</span> }
+                        @default { <span class="badge">📦 Autre</span> }
+                    }
+
                     <p class="product-price">{{ product.price | currency:'EUR':'symbol':'1.2-2':'fr' }}</p>
+
+
+
                     <p>{{ product.description }}</p>
 
-                    <div class="category-stock-container">
-                        @switch (product.category) {
-                            @case ('gaming') { <span class="badge">🎮 Jeux vidéo</span> }
-                            @case ('clothing') { <span class="badge">👕 Mode</span> }
-                            @case ('home') { <span class="badge">🏠 Maison</span> }
-                            @case ('electronics') { <span class="badge">📱 High-tech</span> }
-                            @case ('sports') { <span class="badge">⚽ Sport</span> }
-                            @default { <span class="badge">📦 Autre</span> }
-                        }
+                    <div class="stock-container">
+
 
                         @if (product.inStock) {
                             <p class="in-stock">✅ Disponible</p>
@@ -37,9 +43,12 @@
 
                     <section>
                         <div class="button">
-                            <button matButton="filled">Ajouter au panier</button>
+                            <button mat-raised-button color="primary" [disabled]="!product.inStock">
+                                Ajouter au panier
+                            </button>
                         </div>
                     </section>
+
 
 
 

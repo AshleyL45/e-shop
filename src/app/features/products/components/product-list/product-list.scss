@@ -7,21 +7,27 @@
 
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   justify-content: center;
+  align-items: stretch;
   margin: 0 auto;
   max-width: 90%;
 }
 
-
 .example-card {
   max-width: 3000px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-
-
+mat-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
 .product-img {
   border-radius: 10px 10px 0 0;
@@ -33,16 +39,34 @@
   align-items: baseline;
 }
 
+.title-container mat-card-title {
+  flex: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.2;
+  font-size: 1rem !important;
+
+}
+
+.title-container .rating {
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
 
 .title-container mat-card-title {
   line-height: 1;
-  font-size: 1.5rem !important;
+
   margin-bottom: 0.3em !important;
   margin-top: 1em !important;
 }
 
 .title-container .rating {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.badge {
+  color : grey;
 }
 
 .product-price {
@@ -50,7 +74,7 @@
   font-size: 1.2rem !important;
 }
 
-.category-stock-container {
+.stock-container {
   display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -59,11 +83,15 @@
 }
 
 .button {
-    margin-top: 1em !important;
-    margin-bottom: 1em !important;
-    width: 80%;
-    display: flex;
-    justify-content: center;
-
+  display: flex;
+  justify-content: center;
 }
+
+.button button {
+  min-width: 150px;
+  width: 100%;
+  max-width: 250px;
+  margin-top: 2rem;
+}
+
 
