@@ -1,11 +1,16 @@
 
 <app-header></app-header>
-<app-product-list>
-    <app-product-card></app-product-card>
-    <app-product-card></app-product-card>
-    <app-product-card></app-product-card>
-</app-product-list>
-<app-image-gallery></app-image-gallery>
+
+@if (loadingService.loading()) {
+    <div class="global-loader">
+        ⏳ Chargement en cours...
+    </div>
+}
+
+<router-outlet></router-outlet>
+
+
+
 
 
 <app-footer></app-footer>

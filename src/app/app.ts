@@ -1,17 +1,25 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import {ProductCard} from "./features/products/components/product-card/product-card";
+import { Component } from '@angular/core';
+import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet} from '@angular/router';
 import {Footer} from "./features/core/components/footer/footer";
 import {Header} from "./features/core/components/header/header";
-import {ProductList} from "./features/products/components/product-list/product-list";
-import {ImageGallery} from "./features/products/image-gallery/image-gallery";
+import {LoadingService} from "./features/core/services/loadingService";
 
 @Component({
   selector: 'app-root',
-    imports: [RouterOutlet, ProductCard, Footer, Header, ProductList, ImageGallery],
+    imports: [RouterOutlet, Footer, Header],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
+
 export class App {
-  protected readonly title = signal('e-shop');
+    constructor(private router: Router, public loadingService: LoadingService) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationStart) {
+                this.loadingService.show();
+            }
+            if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+                this.loadingService.hide();
+            }
+        });
+    }
 }

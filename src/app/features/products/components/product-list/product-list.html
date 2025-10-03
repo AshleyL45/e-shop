@@ -1,6 +1,4 @@
 <div class="product-list">
-    <h2>Nos produits</h2>
-
     <div class="products">
         @for (product of products; track product.id) {
             <mat-card class="example-card" appearance="outlined">
@@ -14,6 +12,8 @@
                         <mat-card-title>{{ product.name }}</mat-card-title>
                         <div class="rating">⭐ {{ product.rating }}/5</div>
                     </div>
+
+
 
                     @switch (product.category) {
                         @case ('gaming') { <span class="badge">🎮 Jeux vidéo</span> }

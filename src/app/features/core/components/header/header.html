@@ -1,1 +1,11 @@
-<p>header works!</p>
+<p-menubar [model]="items">
+    <ng-template pTemplate="end">
+        <div class="end-section">
+            <input type="text" pInputText placeholder="Search" />
+            <p-avatar
+                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                    shape="circle"
+            />
+        </div>
+    </ng-template>
+</p-menubar>
