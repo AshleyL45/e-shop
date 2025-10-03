@@ -4,11 +4,11 @@ import { authGuard } from "./guards/auth-guard";
 import {productsResolver} from "./guards/product-resolver";
 
 export const routes: Routes = [
-    { path: '', loadComponent: () => import('../features/home/pages/home.page') },
+    { path: '', loadComponent: () => import('../features/home/pages/homePage/home.page') },
 
     {
         path: 'products',
-        loadComponent: () => import('../features/products/pages/product.page'),
+        loadComponent: () => import('../features/products/pages/productPage/product.page'),
         resolve: { products: productsResolver }
     },
 

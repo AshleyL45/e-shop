@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './router/app.routes';
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {providePrimeNG} from "primeng/config";
-import Lara from '@primeuix/themes/lara';
+import Aura from '@primeuix/themes/lara';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
         provideAnimationsAsync(),
         providePrimeNG({
             theme: {
-                preset: Lara,
+                preset: Aura,
                 options: {
                     darkModeSelector: '.dark-mode'
                 }

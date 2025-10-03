@@ -22,4 +22,8 @@ export class App {
             }
         });
     }
+
+    showFooter(): boolean {
+        return !this.router.url.startsWith('/error');
+    }
 }

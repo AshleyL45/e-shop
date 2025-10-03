@@ -1,0 +1,17 @@
+<div class="product-grid">
+    @for (p of products; track p.id) {
+        <app-product-card [product]="p"></app-product-card>
+    }
+
+    <div class="product-grid__paginator">
+        <div class="product-grid__paginator-box">
+            <p-paginator
+                    (onPageChange)="onPageChange($event)"
+                    [first]="first"
+                    [rows]="rows"
+                    [totalRecords]="120"
+                    [rowsPerPageOptions]="[10,20,30]"
+            ></p-paginator>
+        </div>
+    </div>
+</div>

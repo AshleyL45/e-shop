@@ -1,1 +1,54 @@
-<p>footer works!</p>
+<div class="footer-5-column">
+    <div class="footer-container">
+        <div class="footer-navbar-container">
+            <div class="footer-company-details">
+                <div class="footer-logo">
+
+                </div>
+                <div class="footer-content">
+                    <p>
+                        GreenLeaf Shop est votre boutique en ligne de plantes d’intérieur et d’extérieur.
+                        Découvrez nos produits et nos conseils pour prendre soin de vos plantes au quotidien.
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-navbar">
+                <div class="footer-navbar-col">
+                    <h5>Boutique</h5>
+                    <ul>
+                        <li><a [routerLink]="['/']" routerLinkActive="active">Accueil</a></li>
+                        <li><a [routerLink]="['/products']" routerLinkActive="active">Nos plantes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-navbar-col">
+                    <h5>Informations</h5>
+                    <ul>
+                        <li><a [routerLink]="['/about']" routerLinkActive="active">À propos</a></li>
+                        <li><a [routerLink]="['/setting']" routerLinkActive="active">Paramètres</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-navbar-col">
+                    <h5>Assistance</h5>
+                    <ul>
+                        <li><a [routerLink]="['/error']" routerLinkActive="active">Page erreur</a></li>
+                        <li><a [routerLink]="['/hello']" routerLinkActive="active">Message test</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-navbar-col">
+                    <h5>Administration</h5>
+                    <ul>
+                        <li><a [routerLink]="['/admin']" routerLinkActive="active">Espace admin</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-copyright">
+            <p>© 2025 GreenLeaf Shop - Tous droits réservés</p>
+        </div>
+    </div>
+</div>
