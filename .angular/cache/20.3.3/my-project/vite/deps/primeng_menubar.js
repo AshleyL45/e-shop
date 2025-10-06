@@ -1,24 +1,18 @@
 import {
-  Badge,
-  BadgeModule
-} from "./chunk-MVETIQRF.js";
-import {
   Tooltip,
   TooltipModule,
   zindexutils
 } from "./chunk-L2ZEXXGY.js";
+import {
+  Badge,
+  BadgeModule
+} from "./chunk-MVETIQRF.js";
 import {
   AngleDownIcon,
   AngleRightIcon,
   BarsIcon,
   Ripple
 } from "./chunk-F6KKISXW.js";
-import {
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-TBUAS2PO.js";
-import "./chunk-3SRAAFK3.js";
 import {
   BaseComponent
 } from "./chunk-VW67O2R4.js";
@@ -38,6 +32,12 @@ import {
   s3 as s2,
   z
 } from "./chunk-YZN2F3GQ.js";
+import {
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-TBUAS2PO.js";
+import "./chunk-3SRAAFK3.js";
 import {
   CommonModule,
   NgForOf,

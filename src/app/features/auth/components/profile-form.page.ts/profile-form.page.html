@@ -1,106 +1,182 @@
-<div id="emojiRain"></div>
-<audio id="epicMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+<div class="login-container">
+    <div class="login-box">
 
-<form [formGroup]="profileForm">
+        <div class="login-illustration">
+            <img
+                    src="https://dujardindansmavie.com/wordpress/wp-content/uploads/2022/02/Quand-rempoter-une-plante.jpg"
+                    alt="Register Illustration"
+            />
+        </div>
 
-    <label>
-        Nom :
-        <input
-                type="text"
-                formControlName="name"
-                [attr.aria-invalid]="profileForm.controls.name.invalid && profileForm.controls.name.touched"
-                [attr.aria-describedby]="profileForm.controls.name.invalid ? 'name-error' : null"
-        />
-    </label>
-    @if (profileForm.controls.name.invalid && profileForm.controls.name.touched) {
-        <p id="name-error" class="error" role="alert">Le nom est requis</p>
-    }
+        <div class="login-form">
+            <h1>Créer un compte</h1>
+            <p class="subtitle">Inscrivez-vous pour accéder à votre espace personnel</p>
 
-    <label>
-        Âge :
-        <input
-                type="number"
-                formControlName="age"
-                [attr.aria-invalid]="profileForm.controls.age.invalid && profileForm.controls.age.touched"
-                [attr.aria-describedby]="profileForm.controls.age.invalid ? 'age-error' : null"
-        />
-    </label>
-    @if (profileForm.controls.age.errors?.['min'] && profileForm.controls.age.touched) {
-        <p id="age-error" class="error" role="alert">L'âge ne peut pas être négatif</p>
-    }
-    @if (profileForm.controls.age.errors?.['max'] && profileForm.controls.age.touched) {
-        <p id="age-error" class="error" role="alert">L'âge ne peut pas dépasser 120 ans</p>
-    }
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <!-- Nom + Nom d'utilisateur -->
+                <div class="form-row">
+                    <div class="field">
+                        <input
+                                formControlName="name"
+                                placeholder="Nom complet"
+                                [ngClass]="{ valid: controlValid('name'), invalid: controlInvalid('name') }"
+                        />
+                        @if (controlInvalid('name')) {
+                            <small class="error">Nom requis</small>
+                        }
+                    </div>
 
-    <label>
-        Nom d'utilisateur :
-        <input
-                type="text"
-                formControlName="username"
-                [attr.aria-invalid]="profileForm.controls.username.invalid && profileForm.controls.username.touched"
-                [attr.aria-describedby]="profileForm.controls.username.invalid ? 'username-error' : null"
-        />
-    </label>
-    @if (profileForm.controls.username.invalid && profileForm.controls.username.touched) {
-        <p id="username-error" class="error" role="alert">Le nom d'utilisateur est requis (3 caractères min.)</p>
-    }
+                    <div class="field">
+                        <input
+                                formControlName="username"
+                                placeholder="Nom d'utilisateur"
+                                [ngClass]="{ valid: controlValid('username'), invalid: controlInvalid('username') }"
+                        />
+                        @if (profileForm.controls['username'].errors?.['required'] && profileForm.controls['username'].touched) {
+                            <small class="error">Nom d'utilisateur requis</small>
+                        }
+                        @if (profileForm.controls['username'].errors?.['minlength'] && profileForm.controls['username'].touched) {
+                            <small class="error">3 caractères minimum</small>
+                        }
+                    </div>
+                </div>
 
-    <label>
-        Email :
-        <input
-                type="email"
-                formControlName="email"
-                [attr.aria-invalid]="profileForm.controls.email.invalid && profileForm.controls.email.touched"
-                [attr.aria-describedby]="profileForm.controls.email.invalid ? 'email-error' : null"
-        />
-    </label>
-    @if (profileForm.controls.email.errors?.['required'] && profileForm.controls.email.touched) {
-        <p id="email-error" class="error" role="alert">L'email est requis</p>
-    }
-    @if (profileForm.controls.email.errors?.['email'] && profileForm.controls.email.touched) {
-        <p id="email-error" class="error" role="alert">Email invalide</p>
-    }
+                <div class="field">
+                    <input
+                            formControlName="email"
+                            placeholder="Adresse e-mail"
+                            [ngClass]="{ valid: controlValid('email'), invalid: controlInvalid('email') }"
+                    />
+                    @if (profileForm.controls['email'].errors?.['required'] && profileForm.controls['email'].touched) {
+                        <small class="error">Email requis</small>
+                    }
+                    @if (profileForm.controls['email'].errors?.['email'] && profileForm.controls['email'].touched) {
+                        <small class="error">Email invalide</small>
+                    }
+                </div>
 
-    <label>
-        Téléphone :
-        <input
-                type="text"
-                formControlName="phone"
-                [attr.aria-invalid]="profileForm.controls.phone.invalid && profileForm.controls.phone.touched"
-                [attr.aria-describedby]="profileForm.controls.phone.invalid ? 'phone-error' : null"
-        />
-    </label>
-    @if (profileForm.controls.phone.errors?.['pattern'] && profileForm.controls.phone.touched) {
-        <p id="phone-error" class="error" role="alert">Numéro de téléphone invalide (format : 0XXXXXXXXX)</p>
-    }
+                <div class="form-row">
+                    <div class="field">
+                        <input
+                                type="number"
+                                formControlName="age"
+                                placeholder="Âge"
+                                [ngClass]="{ valid: controlValid('age'), invalid: controlInvalid('age') }"
+                        />
+                        @if (profileForm.controls['age'].errors?.['min'] && profileForm.controls['age'].touched) {
+                            <small class="error">Âge invalide</small>
+                        }
+                        @if (profileForm.controls['age'].errors?.['max'] && profileForm.controls['age'].touched) {
+                            <small class="error">Âge trop élevé</small>
+                        }
+                    </div>
 
-    <label>
-        Mot de passe :
-        <input
-                type="password"
-                formControlName="password"
-                [attr.aria-invalid]="profileForm.controls.password.invalid && profileForm.controls.password.touched"
-                [attr.aria-describedby]="profileForm.controls.password.invalid ? 'password-error' : null"
-        />
-    </label>
-    @if (profileForm.controls.password.errors?.['minlength'] && profileForm.controls.password.touched) {
-        <p id="password-error" class="error" role="alert">Le mot de passe doit contenir au moins 6 caractères</p>
-    }
+                    <div class="field">
+                        <input
+                                type="text"
+                                formControlName="phone"
+                                placeholder="Téléphone"
+                                [ngClass]="{ valid: controlValid('phone'), invalid: controlInvalid('phone') }"
+                        />
+                        @if (profileForm.controls['phone'].errors?.['pattern'] && profileForm.controls['phone'].touched) {
+                            <small class="error">Format de téléphone invalide</small>
+                        }
+                    </div>
+                </div>
 
-    <label>
-        Confirmer le mot de passe :
-        <input
-                type="password"
-                formControlName="confirmPassword"
-                [attr.aria-invalid]="(profileForm.errors?.['passwordMismatch'] || profileForm.controls.confirmPassword.invalid) && profileForm.controls.confirmPassword.touched"
-                [attr.aria-describedby]="(profileForm.errors?.['passwordMismatch'] || profileForm.controls.confirmPassword.invalid) ? 'confirmPassword-error' : null"
-        />
-    </label>
-    @if (profileForm.errors?.['passwordMismatch'] && profileForm.controls.confirmPassword.touched) {
-        <p id="confirmPassword-error" class="error" role="alert">Les mots de passe ne correspondent pas</p>
-    }
+                <div class="form-row">
+                    <div class="field">
+                        <input
+                                type="password"
+                                formControlName="password"
+                                placeholder="Mot de passe"
+                                [ngClass]="{ valid: controlValid('password'), invalid: controlInvalid('password') }"
+                        />
+                        @if (profileForm.controls['password'].errors?.['pattern'] && profileForm.controls['password'].touched) {
+                            <small class="error">
+                                Doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial.
+                            </small>
+                        }
+                        @if (profileForm.controls['password'].errors?.['minlength'] && profileForm.controls['password'].touched) {
+                            <small class="error">6 caractères minimum</small>
+                        }
+                    </div>
 
-    <button type="submit" [disabled]="profileForm.invalid">Envoyer</button>
-</form>
+                    <div class="field">
+                        <input
+                                type="password"
+                                formControlName="confirmPassword"
+                                placeholder="Confirmez le mot de passe"
+                                [ngClass]="{
+                valid: profileForm.valid && profileForm.controls['confirmPassword'].touched && !profileForm.errors?.['passwordMismatch'],
+                invalid: profileForm.errors?.['passwordMismatch'] && profileForm.controls['confirmPassword'].touched
+              }"
+                        />
+                        @if (profileForm.errors?.['passwordMismatch'] && profileForm.controls['confirmPassword'].touched) {
+                            <small class="error">Les mots de passe ne correspondent pas</small>
+                        }
+                    </div>
+                </div>
+
+                <div class="field addresses">
+                    <div class="addresses-header">
+                        <label>Adresses :</label>
+                        <button
+                                type="button"
+                                class="btn-add-address"
+                                (click)="addAddress()"
+                                title="Ajouter une adresse"
+                        >
+                            <span class="pi pi-plus"></span>
+                        </button>
+                    </div>
+
+                    @for (addr of addresses.controls; track $index) {
+                        <div class="address-row">
+                            <input
+                                    [formControl]="addr"
+                                    placeholder="Adresse #{{$index + 1}}"
+                            />
+
+                            @if (addresses.length > 1 && $index > 0) {
+                                <button
+                                        type="button"
+                                        class="btn-remove-address"
+                                        (click)="removeAddress($index)"
+                                        title="Supprimer cette adresse"
+                                >
+                                    <span class="pi pi-minus"></span>
+                                </button>
+                            }
+                        </div>
+                    }
+                </div>
 
 
+
+                <button type="submit" class="btn-login" [disabled]="profileForm.invalid">
+                    Créer mon compte
+                </button>
+            </form>
+
+            <p-divider align="center">Ou inscrivez-vous avec</p-divider>
+
+            <div class="social-buttons">
+                <button class="p-button-outlined p-button-rounded google-btn">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" />
+                    <span>Google</span>
+                </button>
+
+                <button class="p-button-outlined p-button-rounded facebook-btn">
+                    <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" alt="Facebook logo" />
+                    <span>Facebook</span>
+                </button>
+            </div>
+
+            <p class="footer-text">
+                Vous avez déjà un compte ?
+                <a routerLink="/auth/login">Connectez-vous</a>
+            </p>
+        </div>
+    </div>
+</div>
