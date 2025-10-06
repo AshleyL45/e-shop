@@ -1,4 +1,6 @@
-<app-header></app-header>
+@if (!hideLayout()) {
+    <app-header></app-header>
+}
 
 @if (loadingService.loading()) {
     <div class="global-loader">
@@ -8,6 +10,7 @@
 
 <router-outlet></router-outlet>
 
-@if (showFooter()) {
+@if (!hideLayout()) {
     <app-footer></app-footer>
 }
+

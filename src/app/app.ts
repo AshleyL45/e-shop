@@ -23,7 +23,20 @@ export class App {
         });
     }
 
+    hideLayout(): boolean {
+        const url = this.router.url;
+        return (
+            url.startsWith('/error') ||
+            url.startsWith('/auth/login') ||
+            url.startsWith('/auth/register')
+        );
+    }
+
+    showHeader(): boolean {
+        return !this.hideLayout();
+    }
+
     showFooter(): boolean {
-        return !this.router.url.startsWith('/error');
+        return !this.hideLayout();
     }
 }

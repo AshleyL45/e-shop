@@ -25,10 +25,17 @@ export class Header {
                     { label: 'Produit 1', routerLink: ['/products', 1] }
                 ]
             },
-            { label: 'À Propos', icon: 'pi pi-info-circle', routerLink: '/about' },
+            { label: 'À Propos', icon: 'pi pi-info-user', routerLink: '/about' },
             { label: 'Paramètres', icon: 'pi pi-cog', routerLink: '/setting' },
             { label: 'Admin', icon: 'pi pi-shield', routerLink: '/admin' },
-            { label: 'Erreur', icon: 'pi pi-times-circle', routerLink: '/error' }
+            { label: 'Erreur', icon: 'pi pi-times-circle', routerLink: '/error' },
+            {
+                label: 'Auth', icon: 'pi pi-user',
+                items: [
+                    { label: 'Register', routerLink: '/auth/register' },
+                    { label: 'Login', routerLink: ['/auth/login'] }
+                ]
+            }
         ];
     }
 }

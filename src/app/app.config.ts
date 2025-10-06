@@ -2,7 +2,6 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessC
 import { provideRouter } from '@angular/router';
 
 import { routes } from './router/app.routes';
-import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {providePrimeNG} from "primeng/config";
 import Aura from '@primeuix/themes/lara';
 
@@ -12,8 +11,6 @@ export const appConfig: ApplicationConfig = {
         provideZonelessChangeDetection(),
         provideRouter(routes),
 
-        // ⚡ Ajout PrimeNG
-        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura,

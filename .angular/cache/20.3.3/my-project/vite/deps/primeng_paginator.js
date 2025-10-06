@@ -1,29 +1,11 @@
 import {
-  animate,
-  animation,
-  sequence,
-  style,
-  transition,
-  trigger,
-  useAnimation
-} from "./chunk-DWLQPEHP.js";
+  AutoFocus
+} from "./chunk-XIPVUW46.js";
 import {
   ObjectUtils,
   Tooltip,
   zindexutils
 } from "./chunk-L2ZEXXGY.js";
-import {
-  BaseModelHolder,
-  FormsModule,
-  InputText,
-  NG_VALUE_ACCESSOR,
-  NgControl,
-  NgControlStatus,
-  NgModel
-} from "./chunk-XTHRXVSR.js";
-import {
-  AutoFocus
-} from "./chunk-XIPVUW46.js";
 import {
   AngleDoubleLeftIcon,
   AngleDoubleRightIcon,
@@ -42,6 +24,10 @@ import {
   TimesIcon,
   unblockBodyScroll
 } from "./chunk-F6KKISXW.js";
+import {
+  BaseModelHolder,
+  InputText
+} from "./chunk-7PRI4JA3.js";
 import {
   Fluid
 } from "./chunk-BAVCYJ7T.js";
@@ -80,6 +66,13 @@ import {
   y,
   z
 } from "./chunk-YZN2F3GQ.js";
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  NgControlStatus,
+  NgModel
+} from "./chunk-WSPMC7XG.js";
 import {
   CommonModule,
   NgClass,
@@ -405,7 +398,7 @@ var BaseInput = class _BaseInput extends BaseEditableHolder {
 })();
 
 // node_modules/@primeuix/styles/dist/iconfield/index.mjs
-var style2 = "\n    .p-iconfield {\n        position: relative;\n        display: block;\n    }\n\n    .p-inputicon {\n        position: absolute;\n        top: 50%;\n        margin-top: calc(-1 * (dt('icon.size') / 2));\n        color: dt('iconfield.icon.color');\n        line-height: 1;\n        z-index: 1;\n    }\n\n    .p-iconfield .p-inputicon:first-child {\n        inset-inline-start: dt('form.field.padding.x');\n    }\n\n    .p-iconfield .p-inputicon:last-child {\n        inset-inline-end: dt('form.field.padding.x');\n    }\n\n    .p-iconfield .p-inputtext:not(:first-child),\n    .p-iconfield .p-inputwrapper:not(:first-child) .p-inputtext {\n        padding-inline-start: calc((dt('form.field.padding.x') * 2) + dt('icon.size'));\n    }\n\n    .p-iconfield .p-inputtext:not(:last-child) {\n        padding-inline-end: calc((dt('form.field.padding.x') * 2) + dt('icon.size'));\n    }\n\n    .p-iconfield:has(.p-inputfield-sm) .p-inputicon {\n        font-size: dt('form.field.sm.font.size');\n        width: dt('form.field.sm.font.size');\n        height: dt('form.field.sm.font.size');\n        margin-top: calc(-1 * (dt('form.field.sm.font.size') / 2));\n    }\n\n    .p-iconfield:has(.p-inputfield-lg) .p-inputicon {\n        font-size: dt('form.field.lg.font.size');\n        width: dt('form.field.lg.font.size');\n        height: dt('form.field.lg.font.size');\n        margin-top: calc(-1 * (dt('form.field.lg.font.size') / 2));\n    }\n";
+var style = "\n    .p-iconfield {\n        position: relative;\n        display: block;\n    }\n\n    .p-inputicon {\n        position: absolute;\n        top: 50%;\n        margin-top: calc(-1 * (dt('icon.size') / 2));\n        color: dt('iconfield.icon.color');\n        line-height: 1;\n        z-index: 1;\n    }\n\n    .p-iconfield .p-inputicon:first-child {\n        inset-inline-start: dt('form.field.padding.x');\n    }\n\n    .p-iconfield .p-inputicon:last-child {\n        inset-inline-end: dt('form.field.padding.x');\n    }\n\n    .p-iconfield .p-inputtext:not(:first-child),\n    .p-iconfield .p-inputwrapper:not(:first-child) .p-inputtext {\n        padding-inline-start: calc((dt('form.field.padding.x') * 2) + dt('icon.size'));\n    }\n\n    .p-iconfield .p-inputtext:not(:last-child) {\n        padding-inline-end: calc((dt('form.field.padding.x') * 2) + dt('icon.size'));\n    }\n\n    .p-iconfield:has(.p-inputfield-sm) .p-inputicon {\n        font-size: dt('form.field.sm.font.size');\n        width: dt('form.field.sm.font.size');\n        height: dt('form.field.sm.font.size');\n        margin-top: calc(-1 * (dt('form.field.sm.font.size') / 2));\n    }\n\n    .p-iconfield:has(.p-inputfield-lg) .p-inputicon {\n        font-size: dt('form.field.lg.font.size');\n        width: dt('form.field.lg.font.size');\n        height: dt('form.field.lg.font.size');\n        margin-top: calc(-1 * (dt('form.field.lg.font.size') / 2));\n    }\n";
 
 // node_modules/primeng/fesm2022/primeng-iconfield.mjs
 var _c0 = ["*"];
@@ -419,7 +412,7 @@ var classes = {
 };
 var IconFieldStyle = class _IconFieldStyle extends BaseStyle {
   name = "iconfield";
-  theme = style2;
+  theme = style;
   classes = classes;
   static ɵfac = /* @__PURE__ */ (() => {
     let ɵIconFieldStyle_BaseFactory;
@@ -643,6 +636,45 @@ var InputIconModule = class _InputIconModule {
     }]
   }], null, null);
 })();
+
+// node_modules/@angular/animations/fesm2022/private_export.mjs
+var AnimationMetadataType;
+(function(AnimationMetadataType2) {
+  AnimationMetadataType2[AnimationMetadataType2["State"] = 0] = "State";
+  AnimationMetadataType2[AnimationMetadataType2["Transition"] = 1] = "Transition";
+  AnimationMetadataType2[AnimationMetadataType2["Sequence"] = 2] = "Sequence";
+  AnimationMetadataType2[AnimationMetadataType2["Group"] = 3] = "Group";
+  AnimationMetadataType2[AnimationMetadataType2["Animate"] = 4] = "Animate";
+  AnimationMetadataType2[AnimationMetadataType2["Keyframes"] = 5] = "Keyframes";
+  AnimationMetadataType2[AnimationMetadataType2["Style"] = 6] = "Style";
+  AnimationMetadataType2[AnimationMetadataType2["Trigger"] = 7] = "Trigger";
+  AnimationMetadataType2[AnimationMetadataType2["Reference"] = 8] = "Reference";
+  AnimationMetadataType2[AnimationMetadataType2["AnimateChild"] = 9] = "AnimateChild";
+  AnimationMetadataType2[AnimationMetadataType2["AnimateRef"] = 10] = "AnimateRef";
+  AnimationMetadataType2[AnimationMetadataType2["Query"] = 11] = "Query";
+  AnimationMetadataType2[AnimationMetadataType2["Stagger"] = 12] = "Stagger";
+})(AnimationMetadataType || (AnimationMetadataType = {}));
+function trigger(name, definitions) {
+  return { type: AnimationMetadataType.Trigger, name, definitions, options: {} };
+}
+function animate(timings, styles = null) {
+  return { type: AnimationMetadataType.Animate, styles, timings };
+}
+function sequence(steps, options = null) {
+  return { type: AnimationMetadataType.Sequence, steps, options };
+}
+function style2(tokens) {
+  return { type: AnimationMetadataType.Style, styles: tokens, offset: null };
+}
+function transition(stateChangeExpr, steps, options = null) {
+  return { type: AnimationMetadataType.Transition, expr: stateChangeExpr, animation: steps, options };
+}
+function animation(steps, options = null) {
+  return { type: AnimationMetadataType.Reference, animation: steps, options };
+}
+function useAnimation(animation2, options = null) {
+  return { type: AnimationMetadataType.AnimateRef, animation: animation2, options };
+}
 
 // node_modules/@angular/animations/fesm2022/animations.mjs
 var AnimationBuilder = class _AnimationBuilder {
@@ -1009,11 +1041,11 @@ var OverlayStyle = class _OverlayStyle extends BaseStyle {
     type: Injectable
   }], null, null);
 })();
-var showOverlayContentAnimation = animation([style({
+var showOverlayContentAnimation = animation([style2({
   transform: "{{transform}}",
   opacity: 0
 }), animate("{{showTransitionParams}}")]);
-var hideOverlayContentAnimation = animation([animate("{{hideTransitionParams}}", style({
+var hideOverlayContentAnimation = animation([animate("{{hideTransitionParams}}", style2({
   transform: "{{transform}}",
   opacity: 0
 }))]);
@@ -9923,6 +9955,7 @@ export {
 };
 /*! Bundled license information:
 
+@angular/animations/fesm2022/private_export.mjs:
 @angular/animations/fesm2022/animations.mjs:
   (**
    * @license Angular v20.3.2

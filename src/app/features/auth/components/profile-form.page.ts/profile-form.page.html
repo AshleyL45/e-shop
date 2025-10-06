@@ -1,0 +1,106 @@
+<div id="emojiRain"></div>
+<audio id="epicMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<form [formGroup]="profileForm">
+
+    <label>
+        Nom :
+        <input
+                type="text"
+                formControlName="name"
+                [attr.aria-invalid]="profileForm.controls.name.invalid && profileForm.controls.name.touched"
+                [attr.aria-describedby]="profileForm.controls.name.invalid ? 'name-error' : null"
+        />
+    </label>
+    @if (profileForm.controls.name.invalid && profileForm.controls.name.touched) {
+        <p id="name-error" class="error" role="alert">Le nom est requis</p>
+    }
+
+    <label>
+        Âge :
+        <input
+                type="number"
+                formControlName="age"
+                [attr.aria-invalid]="profileForm.controls.age.invalid && profileForm.controls.age.touched"
+                [attr.aria-describedby]="profileForm.controls.age.invalid ? 'age-error' : null"
+        />
+    </label>
+    @if (profileForm.controls.age.errors?.['min'] && profileForm.controls.age.touched) {
+        <p id="age-error" class="error" role="alert">L'âge ne peut pas être négatif</p>
+    }
+    @if (profileForm.controls.age.errors?.['max'] && profileForm.controls.age.touched) {
+        <p id="age-error" class="error" role="alert">L'âge ne peut pas dépasser 120 ans</p>
+    }
+
+    <label>
+        Nom d'utilisateur :
+        <input
+                type="text"
+                formControlName="username"
+                [attr.aria-invalid]="profileForm.controls.username.invalid && profileForm.controls.username.touched"
+                [attr.aria-describedby]="profileForm.controls.username.invalid ? 'username-error' : null"
+        />
+    </label>
+    @if (profileForm.controls.username.invalid && profileForm.controls.username.touched) {
+        <p id="username-error" class="error" role="alert">Le nom d'utilisateur est requis (3 caractères min.)</p>
+    }
+
+    <label>
+        Email :
+        <input
+                type="email"
+                formControlName="email"
+                [attr.aria-invalid]="profileForm.controls.email.invalid && profileForm.controls.email.touched"
+                [attr.aria-describedby]="profileForm.controls.email.invalid ? 'email-error' : null"
+        />
+    </label>
+    @if (profileForm.controls.email.errors?.['required'] && profileForm.controls.email.touched) {
+        <p id="email-error" class="error" role="alert">L'email est requis</p>
+    }
+    @if (profileForm.controls.email.errors?.['email'] && profileForm.controls.email.touched) {
+        <p id="email-error" class="error" role="alert">Email invalide</p>
+    }
+
+    <label>
+        Téléphone :
+        <input
+                type="text"
+                formControlName="phone"
+                [attr.aria-invalid]="profileForm.controls.phone.invalid && profileForm.controls.phone.touched"
+                [attr.aria-describedby]="profileForm.controls.phone.invalid ? 'phone-error' : null"
+        />
+    </label>
+    @if (profileForm.controls.phone.errors?.['pattern'] && profileForm.controls.phone.touched) {
+        <p id="phone-error" class="error" role="alert">Numéro de téléphone invalide (format : 0XXXXXXXXX)</p>
+    }
+
+    <label>
+        Mot de passe :
+        <input
+                type="password"
+                formControlName="password"
+                [attr.aria-invalid]="profileForm.controls.password.invalid && profileForm.controls.password.touched"
+                [attr.aria-describedby]="profileForm.controls.password.invalid ? 'password-error' : null"
+        />
+    </label>
+    @if (profileForm.controls.password.errors?.['minlength'] && profileForm.controls.password.touched) {
+        <p id="password-error" class="error" role="alert">Le mot de passe doit contenir au moins 6 caractères</p>
+    }
+
+    <label>
+        Confirmer le mot de passe :
+        <input
+                type="password"
+                formControlName="confirmPassword"
+                [attr.aria-invalid]="(profileForm.errors?.['passwordMismatch'] || profileForm.controls.confirmPassword.invalid) && profileForm.controls.confirmPassword.touched"
+                [attr.aria-describedby]="(profileForm.errors?.['passwordMismatch'] || profileForm.controls.confirmPassword.invalid) ? 'confirmPassword-error' : null"
+        />
+    </label>
+    @if (profileForm.errors?.['passwordMismatch'] && profileForm.controls.confirmPassword.touched) {
+        <p id="confirmPassword-error" class="error" role="alert">Les mots de passe ne correspondent pas</p>
+    }
+
+    <button type="submit" [disabled]="profileForm.invalid">Envoyer</button>
+</form>
+
+

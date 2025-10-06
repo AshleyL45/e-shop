@@ -1,0 +1,9 @@
+<div [formGroup]="shippingForm">
+    <div formArrayName="addresses">
+        @for (address of addresses.controls; track $index) {
+            <input [formControlName]="$index" placeholder="Adresse">
+            <button type="button" (click)="addresses.removeAt($index)">Supprimer</button>
+        }
+    </div>
+    <button type="button" (click)="addresses.push(fb.control(''))">Ajouter une adresse</button>
+</div>

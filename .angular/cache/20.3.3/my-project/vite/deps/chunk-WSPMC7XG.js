@@ -1,16 +1,4 @@
 import {
-  Fluid
-} from "./chunk-BAVCYJ7T.js";
-import {
-  BaseComponent
-} from "./chunk-VW67O2R4.js";
-import {
-  BaseStyle
-} from "./chunk-V7F4OYJT.js";
-import {
-  s2 as s
-} from "./chunk-YZN2F3GQ.js";
-import {
   getDOM
 } from "./chunk-NMTCMFGF.js";
 import {
@@ -21,7 +9,6 @@ import {
   ElementRef,
   EventEmitter,
   Host,
-  HostListener,
   Inject,
   Injectable,
   InjectionToken,
@@ -40,7 +27,6 @@ import {
   computed,
   forwardRef,
   inject,
-  input,
   isPromise,
   isSubscribable,
   setClassMetadata,
@@ -50,7 +36,6 @@ import {
   ɵɵNgOnChangesFeature,
   ɵɵProvidersFeature,
   ɵɵattribute,
-  ɵɵclassMap,
   ɵɵclassProp,
   ɵɵdefineDirective,
   ɵɵdefineInjectable,
@@ -318,6 +303,284 @@ function lengthOrSize(value) {
 var NG_VALIDATORS = new InjectionToken(ngDevMode ? "NgValidators" : "");
 var NG_ASYNC_VALIDATORS = new InjectionToken(ngDevMode ? "NgAsyncValidators" : "");
 var EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+var Validators = class {
+  /**
+   * @description
+   * Validator that requires the control's value to be greater than or equal to the provided number.
+   *
+   * @usageNotes
+   *
+   * ### Validate against a minimum of 3
+   *
+   * ```ts
+   * const control = new FormControl(2, Validators.min(3));
+   *
+   * console.log(control.errors); // {min: {min: 3, actual: 2}}
+   * ```
+   *
+   * @returns A validator function that returns an error map with the
+   * `min` property if the validation check fails, otherwise `null`.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static min(min) {
+    return minValidator(min);
+  }
+  /**
+   * @description
+   * Validator that requires the control's value to be less than or equal to the provided number.
+   *
+   * @usageNotes
+   *
+   * ### Validate against a maximum of 15
+   *
+   * ```ts
+   * const control = new FormControl(16, Validators.max(15));
+   *
+   * console.log(control.errors); // {max: {max: 15, actual: 16}}
+   * ```
+   *
+   * @returns A validator function that returns an error map with the
+   * `max` property if the validation check fails, otherwise `null`.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static max(max) {
+    return maxValidator(max);
+  }
+  /**
+   * @description
+   * Validator that requires the control have a non-empty value.
+   *
+   * @usageNotes
+   *
+   * ### Validate that the field is non-empty
+   *
+   * ```ts
+   * const control = new FormControl('', Validators.required);
+   *
+   * console.log(control.errors); // {required: true}
+   * ```
+   *
+   * @returns An error map with the `required` property
+   * if the validation check fails, otherwise `null`.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static required(control) {
+    return requiredValidator(control);
+  }
+  /**
+   * @description
+   * Validator that requires the control's value be true. This validator is commonly
+   * used for required checkboxes.
+   *
+   * @usageNotes
+   *
+   * ### Validate that the field value is true
+   *
+   * ```ts
+   * const control = new FormControl('some value', Validators.requiredTrue);
+   *
+   * console.log(control.errors); // {required: true}
+   * ```
+   *
+   * @returns An error map that contains the `required` property
+   * set to `true` if the validation check fails, otherwise `null`.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static requiredTrue(control) {
+    return requiredTrueValidator(control);
+  }
+  /**
+   * @description
+   * Validator that requires the control's value pass an email validation test.
+   *
+   * Tests the value using a [regular
+   * expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
+   * pattern suitable for common use cases. The pattern is based on the definition of a valid email
+   * address in the [WHATWG HTML
+   * specification](https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address) with
+   * some enhancements to incorporate more RFC rules (such as rules related to domain names and the
+   * lengths of different parts of the address).
+   *
+   * The differences from the WHATWG version include:
+   * - Disallow `local-part` (the part before the `@` symbol) to begin or end with a period (`.`).
+   * - Disallow `local-part` to be longer than 64 characters.
+   * - Disallow the whole address to be longer than 254 characters.
+   *
+   * If this pattern does not satisfy your business needs, you can use `Validators.pattern()` to
+   * validate the value against a different pattern.
+   *
+   * @usageNotes
+   *
+   * ### Validate that the field matches a valid email pattern
+   *
+   * ```ts
+   * const control = new FormControl('bad@', Validators.email);
+   *
+   * console.log(control.errors); // {email: true}
+   * ```
+   *
+   * @returns An error map with the `email` property
+   * if the validation check fails, otherwise `null`.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static email(control) {
+    return emailValidator(control);
+  }
+  /**
+   * @description
+   * Validator that requires the number of items in the control's value to be greater than or equal
+   * to the provided minimum length. This validator is also provided by default if you use
+   * the HTML5 `minlength` attribute. Note that the `minLength` validator is intended to be used
+   * only for types that have a numeric `length` or `size` property, such as strings, arrays or
+   * sets. The `minLength` validator logic is also not invoked for values when their `length` or
+   * `size` property is 0 (for example in case of an empty string or an empty array), to support
+   * optional controls. You can use the standard `required` validator if empty values should not be
+   * considered valid.
+   *
+   * @usageNotes
+   *
+   * ### Validate that the field has a minimum of 3 characters
+   *
+   * ```ts
+   * const control = new FormControl('ng', Validators.minLength(3));
+   *
+   * console.log(control.errors); // {minlength: {requiredLength: 3, actualLength: 2}}
+   * ```
+   *
+   * ```html
+   * <input minlength="5">
+   * ```
+   *
+   * @returns A validator function that returns an error map with the
+   * `minlength` property if the validation check fails, otherwise `null`.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static minLength(minLength) {
+    return minLengthValidator(minLength);
+  }
+  /**
+   * @description
+   * Validator that requires the number of items in the control's value to be less than or equal
+   * to the provided maximum length. This validator is also provided by default if you use
+   * the HTML5 `maxlength` attribute. Note that the `maxLength` validator is intended to be used
+   * only for types that have a numeric `length` or `size` property, such as strings, arrays or
+   * sets.
+   *
+   * @usageNotes
+   *
+   * ### Validate that the field has maximum of 5 characters
+   *
+   * ```ts
+   * const control = new FormControl('Angular', Validators.maxLength(5));
+   *
+   * console.log(control.errors); // {maxlength: {requiredLength: 5, actualLength: 7}}
+   * ```
+   *
+   * ```html
+   * <input maxlength="5">
+   * ```
+   *
+   * @returns A validator function that returns an error map with the
+   * `maxlength` property if the validation check fails, otherwise `null`.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static maxLength(maxLength) {
+    return maxLengthValidator(maxLength);
+  }
+  /**
+   * @description
+   * Validator that requires the control's value to match a regex pattern. This validator is also
+   * provided by default if you use the HTML5 `pattern` attribute.
+   *
+   * @usageNotes
+   *
+   * ### Validate that the field only contains letters or spaces
+   *
+   * ```ts
+   * const control = new FormControl('1', Validators.pattern('[a-zA-Z ]*'));
+   *
+   * console.log(control.errors); // {pattern: {requiredPattern: '^[a-zA-Z ]*$', actualValue: '1'}}
+   * ```
+   *
+   * ```html
+   * <input pattern="[a-zA-Z ]*">
+   * ```
+   *
+   * ### Pattern matching with the global or sticky flag
+   *
+   * `RegExp` objects created with the `g` or `y` flags that are passed into `Validators.pattern`
+   * can produce different results on the same input when validations are run consecutively. This is
+   * due to how the behavior of `RegExp.prototype.test` is
+   * specified in [ECMA-262](https://tc39.es/ecma262/#sec-regexpbuiltinexec)
+   * (`RegExp` preserves the index of the last match when the global or sticky flag is used).
+   * Due to this behavior, it is recommended that when using
+   * `Validators.pattern` you **do not** pass in a `RegExp` object with either the global or sticky
+   * flag enabled.
+   *
+   * ```ts
+   * // Not recommended (since the `g` flag is used)
+   * const controlOne = new FormControl('1', Validators.pattern(/foo/g));
+   *
+   * // Good
+   * const controlTwo = new FormControl('1', Validators.pattern(/foo/));
+   * ```
+   *
+   * @param pattern A regular expression to be used as is to test the values, or a string.
+   * If a string is passed, the `^` character is prepended and the `$` character is
+   * appended to the provided string (if not already present), and the resulting regular
+   * expression is used to test the values.
+   *
+   * @returns A validator function that returns an error map with the
+   * `pattern` property if the validation check fails, otherwise `null`.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static pattern(pattern) {
+    return patternValidator(pattern);
+  }
+  /**
+   * @description
+   * Validator that performs no operation.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static nullValidator(control) {
+    return nullValidator();
+  }
+  static compose(validators) {
+    return compose(validators);
+  }
+  /**
+   * @description
+   * Compose multiple async validators into a single function that returns the union
+   * of the individual error objects for the provided control.
+   *
+   * @returns A validator function that returns an error map with the
+   * merged error objects of the async validators if the validation check fails, otherwise `null`.
+   *
+   * @see {@link /api/forms/AbstractControl#updateValueAndValidity updateValueAndValidity}
+   *
+   */
+  static composeAsync(validators) {
+    return composeAsync(validators);
+  }
+};
 function minValidator(min) {
   return (control) => {
     if (control.value == null || min == null) {
@@ -1077,20 +1340,20 @@ function ngModelWarning(directiveName) {
   https://angular.io/api/forms/${directiveName === "formControl" ? "FormControlDirective" : "FormControlName"}#use-with-ngmodel
   `;
 }
-function describeKey(isFormGroup, key) {
-  return isFormGroup ? `with name: '${key}'` : `at index: ${key}`;
+function describeKey(isFormGroup2, key) {
+  return isFormGroup2 ? `with name: '${key}'` : `at index: ${key}`;
 }
-function noControlsError(isFormGroup) {
+function noControlsError(isFormGroup2) {
   return `
-    There are no form controls registered with this ${isFormGroup ? "group" : "array"} yet. If you're using ngModel,
+    There are no form controls registered with this ${isFormGroup2 ? "group" : "array"} yet. If you're using ngModel,
     you may want to check next tick (e.g. use setTimeout).
   `;
 }
-function missingControlError(isFormGroup, key) {
-  return `Cannot find form control ${describeKey(isFormGroup, key)}`;
+function missingControlError(isFormGroup2, key) {
+  return `Cannot find form control ${describeKey(isFormGroup2, key)}`;
 }
-function missingControlValueError(isFormGroup, key) {
-  return `Must supply a value for form control ${describeKey(isFormGroup, key)}`;
+function missingControlValueError(isFormGroup2, key) {
+  return `Must supply a value for form control ${describeKey(isFormGroup2, key)}`;
 }
 var VALID = "VALID";
 var INVALID = "INVALID";
@@ -2443,8 +2706,11 @@ function validateFormGroupControls(controls) {
     console.warn(`FormGroup keys cannot include \`.\`, please replace the keys for: ${invalidKeys.join(",")}.`);
   }
 }
+var UntypedFormGroup = FormGroup;
+var isFormGroup = (control) => control instanceof FormGroup;
 var FormRecord = class extends FormGroup {
 };
+var isFormRecord = (control) => control instanceof FormRecord;
 var CALL_SET_DISABLED_STATE = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "CallSetDisabledState" : "", {
   providedIn: "root",
   factory: () => setDisabledStateDefault
@@ -3078,6 +3344,7 @@ var FormControl = class FormControl2 extends AbstractControl {
     }
   }
 };
+var UntypedFormControl = FormControl;
 var isFormControl = (control) => control instanceof FormControl;
 var AbstractFormGroupDirective = class _AbstractFormGroupDirective extends ControlContainer {
   /**
@@ -5412,9 +5679,9 @@ var AbstractValidatorDirective = class _AbstractValidatorDirective {
   /** @docs-private */
   ngOnChanges(changes) {
     if (this.inputName in changes) {
-      const input2 = this.normalizeInput(changes[this.inputName].currentValue);
-      this._enabled = this.enabled(input2);
-      this._validator = this._enabled ? this.createValidator(input2) : nullValidator;
+      const input = this.normalizeInput(changes[this.inputName].currentValue);
+      this._enabled = this.enabled(input);
+      this._validator = this._enabled ? this.createValidator(input) : nullValidator;
       if (this._onChange) {
         this._onChange();
       }
@@ -5435,8 +5702,8 @@ var AbstractValidatorDirective = class _AbstractValidatorDirective {
    * `null` and `undefined`). Validator classes that extend this base class can override this
    * function with the logic specific to a particular validator directive.
    */
-  enabled(input2) {
-    return input2 != null;
+  enabled(input) {
+    return input != null;
   }
   static ɵfac = function AbstractValidatorDirective_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _AbstractValidatorDirective)();
@@ -5465,7 +5732,7 @@ var MaxValidator = class _MaxValidator extends AbstractValidatorDirective {
   /** @internal */
   inputName = "max";
   /** @internal */
-  normalizeInput = (input2) => toFloat(input2);
+  normalizeInput = (input) => toFloat(input);
   /** @internal */
   createValidator = (max) => maxValidator(max);
   static ɵfac = /* @__PURE__ */ (() => {
@@ -5521,7 +5788,7 @@ var MinValidator = class _MinValidator extends AbstractValidatorDirective {
   /** @internal */
   inputName = "min";
   /** @internal */
-  normalizeInput = (input2) => toFloat(input2);
+  normalizeInput = (input) => toFloat(input);
   /** @internal */
   createValidator = (min) => minValidator(min);
   static ɵfac = /* @__PURE__ */ (() => {
@@ -5584,10 +5851,10 @@ var RequiredValidator = class _RequiredValidator extends AbstractValidatorDirect
   /** @internal */
   normalizeInput = booleanAttribute;
   /** @internal */
-  createValidator = (input2) => requiredValidator;
+  createValidator = (input) => requiredValidator;
   /** @docs-private */
-  enabled(input2) {
-    return input2;
+  enabled(input) {
+    return input;
   }
   static ɵfac = /* @__PURE__ */ (() => {
     let ɵRequiredValidator_BaseFactory;
@@ -5630,7 +5897,7 @@ var RequiredValidator = class _RequiredValidator extends AbstractValidatorDirect
 })();
 var CheckboxRequiredValidator = class _CheckboxRequiredValidator extends RequiredValidator {
   /** @internal */
-  createValidator = (input2) => requiredTrueValidator;
+  createValidator = (input) => requiredTrueValidator;
   static ɵfac = /* @__PURE__ */ (() => {
     let ɵCheckboxRequiredValidator_BaseFactory;
     return function CheckboxRequiredValidator_Factory(__ngFactoryType__) {
@@ -5679,10 +5946,10 @@ var EmailValidator = class _EmailValidator extends AbstractValidatorDirective {
   /** @internal */
   normalizeInput = booleanAttribute;
   /** @internal */
-  createValidator = (input2) => emailValidator;
+  createValidator = (input) => emailValidator;
   /** @docs-private */
-  enabled(input2) {
-    return input2;
+  enabled(input) {
+    return input;
   }
   static ɵfac = /* @__PURE__ */ (() => {
     let ɵEmailValidator_BaseFactory;
@@ -5728,7 +5995,7 @@ var MinLengthValidator = class _MinLengthValidator extends AbstractValidatorDire
   /** @internal */
   inputName = "minlength";
   /** @internal */
-  normalizeInput = (input2) => toInteger(input2);
+  normalizeInput = (input) => toInteger(input);
   /** @internal */
   createValidator = (minlength) => minLengthValidator(minlength);
   static ɵfac = /* @__PURE__ */ (() => {
@@ -5784,7 +6051,7 @@ var MaxLengthValidator = class _MaxLengthValidator extends AbstractValidatorDire
   /** @internal */
   inputName = "maxlength";
   /** @internal */
-  normalizeInput = (input2) => toInteger(input2);
+  normalizeInput = (input) => toInteger(input);
   /** @internal */
   createValidator = (maxlength) => maxLengthValidator(maxlength);
   static ɵfac = /* @__PURE__ */ (() => {
@@ -5841,9 +6108,9 @@ var PatternValidator = class _PatternValidator extends AbstractValidatorDirectiv
   /** @internal */
   inputName = "pattern";
   /** @internal */
-  normalizeInput = (input2) => input2;
+  normalizeInput = (input) => input;
   /** @internal */
-  createValidator = (input2) => patternValidator(input2);
+  createValidator = (input) => patternValidator(input);
   static ɵfac = /* @__PURE__ */ (() => {
     let ɵPatternValidator_BaseFactory;
     return function PatternValidator_Factory(__ngFactoryType__) {
@@ -6302,6 +6569,8 @@ var FormArray = class extends AbstractControl {
     return this.at(name) ?? null;
   }
 };
+var UntypedFormArray = FormArray;
+var isFormArray = (control) => control instanceof FormArray;
 function isAbstractControlOptions(options) {
   return !!options && (options.asyncValidators !== void 0 || options.validators !== void 0 || options.updateOn !== void 0);
 }
@@ -6622,238 +6891,70 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
   }], null, null);
 })();
 
-// node_modules/primeng/fesm2022/primeng-basemodelholder.mjs
-var BaseModelHolder = class _BaseModelHolder extends BaseComponent {
-  modelValue = signal(void 0, ...ngDevMode ? [{
-    debugName: "modelValue"
-  }] : []);
-  $filled = computed(() => s(this.modelValue()), ...ngDevMode ? [{
-    debugName: "$filled"
-  }] : []);
-  writeModelValue(value) {
-    this.modelValue.set(value);
-  }
-  static ɵfac = /* @__PURE__ */ (() => {
-    let ɵBaseModelHolder_BaseFactory;
-    return function BaseModelHolder_Factory(__ngFactoryType__) {
-      return (ɵBaseModelHolder_BaseFactory || (ɵBaseModelHolder_BaseFactory = ɵɵgetInheritedFactory(_BaseModelHolder)))(__ngFactoryType__ || _BaseModelHolder);
-    };
-  })();
-  static ɵdir = ɵɵdefineDirective({
-    type: _BaseModelHolder,
-    features: [ɵɵInheritDefinitionFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BaseModelHolder, [{
-    type: Directive,
-    args: [{
-      standalone: true
-    }]
-  }], null, null);
-})();
-
-// node_modules/@primeuix/styles/dist/inputtext/index.mjs
-var style = "\n    .p-inputtext {\n        font-family: inherit;\n        font-feature-settings: inherit;\n        font-size: 1rem;\n        color: dt('inputtext.color');\n        background: dt('inputtext.background');\n        padding-block: dt('inputtext.padding.y');\n        padding-inline: dt('inputtext.padding.x');\n        border: 1px solid dt('inputtext.border.color');\n        transition:\n            background dt('inputtext.transition.duration'),\n            color dt('inputtext.transition.duration'),\n            border-color dt('inputtext.transition.duration'),\n            outline-color dt('inputtext.transition.duration'),\n            box-shadow dt('inputtext.transition.duration');\n        appearance: none;\n        border-radius: dt('inputtext.border.radius');\n        outline-color: transparent;\n        box-shadow: dt('inputtext.shadow');\n    }\n\n    .p-inputtext:enabled:hover {\n        border-color: dt('inputtext.hover.border.color');\n    }\n\n    .p-inputtext:enabled:focus {\n        border-color: dt('inputtext.focus.border.color');\n        box-shadow: dt('inputtext.focus.ring.shadow');\n        outline: dt('inputtext.focus.ring.width') dt('inputtext.focus.ring.style') dt('inputtext.focus.ring.color');\n        outline-offset: dt('inputtext.focus.ring.offset');\n    }\n\n    .p-inputtext.p-invalid {\n        border-color: dt('inputtext.invalid.border.color');\n    }\n\n    .p-inputtext.p-variant-filled {\n        background: dt('inputtext.filled.background');\n    }\n\n    .p-inputtext.p-variant-filled:enabled:hover {\n        background: dt('inputtext.filled.hover.background');\n    }\n\n    .p-inputtext.p-variant-filled:enabled:focus {\n        background: dt('inputtext.filled.focus.background');\n    }\n\n    .p-inputtext:disabled {\n        opacity: 1;\n        background: dt('inputtext.disabled.background');\n        color: dt('inputtext.disabled.color');\n    }\n\n    .p-inputtext::placeholder {\n        color: dt('inputtext.placeholder.color');\n    }\n\n    .p-inputtext.p-invalid::placeholder {\n        color: dt('inputtext.invalid.placeholder.color');\n    }\n\n    .p-inputtext-sm {\n        font-size: dt('inputtext.sm.font.size');\n        padding-block: dt('inputtext.sm.padding.y');\n        padding-inline: dt('inputtext.sm.padding.x');\n    }\n\n    .p-inputtext-lg {\n        font-size: dt('inputtext.lg.font.size');\n        padding-block: dt('inputtext.lg.padding.y');\n        padding-inline: dt('inputtext.lg.padding.x');\n    }\n\n    .p-inputtext-fluid {\n        width: 100%;\n    }\n";
-
-// node_modules/primeng/fesm2022/primeng-inputtext.mjs
-var theme = (
-  /*css*/
-  `
-    ${style}
-
-    /* For PrimeNG */
-   .p-inputtext.ng-invalid.ng-dirty {
-        border-color: dt('inputtext.invalid.border.color');
-    }
-
-    .p-inputtext.ng-invalid.ng-dirty::placeholder {
-        color: dt('inputtext.invalid.placeholder.color');
-    }
-`
-);
-var classes = {
-  root: ({
-    instance
-  }) => ["p-inputtext p-component", {
-    "p-filled": instance.$filled(),
-    "p-inputtext-sm": instance.pSize === "small",
-    "p-inputtext-lg": instance.pSize === "large",
-    "p-invalid": instance.invalid(),
-    "p-variant-filled": instance.$variant() === "filled",
-    "p-inputtext-fluid": instance.hasFluid
-  }]
-};
-var InputTextStyle = class _InputTextStyle extends BaseStyle {
-  name = "inputtext";
-  theme = theme;
-  classes = classes;
-  static ɵfac = /* @__PURE__ */ (() => {
-    let ɵInputTextStyle_BaseFactory;
-    return function InputTextStyle_Factory(__ngFactoryType__) {
-      return (ɵInputTextStyle_BaseFactory || (ɵInputTextStyle_BaseFactory = ɵɵgetInheritedFactory(_InputTextStyle)))(__ngFactoryType__ || _InputTextStyle);
-    };
-  })();
-  static ɵprov = ɵɵdefineInjectable({
-    token: _InputTextStyle,
-    factory: _InputTextStyle.ɵfac
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InputTextStyle, [{
-    type: Injectable
-  }], null, null);
-})();
-var InputTextClasses;
-(function(InputTextClasses2) {
-  InputTextClasses2["root"] = "p-inputtext";
-})(InputTextClasses || (InputTextClasses = {}));
-var InputText = class _InputText extends BaseModelHolder {
-  ngControl = inject(NgControl, {
-    optional: true,
-    self: true
-  });
-  pcFluid = inject(Fluid, {
-    optional: true,
-    host: true,
-    skipSelf: true
-  });
-  /**
-   * Defines the size of the component.
-   * @group Props
-   */
-  pSize;
-  /**
-   * Specifies the input variant of the component.
-   * @defaultValue undefined
-   * @group Props
-   */
-  variant = input(...ngDevMode ? [void 0, {
-    debugName: "variant"
-  }] : []);
-  /**
-   * Spans 100% width of the container when enabled.
-   * @defaultValue undefined
-   * @group Props
-   */
-  fluid = input(void 0, ...ngDevMode ? [{
-    debugName: "fluid",
-    transform: booleanAttribute
-  }] : [{
-    transform: booleanAttribute
-  }]);
-  /**
-   * When present, it specifies that the component should have invalid state style.
-   * @defaultValue false
-   * @group Props
-   */
-  invalid = input(void 0, ...ngDevMode ? [{
-    debugName: "invalid",
-    transform: booleanAttribute
-  }] : [{
-    transform: booleanAttribute
-  }]);
-  $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant(), ...ngDevMode ? [{
-    debugName: "$variant"
-  }] : []);
-  _componentStyle = inject(InputTextStyle);
-  ngAfterViewInit() {
-    super.ngAfterViewInit();
-    this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
-    this.cd.detectChanges();
-  }
-  ngDoCheck() {
-    this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
-  }
-  onInput() {
-    this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
-  }
-  get hasFluid() {
-    return this.fluid() ?? !!this.pcFluid;
-  }
-  static ɵfac = /* @__PURE__ */ (() => {
-    let ɵInputText_BaseFactory;
-    return function InputText_Factory(__ngFactoryType__) {
-      return (ɵInputText_BaseFactory || (ɵInputText_BaseFactory = ɵɵgetInheritedFactory(_InputText)))(__ngFactoryType__ || _InputText);
-    };
-  })();
-  static ɵdir = ɵɵdefineDirective({
-    type: _InputText,
-    selectors: [["", "pInputText", ""]],
-    hostVars: 2,
-    hostBindings: function InputText_HostBindings(rf, ctx) {
-      if (rf & 1) {
-        ɵɵlistener("input", function InputText_input_HostBindingHandler($event) {
-          return ctx.onInput($event);
-        });
-      }
-      if (rf & 2) {
-        ɵɵclassMap(ctx.cx("root"));
-      }
-    },
-    inputs: {
-      pSize: "pSize",
-      variant: [1, "variant"],
-      fluid: [1, "fluid"],
-      invalid: [1, "invalid"]
-    },
-    features: [ɵɵProvidersFeature([InputTextStyle]), ɵɵInheritDefinitionFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InputText, [{
-    type: Directive,
-    args: [{
-      selector: "[pInputText]",
-      standalone: true,
-      host: {
-        "[class]": "cx('root')"
-      },
-      providers: [InputTextStyle]
-    }]
-  }], null, {
-    pSize: [{
-      type: Input,
-      args: ["pSize"]
-    }],
-    onInput: [{
-      type: HostListener,
-      args: ["input", ["$event"]]
-    }]
-  });
-})();
-var InputTextModule = class _InputTextModule {
-  static ɵfac = function InputTextModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _InputTextModule)();
-  };
-  static ɵmod = ɵɵdefineNgModule({
-    type: _InputTextModule,
-    imports: [InputText],
-    exports: [InputText]
-  });
-  static ɵinj = ɵɵdefineInjector({});
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InputTextModule, [{
-    type: NgModule,
-    args: [{
-      imports: [InputText],
-      exports: [InputText]
-    }]
-  }], null, null);
-})();
-
 export {
   NG_VALUE_ACCESSOR,
+  CheckboxControlValueAccessor,
+  COMPOSITION_BUFFER_MODE,
+  DefaultValueAccessor,
+  NG_VALIDATORS,
+  NG_ASYNC_VALIDATORS,
+  Validators,
+  AbstractControlDirective,
+  ControlContainer,
   NgControl,
   NgControlStatus,
+  NgControlStatusGroup,
+  ControlEvent,
+  ValueChangeEvent,
+  PristineChangeEvent,
+  TouchedChangeEvent,
+  StatusChangeEvent,
+  FormSubmittedEvent,
+  FormResetEvent,
+  AbstractControl,
+  FormGroup,
+  UntypedFormGroup,
+  isFormGroup,
+  FormRecord,
+  isFormRecord,
+  NgForm,
+  FormControl,
+  UntypedFormControl,
+  isFormControl,
+  AbstractFormGroupDirective,
+  NgModelGroup,
   NgModel,
+  ɵNgNoValidate,
+  NumberValueAccessor,
+  RadioControlValueAccessor,
+  RangeValueAccessor,
+  FormControlDirective,
+  FormGroupDirective,
+  FormGroupName,
+  FormArrayName,
+  FormControlName,
+  SelectControlValueAccessor,
+  NgSelectOption,
+  SelectMultipleControlValueAccessor,
+  ɵNgSelectMultipleOption,
+  MaxValidator,
+  MinValidator,
+  RequiredValidator,
+  CheckboxRequiredValidator,
+  EmailValidator,
+  MinLengthValidator,
+  MaxLengthValidator,
+  PatternValidator,
+  ɵInternalFormsSharedModule,
+  FormArray,
+  UntypedFormArray,
+  isFormArray,
+  FormBuilder,
+  NonNullableFormBuilder,
+  UntypedFormBuilder,
+  VERSION,
   FormsModule,
-  BaseModelHolder,
-  InputTextStyle,
-  InputTextClasses,
-  InputText,
-  InputTextModule
+  ReactiveFormsModule
 };
 /*! Bundled license information:
 
@@ -6864,4 +6965,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-XTHRXVSR.js.map
+//# sourceMappingURL=chunk-WSPMC7XG.js.map

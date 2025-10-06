@@ -18,9 +18,14 @@ export const routes: Routes = [
     },
 
 
-    { path: 'setting', loadComponent: () => import('../features/home/pages/setting.page') },
-    { path: 'about', loadComponent: () => import('../features/home/pages/about.page') },
-    { path: 'error', loadComponent: () => import('../features/error/pages/error.page') },
+    { path: 'setting',
+        loadComponent: () => import('../features/home/pages/setting.page') },
+
+    { path: 'about',
+        loadComponent: () => import('../features/home/pages/about.page') },
+
+    { path: 'error',
+        loadComponent: () => import('../features/error/pages/error.page') },
 
     {
         path: 'hello',
@@ -29,9 +34,11 @@ export const routes: Routes = [
     },
 
     {
-        path: 'admin',
-        loadComponent: () => import('../features/home/pages/admin.page'),
-        canActivate: [authGuard]
+        path: 'auth',
+        children: [
+            { path: 'register', loadComponent: () => import('../features/auth/pages/register/register.page').then(c => c.default) },
+            { path: 'login', loadComponent: () => import('../features/auth/pages/login/login.page').then(c => c.default) },
+        ],
     },
 
     { path: '**', loadComponent: () => import('../features/error/pages/error.page') }
