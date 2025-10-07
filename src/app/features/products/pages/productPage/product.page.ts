@@ -2,6 +2,7 @@ import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {PageTitleComponent} from "../../../core/components/titles/page-title/page-title";
 import {ProductListComponent} from "../../components/product-list/product-list.component";
+import {Product} from "../../models/product.model";
 
 
 @Component({
@@ -15,7 +16,7 @@ export default class ProductPage {
     private route = inject(ActivatedRoute);
     private cdr = inject(ChangeDetectorRef);
 
-    products: any[] = [];
+    products: Product[] = [];
 
     ngOnInit() {
         this.products = this.route.snapshot.data['products'];

@@ -1,10 +1,10 @@
 import {
+  AutoFocus
+} from "./chunk-XIPVUW46.js";
+import {
   Badge,
   BadgeModule
 } from "./chunk-MVETIQRF.js";
-import {
-  AutoFocus
-} from "./chunk-XIPVUW46.js";
 import {
   Ripple,
   SpinnerIcon

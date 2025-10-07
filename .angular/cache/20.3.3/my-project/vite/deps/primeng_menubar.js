@@ -14,6 +14,12 @@ import {
   Ripple
 } from "./chunk-F6KKISXW.js";
 import {
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-TBUAS2PO.js";
+import "./chunk-3SRAAFK3.js";
+import {
   BaseComponent
 } from "./chunk-VW67O2R4.js";
 import {
@@ -32,12 +38,6 @@ import {
   s3 as s2,
   z
 } from "./chunk-YZN2F3GQ.js";
-import {
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-TBUAS2PO.js";
-import "./chunk-3SRAAFK3.js";
 import {
   CommonModule,
   NgForOf,

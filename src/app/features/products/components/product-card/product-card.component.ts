@@ -1,19 +1,42 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { CurrencyPipe } from '@angular/common';
-import {Button} from "primeng/button";
+import { Button } from 'primeng/button';
+import { Product } from '../../models/product.model';
+import {FavoriteButtonComponent} from "../favorite-button/favorite-button";
 
 @Component({
     selector: 'app-product-card',
     standalone: true,
-    imports: [MatCardModule, CurrencyPipe, Button],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        Button,
+        FavoriteButtonComponent
+    ],
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss']
 })
 export class ProductCardComponent {
-    @Input() product: any;
+    product = input.required<Product>();
 
-    addToCart(product: any) {
-        console.log("🛒 Produit ajouté au panier :", product);
+    productAddedToCart = output<Product>();
+    productAddedToFavorites = output<Product>();
+    productRemovedFromFavorites = output<Product>();
+
+    addToCart(): void {
+        this.productAddedToCart.emit(this.product());
+    }
+
+    onToggleFavorite(): void {
+        if (this.isFavorite()) {
+            this.productRemovedFromFavorites.emit(this.product());
+        } else {
+            this.productAddedToFavorites.emit(this.product());
+        }
+    }
+
+    isFavorite(): boolean {
+        return this.product().isFavorite ?? false;
     }
 }

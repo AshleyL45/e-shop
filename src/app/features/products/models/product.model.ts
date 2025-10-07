@@ -7,4 +7,5 @@ export type Product = {
     category: string;
     inStock: boolean;
     rating: number;
+    isFavorite?: boolean;
 };

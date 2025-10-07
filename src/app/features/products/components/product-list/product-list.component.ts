@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
-import {ProductCardComponent} from "../product-card/product-card.component";
-import {Paginator} from "primeng/paginator";
+import { Component, input } from '@angular/core';
+import { ProductCardComponent } from '../product-card/product-card.component';
+import { Paginator } from 'primeng/paginator';
+import { Product } from '../../models/product.model';
 
 @Component({
     selector: 'app-product-list',
@@ -10,11 +11,10 @@ import {Paginator} from "primeng/paginator";
     styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent {
-    @Input() products: any[] = [];
+    products = input<Product[]>([]);
 
-    first: number = 0;
-
-    rows: number = 10;
+    first = 0;
+    rows = 10;
 
     onPageChange(event: any) {
         this.first = event.first;

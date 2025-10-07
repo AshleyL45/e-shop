@@ -1,5 +1,5 @@
 <div class="product-grid">
-    @for (p of products; track p.id) {
+    @for (p of products(); track p.id) {
         <app-product-card [product]="p"></app-product-card>
     }
 
@@ -10,7 +10,7 @@
                     [first]="first"
                     [rows]="rows"
                     [totalRecords]="120"
-                    [rowsPerPageOptions]="[10,20,30]"
+                    [rowsPerPageOptions]="[10, 20, 30]"
             ></p-paginator>
         </div>
     </div>
