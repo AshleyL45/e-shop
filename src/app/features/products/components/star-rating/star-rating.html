@@ -1,0 +1,17 @@
+<div class="star-rating-container">
+    <p-rating [(ngModel)]="rating" stars="5" cancel="false"></p-rating>
+
+    <textarea
+            [(ngModel)]="comment"
+            placeholder="Écrivez votre avis..."
+            rows="3"
+            class="custom-textarea"
+    ></textarea>
+
+    <button
+            pButton
+            label="Envoyer"
+            class="p-button-sm p-button-primary mt-3"
+            (click)="submit()"
+    ></button>
+</div>
