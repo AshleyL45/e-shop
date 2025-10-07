@@ -39,4 +39,6 @@ export class ProductCardComponent {
     isFavorite(): boolean {
         return this.product().isFavorite ?? false;
     }
+
+
 }

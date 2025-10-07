@@ -12,17 +12,24 @@
     </div>
 
     <mat-card-header>
-        <mat-card-title>{{ product().name }}</mat-card-title>
-        <mat-card-subtitle class="category">
-            @if (product().category === 'indoor') {
-                🌿 Intérieur
-            } @else if (product().category === 'outdoor') {
-                🌳 Extérieur
-            } @else {
-                🌸 Autre
-            }
-        </mat-card-subtitle>
+        <div class="title-block">
+            <div class="title-row">
+                <span class="product-name">{{ product().name }}</span>
+                <span class="product-rating">⭐ {{ product().rating }} / 5</span>
+            </div>
+
+            <div class="category">
+                @if (product().category === 'indoor') {
+                    🌿 Intérieur
+                } @else if (product().category === 'outdoor') {
+                    🌳 Extérieur
+                } @else {
+                    🌸 Autre
+                }
+            </div>
+        </div>
     </mat-card-header>
+
 
     <mat-card-content>
         <p>{{ product().description }}</p>
@@ -33,6 +40,8 @@
         } @else {
             <mat-card-subtitle class="out-of-stock">Rupture</mat-card-subtitle>
         }
+
+
     </mat-card-content>
 
     <mat-card-actions class="actions">
