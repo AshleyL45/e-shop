@@ -1,4 +1,13 @@
 :host {
-  display: block;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+app-product-list {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
 }

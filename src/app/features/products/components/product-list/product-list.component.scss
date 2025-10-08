@@ -1,9 +1,13 @@
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  align-items: stretch;
   justify-content: center;
   gap: 2rem;
-  margin: 2rem;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 
@@ -23,8 +27,6 @@
 
 }
 
-
-/* Boutons navigation */
 :host ::ng-deep .p-paginator-first,
 :host ::ng-deep .p-paginator-prev,
 :host ::ng-deep .p-paginator-next,
@@ -44,7 +46,6 @@
   }
 }
 
-/* Pages */
 :host ::ng-deep .p-paginator-pages {
   display: flex;
   flex-wrap: nowrap !important;
@@ -78,14 +79,12 @@
 }
 
 
-/* Page active */
 :host ::ng-deep .p-paginator-page.p-highlight {
   background: #0081A7;
   color: #fff;
   font-weight: bold;
 }
 
-/* Dropdown */
 :host ::ng-deep .p-paginator-rpp-options {
   margin-left: 1rem;
 }

@@ -13,7 +13,8 @@ export class FavoriteButtonComponent {
     @Input() isFavorite = false;
     @Output() toggle = new EventEmitter<void>();
 
-    onToggle(): void {
+    onToggle(event: Event): void {
+        event.stopPropagation();
         this.isFavorite = !this.isFavorite;
         this.toggle.emit();
     }

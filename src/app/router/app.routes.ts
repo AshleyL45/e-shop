@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { helloResolver } from "./resolvers/hello-resolver";
 import { authGuard } from "./guards/auth-guard";
-import {productsResolver} from "./guards/product-resolver";
+import {productsResolver} from "./resolvers/product-resolver";
 
 export const routes: Routes = [
     { path: '',
@@ -18,7 +18,7 @@ export const routes: Routes = [
     {
         path: 'products/:id',
         title: 'Détail du produit',
-        loadComponent: () => import('../features/products/pages/product-detail.page'),
+        loadComponent: () => import('../features/productDetails/pages/product-detail.page'),
     },
 
     { path: 'setting',

@@ -16,6 +16,7 @@ export class ProductListComponent {
     products = input<Product[]>([]);
     reviews: Review[] = [];
 
+
     first = 0;
     rows = 10;
 
@@ -24,11 +25,16 @@ export class ProductListComponent {
         this.rows = event.rows;
     }
 
-    onReviewAdded(review: { productId: number; rating: number; comment: string }) {
-        const newReview: Review = { ...review, date: new Date() };
-        this.reviews.push(newReview);
-        console.log('Nouvel avis ajouté :', newReview);
+    onReviewAdded(review: Review): void {
+        console.log(
+            `Nouvel avis ajouté pour le produit id=${review.productId} :`,
+            `\n- Note : ${review.rating}/5`,
+            `\n- Commentaire : "${review.comment}"`,
+            `\n- Date : ${review.date.toLocaleString()}`
+        );
+        this.reviews.push(review);
     }
+
 
     getAverageRating(productId: number): number {
         const productReviews = this.reviews.filter(r => r.productId === productId);

@@ -1,4 +1,4 @@
-<mat-card class="product-card">
+<mat-card class="product-card" (click)="goToProductDetails()">
     <div class="image-container">
         <img
                 mat-card-image
@@ -9,20 +9,23 @@
                 [isFavorite]="product().isFavorite ?? false"
                 (toggle)="onToggleFavorite()"
         ></app-favorite-button>
+
+
+
     </div>
 
     <mat-card-header>
         <div class="title-block">
             <div class="title-row">
                 <span class="product-name">{{ product().name }}</span>
-
                 <span
                         class="product-rating"
-                        (click)="openReviewDialog()"
+                        (click)="openReviewDialog($event)"
                         title="Donner un avis"
                 >
-          ⭐ {{ product().rating | number:'1.1-1' }} / 5
-        </span>
+                ⭐{{ product().rating | number:'1.1-1' }} / 5
+                </span>
+
             </div>
 
             <div class="category">
@@ -53,10 +56,12 @@
                 label="Ajouter au panier"
                 styleClass="custom-btn"
                 [disabled]="!product().inStock"
-                (onClick)="addToCart()"
+                (onClick)="addToCart($event)"
         ></p-button>
+
     </mat-card-actions>
 </mat-card>
+
 
 <p-dialog
         header="Donner un avis sur {{ product().name }}"
