@@ -6,6 +6,11 @@ import {
   zindexutils
 } from "./chunk-HJNPM7AM.js";
 import {
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-35534CUD.js";
+import {
   Badge,
   BadgeModule
 } from "./chunk-XYEPENAR.js";
@@ -36,11 +41,6 @@ import {
   s3 as s2,
   z
 } from "./chunk-JFR4ZTCP.js";
-import {
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-35534CUD.js";
 import "./chunk-ROFISHS4.js";
 import "./chunk-LOLV7XKY.js";
 import {
