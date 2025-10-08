@@ -1,10 +1,12 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
 import { ProductReviewDialogComponent } from '../../../products/components/product-review-dialog/product-review-dialog';
 import { Review } from '../../../products/models/review.model';
 import { Product } from '../../../products/models/product.model';
+import {Router} from "@angular/router";
+import {FavoriteButtonComponent} from "../../../products/components/favorite-button/favorite-button";
 
 @Component({
     selector: 'app-product-detail',
@@ -13,52 +15,78 @@ import { Product } from '../../../products/models/product.model';
         CommonModule,
         AccordionModule,
         ButtonModule,
-        ProductReviewDialogComponent
+        ProductReviewDialogComponent,
+        FavoriteButtonComponent,
     ],
     templateUrl: './product-detail.html',
-    styleUrls: ['./product-detail.scss']
+    styleUrls: ['./product-detail.scss'],
 })
-
-
 export class ProductDetailComponent {
-    get productNameSafe(): string {
-        return this.product()?.name ?? '';
+    constructor(private router: Router) {}
+
+    productInput = input<Product>(undefined, { alias: 'product' });
+
+    get product(): Product | undefined {
+        return this.productInput();
     }
 
+    openReviewDialog = output<void>();
 
-    product = input<Product>();
-
+    selectedSize: string | null = null;
+    showReviewDialog = false;
     sizes = ['XS', 'S', 'M', 'L', 'XL'];
-    selectedSize = signal<string | null>(null);
 
-    showReviewDialog = signal(false);
+    get productNameSafe(): string {
+        return this.product?.name ?? '';
+    }
 
-    selectSize(size: string) {
-        this.selectedSize.set(size);
+    selectSize(size: string): void {
+        this.selectedSize = size;
     }
 
     addToCart(): void {
-        const currentProduct = this.product();
-        if (!currentProduct?.inStock) {
+        if (!this.product?.inStock) {
             console.warn('Produit en rupture de stock, ajout impossible.');
             return;
         }
-
-        console.log(`Produit ajouté au panier : ${currentProduct.name}`);
-        // → ici tu pourras appeler ton service panier ou émettre un output
+        console.log(`Produit ajouté au panier : ${this.product.name}`);
     }
 
-    openReviewDialog(event: MouseEvent) {
+    onRatingClick(event: MouseEvent): void {
         event.stopPropagation();
-        this.showReviewDialog.set(true);
+        this.openReviewDialog.emit();
     }
 
-    closeReviewDialog() {
-        this.showReviewDialog.set(false);
+    closeReviewDialog(): void {
+        this.showReviewDialog = false;
     }
 
-    onReviewSubmitted(review: Review) {
-        review.productId = this.product()?.id ?? 0;
-        this.showReviewDialog.set(false);
+    onReviewSubmitted(review: Review): void {
+        if (!this.product) return;
+
+        review.productId = this.product.id;
+        console.log('📝 Avis ajouté pour le produit :', review);
+
+        const newRating = this.product.rating
+            ? (this.product.rating + review.rating) / 2
+            : review.rating;
+
+        this.product.rating = +newRating.toFixed(1);
+        this.showReviewDialog = false;
+    }
+
+    goHome(): void {
+        this.router.navigate(['/products']);
+    }
+
+    onToggleFavorite(): void {
+        if (this.product) {
+            this.product.isFavorite = !this.product.isFavorite;
+            console.log(
+                `${this.product.name} ${
+                    this.product.isFavorite ? 'ajouté' : 'retiré'
+                } des favoris`
+            );
+        }
     }
 }

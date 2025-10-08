@@ -1,9 +1,9 @@
 import {
   BaseComponent
-} from "./chunk-D56HMP7Y.js";
+} from "./chunk-YDZQ5RSK.js";
 import {
   BaseStyle
-} from "./chunk-MH2HZWSP.js";
+} from "./chunk-CLXQNWRK.js";
 import {
   C,
   K,
@@ -13,7 +13,7 @@ import {
   Tt,
   W,
   v
-} from "./chunk-SHUFFRBI.js";
+} from "./chunk-IHP3HVWN.js";
 import {
   isPlatformBrowser
 } from "./chunk-NMTCMFGF.js";
@@ -227,9 +227,6 @@ var RippleModule = class _RippleModule {
 })();
 
 export {
-  RippleStyle,
-  RippleClasses,
-  Ripple,
-  RippleModule
+  Ripple
 };
-//# sourceMappingURL=chunk-QQEOOW6D.js.map
+//# sourceMappingURL=chunk-KTPQXLIB.js.map

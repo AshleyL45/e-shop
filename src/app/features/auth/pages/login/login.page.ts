@@ -48,10 +48,7 @@ import { LoginFormComponent } from "../../components/login-form.component/login-
       .pi {
         font-size: 1.1rem;
       }
-
-      app-login-form {
-        z-index: 1;
-      }
+      
     `]
 })
 export default class LoginPage {
