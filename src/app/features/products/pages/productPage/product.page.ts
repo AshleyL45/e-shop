@@ -1,9 +1,8 @@
 import { Component, inject, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {PageTitleComponent} from "../../../core/components/titles/page-title/page-title";
-import {ProductListComponent} from "../../components/product-list/product-list.component";
-import {Product} from "../../models/product.model";
-
+import {ActivatedRoute, Router} from '@angular/router';
+import { PageTitleComponent } from "../../../core/components/titles/page-title/page-title";
+import { ProductListComponent } from "../../components/product-list/product-list.component";
+import { Product } from "../../models/product.model";
 
 @Component({
     selector: 'app-product-page',
@@ -15,8 +14,13 @@ import {Product} from "../../models/product.model";
 export default class ProductPage {
     private route = inject(ActivatedRoute);
     private cdr = inject(ChangeDetectorRef);
+    private router = inject(Router);
 
     products: Product[] = [];
+
+    goToDetail(product: Product) {
+        this.router.navigate(['/products', product.id]);
+    }
 
     ngOnInit() {
         this.products = this.route.snapshot.data['products'];
@@ -124,6 +128,7 @@ export default class ProductPage {
                     rating: 4.8
                 }
             ];
+
             this.cdr.detectChanges();
         }, 3000);
     }

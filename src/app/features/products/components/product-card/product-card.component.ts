@@ -9,6 +9,7 @@ import { Product } from '../../models/product.model';
 import { FavoriteButtonComponent } from '../favorite-button/favorite-button';
 import {Router} from "@angular/router";
 import {Review} from "../../models/review.model";
+import {ProductReviewDialogComponent} from "../product-review-dialog/product-review-dialog";
 
 @Component({
     selector: 'app-product-card',
@@ -21,7 +22,7 @@ import {Review} from "../../models/review.model";
         RatingModule,
         FormsModule,
         FavoriteButtonComponent,
-        ButtonDirective
+        ProductReviewDialogComponent
     ],
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss']
@@ -38,8 +39,17 @@ export class ProductCardComponent {
 
     showDialog = false;
 
-    rating = 0;
-    comment = '';
+
+    onDialogClosed(): void {
+        this.showDialog = false;
+    }
+
+    onReviewSubmitted(review: Review): void {
+        review.productId = this.product().id;
+        this.reviewSubmitted.emit(review);
+        this.showDialog = false;
+    }
+
 
     addToCart(event?: Event): void {
         event?.stopPropagation();
@@ -47,8 +57,6 @@ export class ProductCardComponent {
 
         this.productAddedToCart.emit(this.product());
     }
-
-
 
     onToggleFavorite(): void {
         if (this.isFavorite()) {
@@ -60,9 +68,6 @@ export class ProductCardComponent {
         }
     }
 
-
-
-
     isFavorite(): boolean {
         return this.product().isFavorite ?? false;
     }
@@ -70,25 +75,6 @@ export class ProductCardComponent {
     openReviewDialog(event?: Event): void {
         event?.stopPropagation();
         this.showDialog = true;
-    }
-
-
-
-    submitReview(): void {
-        if (this.rating > 0 && this.comment.trim().length > 0) {
-            this.reviewSubmitted.emit({
-                productId: this.product().id,
-                rating: this.rating,
-                comment: this.comment,
-                date: new Date()
-            });
-
-
-
-            this.rating = 0;
-            this.comment = '';
-            this.showDialog = false;
-        }
     }
 
     goToProductDetails(): void {

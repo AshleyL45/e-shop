@@ -1,47 +1,50 @@
-import { Component, inject } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatFormField } from '@angular/material/form-field';
-import { MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
+import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { Review } from '../../models/review.model';
 
 @Component({
     selector: 'app-product-review-dialog',
     standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        MatButton,
-        RatingModule
-    ],
+    imports: [CommonModule, DialogModule, RatingModule, FormsModule, ButtonModule],
     templateUrl: './product-review-dialog.html',
     styleUrls: ['./product-review-dialog.scss']
 })
 export class ProductReviewDialogComponent {
-    private dialogRef = inject(MatDialogRef<ProductReviewDialogComponent>);
-    private data = inject(MAT_DIALOG_DATA);
 
-    reviewText = '';
+    visible = input<boolean>(false);
+    productName = input<string>('');
+
+    reviewSubmitted = output<Review>();
+    closed = output<void>();
+
     rating = 0;
+    comment = '';
 
-    get productName(): string {
-        return this.data?.productName ?? '';
+    submitReview(): void {
+        if (this.rating > 0) {
+            this.reviewSubmitted.emit({
+                productId: 0,
+                rating: this.rating,
+                comment: this.comment.trim(),
+                date: new Date()
+            });
+
+            this.reset();
+        }
     }
 
-    onCancel(): void {
-        this.dialogRef.close();
+
+    close(): void {
+        this.reset();
+        this.closed.emit();
     }
 
-    onSubmit(): void {
-        this.dialogRef.close({
-            rating: this.rating,
-            review: this.reviewText
-        });
+    private reset(): void {
+        this.rating = 0;
+        this.comment = '';
     }
 }

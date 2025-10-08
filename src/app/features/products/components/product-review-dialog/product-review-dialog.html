@@ -1,33 +1,40 @@
-<h2>Donner un avis sur {{ productName }}</h2>
+<p-dialog
+        [visible]="visible()"
+        (onHide)="closed.emit()"
+        [modal]="true"
+        [closable]="false"
+        [draggable]="false"
+        [resizable]="false"
+        header="Donnez votre avis"
+        [style]="{ width: '30rem' }"
+>
+    <div class="review-dialog-content">
+        <h3 class="product-title">{{ productName() }}</h3>
 
-<div class="rating-section">
-    <p>Votre note :</p>
-    <p-rating
-            [(ngModel)]="rating"
-            stars="5"
-            cancel="false"
-    ></p-rating>
-    <span class="rating-value">{{ rating }} / 5</span>
-</div>
+        <p-rating [(ngModel)]="rating"></p-rating>
 
-<mat-form-field appearance="outline" class="review-field">
-    <mat-label>Votre avis</mat-label>
-    <textarea
-            matInput
-            [(ngModel)]="reviewText"
-            placeholder="Écrivez ici..."
-            rows="5"
-    ></textarea>
-</mat-form-field>
+        <textarea
+                class="review-comment"
+                placeholder="Écrivez votre commentaire (facultatif)..."
+                [(ngModel)]="comment"
+                rows="4"
+        ></textarea>
 
-<div class="actions">
-    <button mat-button (click)="onCancel()">Annuler</button>
-    <button
-            mat-flat-button
-            color="primary"
-            (click)="onSubmit()"
-            [disabled]="reviewText.trim().length < 10"
-    >
-        Envoyer
-    </button>
-</div>
+        <div class="actions">
+            <p-button
+                    label="Annuler"
+                    styleClass="cancel-btn"
+                    (onClick)="close()"
+            ></p-button>
+
+            <p-button
+                    label="Envoyer"
+                    icon="pi pi-send"
+                    iconPos="right"
+                    styleClass="submit-btn"
+                    [disabled]="rating === 0"
+                    (onClick)="submitReview()"
+            ></p-button>
+        </div>
+    </div>
+</p-dialog>

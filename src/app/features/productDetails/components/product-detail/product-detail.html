@@ -1,0 +1,85 @@
+<section class="product-detail-container">
+    <div class="product-detail-grid">
+
+        <div class="product-media">
+            <img [src]="product()?.imageUrl" alt="{{ product()?.name }}" class="main-image" />
+        </div>
+
+        <div class="product-info">
+            <div class="header">
+                <h1>{{ product()?.name }}</h1>
+
+                <div class="product-rating" (click)="openReviewDialog($event)">
+                    <i class="pi pi-star-fill"></i>
+                    <span>{{ product()?.rating }}</span>
+                </div>
+            </div>
+
+            <div class="price">
+                {{ product()?.price | currency:'EUR':'symbol':'1.2-2':'fr' }}
+            </div>
+
+
+
+            <div class="size">
+                <label>Size</label>
+                <div class="size-options">
+                    @for (size of sizes; track size) {
+                        <div
+                                class="size-option"
+                                [class.active]="selectedSize() === size"
+                                (click)="selectSize(size)">
+                            {{ size }}
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="goes-with">
+                <div class="title">S'accorde avec</div>
+                <div class="item">
+                    <img [src]="product()?.imageUrl" />
+                    <div class="info">
+                        <div class="name">{{ product()?.name }}</div>
+                        <div class="price">
+                            {{ product()?.price | currency:'EUR':'symbol':'1.2-2':'fr' }}
+                        </div>
+                    </div>
+                    <button pButton class="cart-btn">
+                        <i class="pi pi-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="stock-status">
+                @if (product()?.inStock) {
+                    <span class="in-stock">✅ En stock</span>
+                } @else {
+                    <span class="out-of-stock">❌ Rupture de stock</span>
+                }
+            </div>
+
+            <button
+                    pButton
+                    class="add-btn"
+                    (click)="addToCart()"
+                    [disabled]="!product()?.inStock"
+            >
+                <i class="pi pi-shopping-cart mr-2"></i>
+                Add to Cart
+            </button>
+
+            <p-accordion>
+                <ng-template pTemplate="header">About Product</ng-template>
+                <div class="text">{{ product()?.description }}</div>
+            </p-accordion>
+        </div>
+    </div>
+</section>
+
+<app-product-review-dialog
+        [visible]="showReviewDialog()"
+        [productName]="productNameSafe"
+        (reviewSubmitted)="onReviewSubmitted($event)"
+        (closed)="closeReviewDialog()"
+></app-product-review-dialog>
