@@ -1,0 +1,33 @@
+<h2>Donner un avis sur {{ productName }}</h2>
+
+<div class="rating-section">
+    <p>Votre note :</p>
+    <p-rating
+            [(ngModel)]="rating"
+            stars="5"
+            cancel="false"
+    ></p-rating>
+    <span class="rating-value">{{ rating }} / 5</span>
+</div>
+
+<mat-form-field appearance="outline" class="review-field">
+    <mat-label>Votre avis</mat-label>
+    <textarea
+            matInput
+            [(ngModel)]="reviewText"
+            placeholder="Écrivez ici..."
+            rows="5"
+    ></textarea>
+</mat-form-field>
+
+<div class="actions">
+    <button mat-button (click)="onCancel()">Annuler</button>
+    <button
+            mat-flat-button
+            color="primary"
+            (click)="onSubmit()"
+            [disabled]="reviewText.trim().length < 10"
+    >
+        Envoyer
+    </button>
+</div>

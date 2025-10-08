@@ -1,6 +1,9 @@
 <div class="product-grid">
     @for (p of products(); track p.id) {
-        <app-product-card [product]="p"></app-product-card>
+        <app-product-card
+                [product]="getProductWithRating(p)"
+                (reviewSubmitted)="onReviewAdded($event)"
+        ></app-product-card>
     }
 
     <div class="product-grid__paginator">

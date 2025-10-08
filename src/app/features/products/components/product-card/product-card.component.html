@@ -15,7 +15,14 @@
         <div class="title-block">
             <div class="title-row">
                 <span class="product-name">{{ product().name }}</span>
-                <span class="product-rating">⭐ {{ product().rating }} / 5</span>
+
+                <span
+                        class="product-rating"
+                        (click)="openReviewDialog()"
+                        title="Donner un avis"
+                >
+          ⭐ {{ product().rating | number:'1.1-1' }} / 5
+        </span>
             </div>
 
             <div class="category">
@@ -30,7 +37,6 @@
         </div>
     </mat-card-header>
 
-
     <mat-card-content>
         <p>{{ product().description }}</p>
         <p class="price">{{ product().price | currency:'EUR' }}</p>
@@ -40,8 +46,6 @@
         } @else {
             <mat-card-subtitle class="out-of-stock">Rupture</mat-card-subtitle>
         }
-
-
     </mat-card-content>
 
     <mat-card-actions class="actions">
@@ -53,3 +57,48 @@
         ></p-button>
     </mat-card-actions>
 </mat-card>
+
+<p-dialog
+        header="Donner un avis sur {{ product().name }}"
+        [(visible)]="showDialog"
+        [modal]="true"
+        [closable]="true"
+        [dismissableMask]="true"
+        [style]="{ width: '32rem', borderRadius: '12px' }"
+        [breakpoints]="{ '960px': '90vw', '640px': '95vw' }"
+>
+    <div class="review-dialog-content">
+        <p-rating
+                [(ngModel)]="rating"
+                stars="5"
+                cancel="false"
+                style="margin-bottom: 1rem;"
+        ></p-rating>
+
+        <textarea
+                [(ngModel)]="comment"
+                rows="4"
+                class="review-comment"
+                placeholder="Votre avis..."
+        ></textarea>
+
+        <div class="actions">
+            <button
+                    pButton
+                    type="button"
+                    label="Annuler"
+                    class="p-button-text"
+                    (click)="showDialog=false"
+            ></button>
+
+            <button
+                    pButton
+                    type="button"
+                    label="Envoyer"
+                    icon="pi pi-send"
+                    (click)="submitReview()"
+                    [disabled]="rating === 0 || comment.trim().length < 10"
+            ></button>
+        </div>
+    </div>
+</p-dialog>
