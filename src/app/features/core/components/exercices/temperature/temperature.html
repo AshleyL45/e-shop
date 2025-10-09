@@ -1,0 +1,7 @@
+<!-- temperature.html -->
+<div>
+    <input [(ngModel)]="celsiusInput" placeholder="Température en °C">
+    <button (click)="updateTemperature()">Convertir</button>
+    <p>{{ celsius() }}°C = {{ fahrenheit() }}°F</p>
+    <p>{{ temperatureStatus() }}</p>
+</div>

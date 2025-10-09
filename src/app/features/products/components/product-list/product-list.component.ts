@@ -36,15 +36,19 @@ export class ProductListComponent {
     }
 
 
-    getAverageRating(productId: number): number {
+    getAverageRating(productId: number): number | null {
         const productReviews = this.reviews.filter(r => r.productId === productId);
-        if (productReviews.length === 0) return 0;
+        if (productReviews.length === 0) return null;
         const sum = productReviews.reduce((acc, r) => acc + r.rating, 0);
         return +(sum / productReviews.length).toFixed(1);
     }
 
+
     getProductWithRating(p: Product): Product {
-        return { ...p, rating: this.getAverageRating(p.id) };
+        const average = this.getAverageRating(p.id);
+        const finalRating = average === null ? p.rating : average;
+        return { ...p, rating: finalRating };
     }
+
 
 }
