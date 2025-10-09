@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 
@@ -10,8 +10,8 @@ import { ButtonModule } from 'primeng/button';
     styleUrls: ['favorite-button.scss']
 })
 export class FavoriteButtonComponent {
-    @Input() isFavorite = false;
-    @Output() toggle = new EventEmitter<void>();
+    isFavorite = false;
+    toggle = output<void>();
 
     onToggle(event: Event): void {
         event.stopPropagation();
