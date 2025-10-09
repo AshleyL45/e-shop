@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { MatButton } from "@angular/material/button";
+import { Button } from 'primeng/button';
 import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-error-card-component',
     standalone: true,
-    imports: [MatButton],
+    imports: [Button],
     templateUrl: './error-card-component.html',
     styleUrls: ['./error-card-component.scss']
 })

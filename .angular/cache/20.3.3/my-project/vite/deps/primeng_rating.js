@@ -3,12 +3,12 @@ import {
 } from "./chunk-JLDHYBDG.js";
 import "./chunk-TFF4ZE33.js";
 import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-WSPMC7XG.js";
+import {
   AutoFocus
 } from "./chunk-ZPJQXISS.js";
 import "./chunk-OEBME3GR.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-WSPMC7XG.js";
 import {
   StarFillIcon,
   StarIcon

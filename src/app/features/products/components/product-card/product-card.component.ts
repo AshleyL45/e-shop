@@ -1,6 +1,5 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 import {Button, ButtonDirective} from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
@@ -10,19 +9,20 @@ import { FavoriteButtonComponent } from '../favorite-button/favorite-button';
 import {Router} from "@angular/router";
 import {Review} from "../../models/review.model";
 import {ProductReviewDialogComponent} from "../product-review-dialog/product-review-dialog";
+import {Card} from "primeng/card";
 
 @Component({
     selector: 'app-product-card',
     standalone: true,
     imports: [
         CommonModule,
-        MatCardModule,
         Button,
         DialogModule,
         RatingModule,
         FormsModule,
         FavoriteButtonComponent,
-        ProductReviewDialogComponent
+        ProductReviewDialogComponent,
+        Card
     ],
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss']

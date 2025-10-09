@@ -6,8 +6,12 @@
             La page que vous cherchez n'existe pas ou a été déplacée.
         </p>
 
-        <button mat-raised-button color="primary" (click)="goHome()">
-            Retour à l'accueil
-        </button>
+        <p-button
+                label="Retour à l'accueil"
+                icon="pi pi-home"
+                styleClass="p-button-rounded p-button-lg custom-btn"
+                (onClick)="goHome()"
+        ></p-button>
+
     </div>
 </div>

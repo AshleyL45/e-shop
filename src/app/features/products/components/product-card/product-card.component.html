@@ -1,58 +1,57 @@
-<mat-card class="product-card" (click)="goToProductDetails()">
-    <div class="image-container">
-        <img mat-card-image [src]="product().imageUrl" [alt]="product().name" />
-        <app-favorite-button
-                (toggle)="onToggleFavorite()"
-        ></app-favorite-button>
+<p-card class="product-card" (click)="goToProductDetails()">
+    <ng-template pTemplate="header">
+        <div class="image-container">
+            <img [src]="product().imageUrl" [alt]="product().name" />
+            <app-favorite-button (toggle)="onToggleFavorite()"></app-favorite-button>
+        </div>
+    </ng-template>
+
+    <div class="title-block">
+        <div class="title-row">
+            <span class="product-name">{{ product().name }}</span>
+            <span
+                    class="product-rating"
+                    (click)="openReviewDialog($event)"
+                    title="Donner un avis"
+            >
+        ⭐{{ product().rating | number: '1.1-1' }} / 5
+      </span>
+        </div>
+
+        <div class="category">
+            @if (product().category === 'indoor') {
+                🌿 Intérieur
+            } @else if (product().category === 'outdoor') {
+                🌳 Extérieur
+            } @else {
+                🌸 Autre
+            }
+        </div>
     </div>
 
-    <mat-card-header>
-        <div class="title-block">
-            <div class="title-row">
-                <span class="product-name">{{ product().name }}</span>
-                <span
-                        class="product-rating"
-                        (click)="openReviewDialog($event)"
-                        title="Donner un avis"
-                >
-          ⭐{{ product().rating | number:'1.1-1' }} / 5
-        </span>
-            </div>
+    <p>{{ product().description }}</p>
 
-            <div class="category">
-                @if (product().category === 'indoor') {
-                    🌿 Intérieur
-                } @else if (product().category === 'outdoor') {
-                    🌳 Extérieur
-                } @else {
-                    🌸 Autre
-                }
-            </div>
+    <p class="price">
+        {{ product().price | currency: 'EUR':'symbol':'1.2-2':'fr' }}
+    </p>
+
+    @if (product().inStock) {
+        <p class="stock in-stock">En stock</p>
+    } @else {
+        <p class="stock out-of-stock">Rupture</p>
+    }
+
+    <ng-template pTemplate="footer">
+        <div class="actions">
+            <p-button
+                    label="Ajouter au panier"
+                    styleClass="custom-btn"
+                    [disabled]="!product().inStock"
+                    (onClick)="addToCart($event)"
+            ></p-button>
         </div>
-    </mat-card-header>
-
-    <mat-card-content>
-        <p>{{ product().description }}</p>
-        <p class="price">
-            {{ product()?.price | currency:'EUR':'symbol':'1.2-2':'fr' }}
-        </p>
-
-        @if (product().inStock) {
-            <mat-card-subtitle>En stock</mat-card-subtitle>
-        } @else {
-            <mat-card-subtitle class="out-of-stock">Rupture</mat-card-subtitle>
-        }
-    </mat-card-content>
-
-    <mat-card-actions class="actions">
-        <p-button
-                label="Ajouter au panier"
-                styleClass="custom-btn"
-                [disabled]="!product().inStock"
-                (onClick)="addToCart($event)"
-        ></p-button>
-    </mat-card-actions>
-</mat-card>
+    </ng-template>
+</p-card>
 
 <app-product-review-dialog
         [visible]="showDialog"
@@ -60,4 +59,3 @@
         (reviewSubmitted)="onReviewSubmitted($event)"
         (closed)="onDialogClosed()"
 ></app-product-review-dialog>
-

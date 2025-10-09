@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, model, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 
@@ -10,12 +10,12 @@ import { ButtonModule } from 'primeng/button';
     styleUrls: ['favorite-button.scss']
 })
 export class FavoriteButtonComponent {
-    isFavorite = false;
+    isFavorite = model<boolean>(false);
     toggle = output<void>();
 
     onToggle(event: Event): void {
         event.stopPropagation();
-        this.isFavorite = !this.isFavorite;
+        this.isFavorite.set(!this.isFavorite());
         this.toggle.emit();
     }
 }

@@ -3,13 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 
 export const authGuard: CanActivateFn = () => {
     const router = inject(Router);
+    const ok = localStorage.getItem('iLovePancakes') === 'true';
 
-    const value = localStorage.getItem("iLovePancakes");
-    console.log("authGuard check:", value);
-
-    if (value === "true") {
-        return true;
-    }
-
-    return router.navigate(['/error']);
+    return ok ? true : router.createUrlTree(['/error']);
 };

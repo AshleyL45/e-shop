@@ -11,31 +11,26 @@
                     class="main-image"
             />
 
-            <!-- ❤️ Bouton favori -->
             <app-favorite-button
                     [isFavorite]="product?.isFavorite ?? false"
                     (toggle)="onToggleFavorite()"
             ></app-favorite-button>
         </div>
 
-        <!-- DETAILS -->
         <div class="product-info">
             <div class="header">
                 <h1>{{ product?.name }}</h1>
 
-                <!-- ⭐ Note cliquable -->
                 <div class="rating" (click)="onRatingClick($event)">
                     <i class="pi pi-star-fill"></i>
                     <span>{{ product?.rating }}</span>
                 </div>
             </div>
 
-            <!-- 💰 Prix -->
             <div class="price">
                 {{ product?.price | currency:'EUR':'symbol':'1.2-2':'fr' }}
             </div>
 
-            <!-- 🧍 Taille -->
             <div class="size">
                 <label>Size</label>
                 <div class="size-options">
@@ -50,7 +45,6 @@
                     }
                 </div>
             </div>
-            <!-- 📦 Stock -->
             <div class="stock-status">
                 @if (product?.inStock) {
                     <span class="in-stock">✅ En stock</span>
@@ -58,7 +52,6 @@
                     <span class="out-of-stock">❌ Rupture de stock</span>
                 }
             </div>
-            <!-- 🛒 Bouton panier -->
             <button
                     pButton
                     class="add-btn"
@@ -78,7 +71,6 @@
     </div>
 </section>
 
-<!-- 💬 Modale d'avis -->
 <app-product-review-dialog
         [visible]="showReviewDialog"
         [productName]="productNameSafe"

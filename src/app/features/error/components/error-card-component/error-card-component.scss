@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #f2f9fb;
+  background-color: #F5F7FA;
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
 }
@@ -20,7 +20,7 @@
 .error-title {
   font-size: 6rem;
   font-weight: bold;
-  color: #004b63;
+  color: #40573F;
   margin-top: 2rem;
   margin-bottom: 4rem;
 }
@@ -35,5 +35,20 @@
   font-size: 1rem;
   color: #666;
   margin-bottom: 2rem;
+}
+
+:host ::ng-deep .custom-btn {
+  background-color: #52784d !important;
+  border: none !important;
+  color: #fff !important;
+  font-weight: 500;
+  padding: 0.8rem 2rem !important;
+  border-radius: 25px !important;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #40573f !important;
+    transform: scale(1.05);
+  }
 }
 
