@@ -1,0 +1,17 @@
+<div class="filters">
+    <p-selectButton
+            [options]="categories"
+            [(ngModel)]="activeCategoryModel"
+            optionLabel="label"
+            (onChange)="onSelect($event)">
+    </p-selectButton>
+
+    <button
+            pButton
+            pButtonLabel="Reset"
+            pButtonIcon="pi pi-times"
+            severity="danger"
+            [disabled]="!activeCategoryModel"
+            (click)="reset()">
+    </button>
+</div>

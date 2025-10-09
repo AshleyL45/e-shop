@@ -1,22 +1,45 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { Product } from '../../models/product.model';
 import { Review } from '../../models/review.model';
+import {FilterComponent} from "../filter/filter";
+
 
 @Component({
     selector: 'app-product-list',
     standalone: true,
-    imports: [CommonModule, ProductCardComponent, PaginatorModule],
+    imports: [CommonModule, ProductCardComponent, PaginatorModule, FilterComponent, FilterComponent],
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent {
     products = input<Product[]>([]);
+
+    activeFilter = signal<string | null>(null);
+
+    filteredProducts = computed(() => {
+        const category = this.activeFilter();
+        const allProducts = this.products();
+
+        if (!category) return allProducts;
+        return allProducts.filter(p => p.category === category);
+    });
+
+    constructor() {
+        effect(() => {
+            console.log('🪴 Filtre actif =', this.activeFilter());
+            console.log('Produits visibles =', this.filteredProducts().length);
+        });
+    }
+
+    onFilterChange(category: string | null): void {
+        console.log('Catégorie reçue depuis FilterComponent :', category);
+        this.activeFilter.set(category);
+    }
+
     reviews: Review[] = [];
-
-
     first = 0;
     rows = 10;
 
@@ -26,15 +49,8 @@ export class ProductListComponent {
     }
 
     onReviewAdded(review: Review): void {
-        console.log(
-            `Nouvel avis ajouté pour le produit id=${review.productId} :`,
-            `\n- Note : ${review.rating}/5`,
-            `\n- Commentaire : "${review.comment}"`,
-            `\n- Date : ${review.date.toLocaleString()}`
-        );
         this.reviews.push(review);
     }
-
 
     getAverageRating(productId: number): number | null {
         const productReviews = this.reviews.filter(r => r.productId === productId);
@@ -43,12 +59,9 @@ export class ProductListComponent {
         return +(sum / productReviews.length).toFixed(1);
     }
 
-
     getProductWithRating(p: Product): Product {
         const average = this.getAverageRating(p.id);
         const finalRating = average === null ? p.rating : average;
-        return { ...p, rating: finalRating };
+        return {...p, rating: finalRating};
     }
-
-
 }

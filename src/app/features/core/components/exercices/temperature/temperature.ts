@@ -1,4 +1,3 @@
-// temperature.ts
 import { Component, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -10,15 +9,12 @@ import { FormsModule } from '@angular/forms';
 export class Temperature {
     celsiusInput = '';
 
-    // Signal de base
     celsius = signal(20);
 
-    // Computed : se recalcule automatiquement quand le signal celsius() change
     fahrenheit = computed(() => {
         return (this.celsius() * 9/5) + 32;
     });
 
-    // Computed : se recalcule automatiquement quand le signal celsius() change
     temperatureStatus = computed(() => {
         const temp = this.celsius();
         if (temp < 0) return 'Glacial !';
