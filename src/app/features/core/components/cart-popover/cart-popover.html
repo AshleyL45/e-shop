@@ -1,0 +1,64 @@
+<button
+    #cartButton
+    pButton
+    pRipple
+    icon="pi pi-shopping-cart"
+    class="p-button-rounded p-button-text p-button-plain"
+    (click)="toggle($event)">
+</button>
+
+<p-popover
+    #cartPopover
+    [dismissable]="true"
+    [style]="{ width: '22rem', marginTop: '1rem' }"
+    [appendTo]="'body'"
+>
+    <div class="cart-popover">
+        <h3 class="cart-title">Your Cart</h3>
+
+        @if (items().length > 0) {
+            <ul class="cart-items">
+                @for (item of items(); track item.id) {
+                    <li class="cart-item">
+                        <img [src]="item.imageUrl" alt="{{ item.name }}" class="item-image" />
+
+                        <div class="item-info">
+                            <span class="item-name">{{ item.name }}</span>
+                            <span class="item-category">{{ item.category }}</span>
+                        </div>
+
+                        <div class="item-price">
+                            {{ item.price | number:'1.2-2':'fr' }} €
+                            <span class="quantity">×{{ item.quantity }}</span>
+
+                        </div>
+
+                        <button
+                                pButton
+                                pRipple
+                                icon="pi pi-trash"
+                                class="delete-btn"
+                                (click)="remove(item.id)">
+                        </button>
+                    </li>
+                }
+            </ul>
+
+            <div class="cart-total">
+                <span>Total <span class="vat-text">incl. VAT</span></span>
+                <span class="total-value">
+  {{ total() | currency:'EUR':'symbol':'1.2-2':'fr' }}
+</span>
+
+            </div>
+
+            <div class="cart-actions">
+                <button pButton pRipple label="View Cart" class="btn-outline"></button>
+                <button pButton pRipple label="Check Out" class="btn-green"></button>
+            </div>
+        } @else {
+            <p class="empty-text">Votre panier est vide 🛒</p>
+        }
+    </div>
+</p-popover>
+

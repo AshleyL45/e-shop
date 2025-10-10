@@ -43,14 +43,17 @@
 
     <ng-template pTemplate="footer">
         <div class="actions">
+            <!-- p-button émet onClick → on lui passe $event -->
             <p-button
                     label="Ajouter au panier"
                     styleClass="custom-btn"
                     [disabled]="!product().inStock"
-                    (onClick)="addToCart($event)"
-            ></p-button>
+                    (onClick)="addToCart($event)">
+            </p-button>
         </div>
     </ng-template>
+
+
 </p-card>
 
 <app-product-review-dialog

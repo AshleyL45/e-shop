@@ -2,17 +2,25 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from "primeng/menubar";
 import { InputTextModule } from "primeng/inputtext";
-import {Avatar} from "primeng/avatar";
+import {AvatarModule} from "primeng/avatar";
+
+import {PopoverModule} from "@coreui/angular";
+import {RippleModule} from "primeng/ripple";
+import {ButtonModule} from "primeng/button";
+import {Popover} from "primeng/popover";
+import {CartPopoverComponent} from "../cart-popover/cart-popover";
+
 
 @Component({
     selector: 'app-header',
     standalone: true,
-    templateUrl: './header.html',
-    imports: [MenubarModule, InputTextModule, Avatar],
+    templateUrl: 'header.html',
+    imports: [MenubarModule, ButtonModule, RippleModule, PopoverModule, InputTextModule, AvatarModule, CartPopoverComponent],
     styleUrls: ['./header.scss']
 })
 export class Header {
     items: MenuItem[] = [];
+
 
     ngOnInit() {
         this.items = [

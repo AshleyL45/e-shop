@@ -1,32 +1,29 @@
 :host ::ng-deep .p-menubar {
   background-color: #ffffff;
   border: none;
-}
-
-:host ::ng-deep .p-menubar .p-menuitem-link {
-  color: #fff;
-  font-weight: 500;
-}
-
-:host ::ng-deep .p-menubar .p-menuitem-link:hover {
-  background-color: #00AFB9;
-}
-
-:host ::ng-deep .end-section {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
 }
 
-:host ::ng-deep .end-section .p-inputtext {
+/* Conteneur de droite */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Barre de recherche */
+.search-container input {
   border-radius: 20px;
   padding: 0.4rem 1rem;
   width: 220px;
+  height: 2.4rem;
 }
 
-:host ::ng-deep .end-section .p-avatar {
+/* Avatar */
+:host ::ng-deep .p-avatar {
   width: 32px;
   height: 32px;
 }
-
 

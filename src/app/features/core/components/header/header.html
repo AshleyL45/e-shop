@@ -1,11 +1,18 @@
 <p-menubar [model]="items">
     <ng-template pTemplate="end">
-        <div class="end-section">
-            <input type="text" pInputText placeholder="Search" />
+        <div class="right-section">
+            <div class="search-container">
+                <input type="text" pInputText placeholder="Search" />
+            </div>
+
+            <!-- Panier -->
+            <app-cart-popover></app-cart-popover>
+
+            <!-- Avatar -->
             <p-avatar
                     image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                    shape="circle"
-            />
+                    shape="circle">
+            </p-avatar>
         </div>
     </ng-template>
 </p-menubar>

@@ -8,4 +8,5 @@ export type Product = {
     inStock: boolean;
     rating: number;
     isFavorite?: boolean;
+    quantity?: number;
 };
