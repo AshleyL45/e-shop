@@ -11,12 +11,37 @@ import { Product } from "../../models/product.model";
     templateUrl: './product.page.html',
     styleUrls: ['./product.page.scss']
 })
+
 export default class ProductPage {
     private route = inject(ActivatedRoute);
     private cdr = inject(ChangeDetectorRef);
     private router = inject(Router);
 
     products: Product[] = [];
+
+    cartCount = 0;
+    favoriteCount = 0;
+    favoriteIds = new Set<number>();
+
+    onProductAddedToCart(product: Product) {
+        this.cartCount++;
+    }
+
+    onProductAddedToFavorites(product: Product) {
+        if (!this.favoriteIds.has(product.id)) {
+            this.favoriteIds.add(product.id);
+            this.favoriteCount = this.favoriteIds.size;
+            console.log(`❤️ Ajouté : ${product.name}`);
+        }
+    }
+
+    onProductRemovedFromFavorites(product: Product) {
+        if (this.favoriteIds.has(product.id)) {
+            this.favoriteIds.delete(product.id);
+            this.favoriteCount = this.favoriteIds.size;
+            console.log(`💔 Retiré : ${product.name}`);
+        }
+    }
 
     goToDetail(product: Product) {
         this.router.navigate(['/products', product.id]);

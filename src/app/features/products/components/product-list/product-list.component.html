@@ -8,6 +8,9 @@
         <app-product-card
                 [product]="getProductWithRating(p)"
                 (reviewSubmitted)="onReviewAdded($event)"
+                (productAddedToCart)="productAddedToCart.emit($event)"
+                (productAddedToFavorites)="productAddedToFavorites.emit($event)"
+                (productRemovedFromFavorites)="productRemovedFromFavorites.emit($event)"
         ></app-product-card>
     }
 
