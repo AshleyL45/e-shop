@@ -3,7 +3,13 @@
   padding: 3rem 5%;
   display: flex;
   justify-content: center;
-}
+
+  @media (max-width: 768px) {
+      margin-top: 40px;
+    }
+  }
+
+
 
 /* ----------- STRUCTURE ----------- */
 .product-detail-grid {
@@ -295,6 +301,7 @@
 .pi {
   font-size: 1.1rem;
 }
+
 
 
 

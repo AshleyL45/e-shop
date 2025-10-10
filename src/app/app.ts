@@ -1,42 +1,27 @@
 import { Component } from '@angular/core';
-import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet} from '@angular/router';
-import {Footer} from "./features/core/components/footer/footer";
-import {Header} from "./features/core/components/header/header";
-import {LoadingService} from "./features/core/services/loadingService";
+import { Router, RouterOutlet, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { Footer } from "./features/core/components/footer/footer";
+import { Header } from "./features/core/components/header/header";
+import { LoadingService } from "./features/core/services/loadingService";
+import { LayoutService } from "./features/core/services/layout-service";
 
 @Component({
-  selector: 'app-root',
+    selector: 'app-root',
+    standalone: true,
     imports: [RouterOutlet, Footer, Header],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+    templateUrl: './app.html',
+    styleUrl: './app.scss'
 })
-
 export class App {
-    constructor(private router: Router, public loadingService: LoadingService) {
+    constructor(
+        private router: Router,
+        public loadingService: LoadingService,
+        public layoutService: LayoutService
+    ) {
         this.router.events.subscribe(event => {
-            if (event instanceof NavigationStart) {
-                this.loadingService.show();
-            }
-            if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+            if (event instanceof NavigationStart) this.loadingService.show();
+            if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError)
                 this.loadingService.hide();
-            }
         });
-    }
-
-    hideLayout(): boolean {
-        const url = this.router.url;
-        return (
-            url.startsWith('/error') ||
-            url.startsWith('/auth/login') ||
-            url.startsWith('/auth/register')
-        );
-    }
-
-    showHeader(): boolean {
-        return !this.hideLayout();
-    }
-
-    showFooter(): boolean {
-        return !this.hideLayout();
     }
 }

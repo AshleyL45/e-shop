@@ -96,5 +96,17 @@
   gap: 0.25rem;
 }
 
+@media (max-width: 768px) {
+  .product-list-container {
+    padding: 1rem;
+  }
+
+  .product-grid {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+}
+
+
 
 

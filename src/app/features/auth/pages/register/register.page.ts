@@ -2,19 +2,18 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import ProfileForm from "../../components/profile-form.page.ts/profile-form.page";
+import {BackButtonComponent} from "../../../core/components/back-button/back-button";
 
 @Component({
     selector: 'app-register',
     standalone: true,
-    imports: [ReactiveFormsModule, ProfileForm],
+    imports: [ReactiveFormsModule, ProfileForm, BackButtonComponent],
     template: `
     <section class="register-page">
-      <button class="back-button" (click)="goHome()">
-        <i class="pi pi-arrow-left"></i>
-        Retourner à l'accueil
-      </button>
+        <app-back-button targetRoute="/" label="Retour à l'accueil">Retourner sur la page d'accueil</app-back-button>
 
-      <app-profile-form></app-profile-form>
+
+        <app-profile-form></app-profile-form>
     </section>
   `,
     styles: [`
@@ -57,9 +56,5 @@ import ProfileForm from "../../components/profile-form.page.ts/profile-form.page
   `]
 })
 export default class RegisterPage {
-    constructor(private router: Router) {}
 
-    goHome() {
-        this.router.navigate(['/']);
-    }
 }

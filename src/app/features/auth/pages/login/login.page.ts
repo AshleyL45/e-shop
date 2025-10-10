@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginFormComponent } from "../../components/login-form.component/login-form.component";
+import {BackButtonComponent} from "../../../core/components/back-button/back-button";
 
 @Component({
     selector: 'app-login.page',
-    imports: [LoginFormComponent],
+    imports: [LoginFormComponent, BackButtonComponent],
     template: `
         <section class="login-page">
-            <button class="back-button" (click)="goHome()">
-                <i class="pi pi-arrow-left"></i>
-                Retourner à l'accueil
-            </button>
+            <app-back-button targetRoute="/">Retourner sur la page d'accueil</app-back-button>
+
 
             <app-login-form></app-login-form>
         </section>
@@ -52,9 +51,5 @@ import { LoginFormComponent } from "../../components/login-form.component/login-
     `]
 })
 export default class LoginPage {
-    constructor(private router: Router) {}
 
-    goHome() {
-        this.router.navigate(['/']);
-    }
 }

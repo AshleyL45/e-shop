@@ -7,6 +7,7 @@ import { Review } from '../../../products/models/review.model';
 import { Product } from '../../../products/models/product.model';
 import {Router} from "@angular/router";
 import {FavoriteButtonComponent} from "../../../products/components/favorite-button/favorite-button";
+import {BackButtonComponent} from "../../../core/components/back-button/back-button";
 
 @Component({
     selector: 'app-product-detail',
@@ -17,6 +18,7 @@ import {FavoriteButtonComponent} from "../../../products/components/favorite-but
         ButtonModule,
         ProductReviewDialogComponent,
         FavoriteButtonComponent,
+        BackButtonComponent,
     ],
     templateUrl: './product-detail.html',
     styleUrls: ['./product-detail.scss'],
@@ -75,9 +77,6 @@ export class ProductDetailComponent {
         this.showReviewDialog = false;
     }
 
-    goHome(): void {
-        this.router.navigate(['/products']);
-    }
 
     onToggleFavorite(): void {
         if (this.product) {
@@ -89,4 +88,9 @@ export class ProductDetailComponent {
             );
         }
     }
+
+    goToProducts() {
+        this.router.navigateByUrl('/products');
+    }
+
 }
