@@ -3,9 +3,10 @@
     pButton
     pRipple
     icon="pi pi-shopping-cart"
-    class="p-button-rounded p-button-text p-button-plain"
+    class="cart-button p-button-rounded p-button-text p-button-plain"
     (click)="toggle($event)">
 </button>
+
 
 <p-popover
     #cartPopover
@@ -14,7 +15,7 @@
     [appendTo]="'body'"
 >
     <div class="cart-popover">
-        <h3 class="cart-title">Your Cart</h3>
+        <h3 class="cart-title">Votre panier</h3>
 
         @if (items().length > 0) {
             <ul class="cart-items">
@@ -53,8 +54,8 @@
             </div>
 
             <div class="cart-actions">
-                <button pButton pRipple label="View Cart" class="btn-outline"></button>
-                <button pButton pRipple label="Check Out" class="btn-green"></button>
+                <button pButton pRipple label="Voir votre panier" class="btn-outline"></button>
+                <button pButton pRipple label="Régler" class="btn-green"></button>
             </div>
         } @else {
             <p class="empty-text">Votre panier est vide 🛒</p>

@@ -3,11 +3,9 @@ import { MenuItem } from 'primeng/api';
 import { MenubarModule } from "primeng/menubar";
 import { InputTextModule } from "primeng/inputtext";
 import {AvatarModule} from "primeng/avatar";
-
 import {PopoverModule} from "@coreui/angular";
 import {RippleModule} from "primeng/ripple";
 import {ButtonModule} from "primeng/button";
-import {Popover} from "primeng/popover";
 import {CartPopoverComponent} from "../cart-popover/cart-popover";
 
 

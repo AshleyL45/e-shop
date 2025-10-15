@@ -1,9 +1,9 @@
 import {
     Component,
     ViewChild,
-    ElementRef,
     inject,
-    effect
+    effect,
+    ChangeDetectorRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -20,64 +20,44 @@ import { CartService } from '../../../products/services/cart.service';
 })
 export class CartPopoverComponent {
     @ViewChild('cartPopover') cartPopover!: Popover;
-    @ViewChild('cartButton', { read: ElementRef }) cartButton!: ElementRef<HTMLButtonElement>;
 
     private cartService = inject(CartService);
+    private cdr = inject(ChangeDetectorRef);
 
     items = this.cartService.items;
     total = this.cartService.total;
-
-    private autoCloseTimeout: any = null;
 
     constructor() {
         effect(() => {
             const shouldOpen = this.cartService.openRequested();
             if (shouldOpen) {
-                console.log('🟢 Signal reçu → ouverture demandée');
+                console.log('🔔 Signal reçu → ouverture automatique du popover');
 
                 setTimeout(() => {
-                    const btn = this.cartButton?.nativeElement;
-                    if (btn) {
-                        console.log('✅ Click simulé sur le bouton réel');
-                        btn.click(); // ouvre le popover comme un clic utilisateur
-                        this.scheduleAutoClose(); // 👈 planifie la fermeture
+                    this.cdr.detectChanges();
+
+                    const fakeEvent = new MouseEvent('click');
+                    if (this.cartPopover) {
+                        this.cartPopover.show(fakeEvent);
+                        console.log('✅ Popover ouvert automatiquement');
+                    } else {
+                        console.warn('⚠️ Popover pas encore monté, tentative ignorée');
                     }
+
                     this.cartService.openRequested.set(false);
-                }, 150);
+                }, 250);
             }
         });
     }
 
-    /** Ouvre/ferme manuellement */
     toggle(event: Event) {
         this.cartPopover.toggle(event);
     }
 
-    /** Ferme manuellement */
     hide() {
         this.cartPopover.hide();
-        if (this.autoCloseTimeout) {
-            clearTimeout(this.autoCloseTimeout);
-            this.autoCloseTimeout = null;
-        }
     }
 
-    /** Planifie la fermeture automatique après 5s */
-    private scheduleAutoClose() {
-        if (this.autoCloseTimeout) {
-            clearTimeout(this.autoCloseTimeout);
-        }
-
-        this.autoCloseTimeout = setTimeout(() => {
-            if (this.cartPopover) {
-                console.log('⏳ Fermeture automatique du popover');
-                this.cartPopover.hide();
-            }
-            this.autoCloseTimeout = null;
-        }, 5000); // 5000 ms = 5 secondes
-    }
-
-    /** Supprime un produit du panier */
     remove(id: number) {
         this.cartService.removeFromCart(id);
     }

@@ -30,8 +30,6 @@ import { CartService } from '../../services/cart.service'; // ✅ important
 })
 export class ProductCardComponent {
     private router = inject(Router);
-
-    // ⚙️ on force le service à venir du root injector
     private injector = inject(Injector);
     private cartService = runInInjectionContext(this.injector, () => inject(CartService));
 
@@ -55,22 +53,12 @@ export class ProductCardComponent {
     }
 
     addToCart(event?: Event): void {
-        // 1) empêche la redirection par bubbling
         event?.stopPropagation();
-
-        // 2) log debug pour vérifier que la méthode est appelée
         const p = this.product();
         console.log('🛍 addToCart invoked for product:', p?.id, p?.name);
-
-        // 3) soit tu utilises le service global :
         this.cartService.addToCart(p);
-
-        // 4) et/ou émettre l'output pour les parents si nécessaire :
         this.productAddedToCart.emit(p);
     }
-
-
-
 
     onToggleFavorite(): void {
         if (this.isFavorite()) {

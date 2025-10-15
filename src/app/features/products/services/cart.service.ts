@@ -1,45 +1,38 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Product } from '../models/product.model';
 
+export interface CartItem extends Product {
+    quantity: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class CartService {
-    private readonly _items = signal<Product[]>([]);
+    private readonly _items = signal<CartItem[]>([]);
     readonly items = this._items;
-
-    // ✅ total = somme prix × quantité
     readonly total = computed(() =>
-        this._items().reduce((sum, p) => sum + p.price * (p.quantity ?? 1), 0)
+        this._items().reduce((sum, item) => sum + item.price * item.quantity, 0)
     );
 
     readonly openRequested = signal(false);
 
     addToCart(product: Product): void {
-        const items = this._items();
-        const existing = items.find(p => p.id === product.id);
+        const current = this._items();
+        const existing = current.find(p => p.id === product.id);
 
         if (existing) {
-            // ✅ Si le produit existe, on incrémente la quantité
-            const updated = items.map(p =>
-                p.id === product.id ? { ...p, quantity: (p.quantity ?? 1) + 1 } : p
-            );
-            this._items.set(updated);
+            existing.quantity++;
+            this._items.set([...current]);
         } else {
-            // ✅ Sinon, on ajoute avec une quantité initiale
-            this._items.set([...items, { ...product, quantity: 1 }]);
+            this._items.set([...current, { ...product, quantity: 1 }]);
         }
 
-        // ouverture automatique du popover
         this.openRequested.set(true);
     }
 
-    removeFromCart(productId: number): void {
-        this._items.set(this._items().filter(p => p.id !== productId));
-    }
-
-    updateQuantity(productId: number, newQty: number): void {
-        const updated = this._items().map(p =>
-            p.id === productId ? { ...p, quantity: newQty } : p
-        );
+    removeFromCart(id: number): void {
+        const updated = this._items()
+            .map(p => (p.id === id ? { ...p, quantity: p.quantity - 1 } : p))
+            .filter(p => p.quantity > 0);
         this._items.set(updated);
     }
 
