@@ -3,13 +3,15 @@ import {ActivatedRoute} from "@angular/router";
 import {Counter} from "../../core/components/exercices/counter/counter";
 import {Temperature} from "../../core/components/exercices/temperature/temperature";
 import {LikeCounter} from "../../core/components/exercices/like-counter/like-counter";
+import {PlantGallery} from "../../course/plant-gallery/plant-gallery";
 
 @Component({
   selector: 'app-hello.page',
     imports: [
         Counter,
         Temperature,
-        LikeCounter
+        LikeCounter,
+        PlantGallery,
     ],
   template: `
       <p>La valeur du message est : {{ message }}</p>
@@ -20,6 +22,9 @@ import {LikeCounter} from "../../core/components/exercices/like-counter/like-cou
 
       
       <app-like-counter></app-like-counter>
+      
+      <app-plant-gallery></app-plant-gallery>
+      
   `,
   styles: ``
 })
