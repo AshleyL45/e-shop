@@ -12,7 +12,6 @@ export const routes: Routes = [
         path: 'products',
         title : 'Produits',
         loadComponent: () => import('../features/product/pages/productPage/product.page'),
-        resolve: { products: productsResolver }
     },
 
     {

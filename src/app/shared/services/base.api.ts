@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 @Injectable()
 export abstract class BaseApi {
     protected http = inject(HttpClient);
-    protected readonly BASE_URL = 'https://api.example.com';
+    protected readonly BASE_URL = '';
 
     protected getHeaders(): HttpHeaders {
         return new HttpHeaders({
@@ -15,13 +15,18 @@ export abstract class BaseApi {
 
     protected async get<T>(endpoint: string): Promise<T> {
         try {
-            return await firstValueFrom(
+            const response = await firstValueFrom(
                 this.http.get<T>(`${this.BASE_URL}${endpoint}`, { headers: this.getHeaders() })
             );
+
+            await new Promise(res => setTimeout(res, 0));
+
+            return response;
         } catch (error) {
             throw this.handleError(error);
         }
     }
+
 
     protected async post<T>(endpoint: string, body: any): Promise<T> {
         try {

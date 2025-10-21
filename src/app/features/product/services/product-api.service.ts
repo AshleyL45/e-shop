@@ -3,7 +3,7 @@ import { BaseApi } from '../../../shared/services/base.api';
 import { Product } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
-export class ProductApi extends BaseApi {
+export class ProductApiService extends BaseApi {
     private readonly endpoint = '/products.json';
 
     async getProducts(): Promise<Product[]> {

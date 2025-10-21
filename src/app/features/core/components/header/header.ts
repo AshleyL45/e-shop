@@ -27,7 +27,7 @@ export class Header {
             {
                 label: 'Produits', icon: 'pi pi-shopping-cart',
                 items: [
-                    { label: 'Tous les produits', routerLink: '/product' },
+                    { label: 'Tous les produits', routerLink: '/products' },
                     { label: 'Produit 1', routerLink: ['/product', 1] }
                 ]
             },
