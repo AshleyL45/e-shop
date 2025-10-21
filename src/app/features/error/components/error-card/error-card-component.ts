@@ -3,7 +3,7 @@ import { Button } from 'primeng/button';
 import { Router } from "@angular/router";
 
 @Component({
-    selector: 'app-error-card-component',
+    selector: 'app-error-card',
     standalone: true,
     imports: [Button],
     templateUrl: './error-card-component.html',

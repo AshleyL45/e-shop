@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductDetailComponent } from '../components/product-detail/product-detail';
 import { ActivatedRoute } from '@angular/router';
-import {ProductReviewDialogComponent} from "../../products/components/product-review-dialog/product-review-dialog";
-import {Product} from "../../products/models/product.model";
-import {productsMock} from "../../products/mocks/products.mock";
-import {Review} from "../../products/models/review.model";
+import {ProductReviewDialogComponent} from "../../product/components/product-review-dialog/product-review-dialog";
+import {Product} from "../../product/models/product.model";
+import {productsMock} from "../../product/mocks/products.mock";
+import {Review} from "../../product/models/review.model";
 
 @Component({
     selector: 'app-product-detail-page',

@@ -1,5 +1,5 @@
 import { ResolveFn } from '@angular/router';
-import {Product} from "../../features/products/models/product.model";
+import {Product} from "../../features/product/models/product.model";
 import {delay, of, tap} from "rxjs";
 import {LoadingService} from "../../features/core/services/loadingService";
 import {inject} from "@angular/core";

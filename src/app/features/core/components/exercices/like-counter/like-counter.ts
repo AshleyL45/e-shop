@@ -1,10 +1,10 @@
-import { Component, OnInit, signal, computed, effect } from '@angular/core';
+import { Component, signal, computed, effect } from '@angular/core';
 
 @Component({
     selector: 'app-like-counter',
     templateUrl: 'like-counter.html'
 })
-export class LikeCounter implements OnInit {
+export class LikeCounter {
     likes = signal(0);
     userName = signal('Utilisateur');
 
@@ -17,11 +17,9 @@ export class LikeCounter implements OnInit {
 
     isPopular = computed(() => this.likes() >= 10);
 
-    ngOnInit() {
-        effect(() => {
-            console.log(`${this.userName()} a ${this.likes()} likes`);
-        });
-    }
+    logLikes = effect(() => {
+        console.log(`${this.userName()} a ${this.likes()} likes`);
+    });
 
     setUserName(name: string): void {
         this.userName.set(name);

@@ -11,12 +11,12 @@ export const routes: Routes = [
     {
         path: 'products',
         title : 'Produits',
-        loadComponent: () => import('../features/products/pages/productPage/product.page'),
+        loadComponent: () => import('../features/product/pages/productPage/product.page'),
         resolve: { products: productsResolver }
     },
 
     {
-        path: 'products/:id',
+        path: 'product/:id',
         title: 'Détail du produit',
         loadComponent: () => import('../features/productDetails/pages/product-detail.page'),
     },

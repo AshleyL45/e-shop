@@ -2,11 +2,11 @@ import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
-import { ProductReviewDialogComponent } from '../../../products/components/product-review-dialog/product-review-dialog';
-import { Review } from '../../../products/models/review.model';
-import { Product } from '../../../products/models/product.model';
+import { ProductReviewDialogComponent } from '../../../product/components/product-review-dialog/product-review-dialog';
+import { Review } from '../../../product/models/review.model';
+import { Product } from '../../../product/models/product.model';
 import {Router} from "@angular/router";
-import {FavoriteButtonComponent} from "../../../products/components/favorite-button/favorite-button";
+import {FavoriteButtonComponent} from "../../../product/components/favorite-button/favorite-button";
 import {BackButtonComponent} from "../../../core/components/back-button/back-button";
 
 @Component({

@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { PopoverModule, Popover } from 'primeng/popover';
 import { RippleModule } from 'primeng/ripple';
-import { CartService } from '../../../products/services/cart.service';
+import { CartService } from '../../../product/services/cart.service';
 
 @Component({
     selector: 'app-cart-popover',
