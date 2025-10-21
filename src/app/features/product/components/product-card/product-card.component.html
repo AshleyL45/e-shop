@@ -2,20 +2,21 @@
     <ng-template pTemplate="header">
         <div class="image-container">
             <img [src]="product().imageUrl" [alt]="product().name" />
-            <app-favorite-button (toggle)="onToggleFavorite()"></app-favorite-button>
+            <app-favorite-button
+                    (toggle)="onToggleFavorite()"
+                    [isFavorite]="isFavorite()"
+            ></app-favorite-button>
         </div>
     </ng-template>
 
     <div class="title-block">
         <div class="title-row">
             <span class="product-name">{{ product().name }}</span>
-            <span
-                    class="product-rating"
-                    (click)="openReviewDialog($event)"
-                    title="Donner un avis"
-            >
-        ⭐{{ product().rating | number: '1.1-1' }} / 5
-      </span>
+
+            <div class="rating" (click)="openReviewDialog($event)" title="Donner un avis">
+                <i class="pi pi-star-fill"></i>
+                <span>{{ product().rating | number: '1.1-1' }}</span>
+            </div>
         </div>
 
         <div class="category">
@@ -43,7 +44,6 @@
 
     <ng-template pTemplate="footer">
         <div class="actions">
-            <!-- p-button émet onClick → on lui passe $event -->
             <p-button
                     label="Ajouter au panier"
                     styleClass="custom-btn"
@@ -52,8 +52,6 @@
             </p-button>
         </div>
     </ng-template>
-
-
 </p-card>
 
 <app-product-review-dialog

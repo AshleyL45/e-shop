@@ -42,6 +42,7 @@ export class ProductCardComponent {
 
     showDialog = false;
 
+
     onDialogClosed(): void {
         this.showDialog = false;
     }
