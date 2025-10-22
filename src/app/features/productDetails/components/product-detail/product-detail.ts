@@ -5,9 +5,10 @@ import { ButtonModule } from 'primeng/button';
 import { ProductReviewDialogComponent } from '../../../product/components/product-review-dialog/product-review-dialog';
 import { Review } from '../../../product/models/review.model';
 import { Product } from '../../../product/models/product.model';
-import {Router} from "@angular/router";
-import {FavoriteButtonComponent} from "../../../product/components/favorite-button/favorite-button";
-import {BackButtonComponent} from "../../../core/components/back-button/back-button";
+import { Router } from '@angular/router';
+import { FavoriteButtonComponent } from '../../../product/components/favorite-button/favorite-button';
+import { BackButtonComponent } from '../../../core/components/back-button/back-button';
+import { CartService } from '../../../cart/services/cart.service'; // ✅ import ajouté
 
 @Component({
     selector: 'app-product-detail',
@@ -24,7 +25,10 @@ import {BackButtonComponent} from "../../../core/components/back-button/back-but
     styleUrls: ['./product-detail.scss'],
 })
 export class ProductDetailComponent {
-    constructor(private router: Router) {}
+    constructor(
+        private router: Router,
+        private cartService: CartService // ✅ injection du service
+    ) {}
 
     productInput = input<Product>(undefined, { alias: 'product' });
 
@@ -47,11 +51,16 @@ export class ProductDetailComponent {
     }
 
     addToCart(): void {
-        if (!this.product?.inStock) {
+        if (!this.product) return;
+
+        if (!this.product.inStock) {
             console.warn('Produit en rupture de stock, ajout impossible.');
             return;
         }
-        console.log(`Produit ajouté au panier : ${this.product.name}`);
+
+        // ✅ Ajout réel au panier via le service
+        this.cartService.addToCart(this.product);
+        console.log(`🛒 Produit ajouté au panier : ${this.product.name}`);
     }
 
     onRatingClick(event: MouseEvent): void {
@@ -77,7 +86,6 @@ export class ProductDetailComponent {
         this.showReviewDialog = false;
     }
 
-
     onToggleFavorite(): void {
         if (this.product) {
             this.product.isFavorite = !this.product.isFavorite;
@@ -92,5 +100,4 @@ export class ProductDetailComponent {
     goToProducts() {
         this.router.navigateByUrl('/products');
     }
-
 }

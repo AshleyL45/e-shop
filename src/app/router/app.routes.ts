@@ -63,6 +63,13 @@ export const routes: Routes = [
         ],
     },
 
+    {
+        path: 'cart',
+        title: 'Cart',
+        loadComponent: () => import('../features/cart/pages/cart.page'),
+    },
+
+
 
     { path: '**', loadComponent: () => import('../features/error/pages/error.page') }
 ];

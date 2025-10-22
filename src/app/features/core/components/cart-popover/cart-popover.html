@@ -54,7 +54,14 @@
             </div>
 
             <div class="cart-actions">
-                <button pButton pRipple label="Voir votre panier" class="btn-outline"></button>
+                <button
+                        pButton
+                        pRipple
+                        label="Voir votre panier"
+                        class="btn-outline"
+                        (click)="goToCart()">
+                </button>
+
                 <button pButton pRipple label="Régler" class="btn-green"></button>
             </div>
         } @else {

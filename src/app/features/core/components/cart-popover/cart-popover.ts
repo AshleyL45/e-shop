@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { PopoverModule, Popover } from 'primeng/popover';
 import { RippleModule } from 'primeng/ripple';
-import { CartService } from '../../../product/services/cart.service';
+import { CartService } from '../../../cart/services/cart.service';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-cart-popover',
@@ -23,6 +24,7 @@ export class CartPopoverComponent {
 
     private cartService = inject(CartService);
     private cdr = inject(ChangeDetectorRef);
+    private router = inject(Router);
 
     items = this.cartService.items;
     total = this.cartService.total;
@@ -60,5 +62,10 @@ export class CartPopoverComponent {
 
     remove(id: number) {
         this.cartService.removeFromCart(id);
+    }
+
+    goToCart() {
+        this.hide(); // ferme le popover avant de naviguer
+        this.router.navigateByUrl('/cart');
     }
 }

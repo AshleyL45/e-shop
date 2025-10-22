@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { Review } from '../../models/review.model';
 import { ProductReviewDialogComponent } from '../product-review-dialog/product-review-dialog';
 import { Card } from 'primeng/card';
-import { CartService } from '../../services/cart.service'; // ✅ important
+import { CartService } from '../../../cart/services/cart.service'; // ✅ important
 
 @Component({
     selector: 'app-product-card',
