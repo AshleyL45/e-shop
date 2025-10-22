@@ -58,8 +58,7 @@ export class ProductDetailComponent {
             return;
         }
 
-        // ✅ Ajout réel au panier via le service
-        this.cartService.addToCart(this.product);
+        this.cartService.addToCart({ ...this.product, quantity: 1 });
         console.log(`🛒 Produit ajouté au panier : ${this.product.name}`);
     }
 

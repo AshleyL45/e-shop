@@ -6,11 +6,12 @@ import { LoadingService } from "./features/core/services/loadingService";
 import { LayoutService } from "./features/core/services/layout-service";
 import {GlobalSpinner} from "./features/core/components/global-spinner/global-spinner";
 import {ToastError} from "./features/error/components/toast-error/toast-error";
+import {AppNotification} from "./shared/components/app-notification";
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, Footer, Header, GlobalSpinner, ToastError],
+    imports: [RouterOutlet, Footer, Header, GlobalSpinner, ToastError, AppNotification],
     templateUrl: './app.html',
     styleUrl: './app.scss'
 })

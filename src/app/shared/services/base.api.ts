@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 @Injectable()
 export abstract class BaseApi {
     protected http = inject(HttpClient);
-    protected readonly BASE_URL = '';
+    protected readonly BASE_URL: string = '';
 
     protected getHeaders(): HttpHeaders {
         return new HttpHeaders({

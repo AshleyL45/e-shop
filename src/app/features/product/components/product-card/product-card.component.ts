@@ -57,7 +57,7 @@ export class ProductCardComponent {
         event?.stopPropagation();
         const p = this.product();
         console.log('🛍 addToCart invoked for product:', p?.id, p?.name);
-        this.cartService.addToCart(p);
+        this.cartService.addToCart({ ...p, quantity: 1 });
         this.productAddedToCart.emit(p);
     }
 

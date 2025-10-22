@@ -1,4 +1,9 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import {
+    ApplicationConfig,
+    importProvidersFrom,
+    provideBrowserGlobalErrorListeners,
+    provideZonelessChangeDetection
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './router/app.routes';
@@ -7,6 +12,8 @@ import Aura from '@primeuix/themes/lara';
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {loadingInterceptor} from "./features/core/interceptors/loading.interceptor";
+import {MessageService} from "primeng/api";
+import {ToastModule} from "primeng/toast";
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -16,6 +23,8 @@ export const appConfig: ApplicationConfig = {
         provideAnimations(),
         provideHttpClient(),
         provideHttpClient(withInterceptors([loadingInterceptor])),
+        importProvidersFrom(ToastModule),
+        MessageService,
 
 
         providePrimeNG({

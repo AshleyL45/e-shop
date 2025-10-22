@@ -1,68 +1,75 @@
-import {Injectable, signal, computed, effect} from '@angular/core';
-import { Product } from '../../product/models/product.model';
+import { Injectable, signal, computed } from '@angular/core';
+import { NotificationService } from '../../../shared/services/notification.service';
 
-export interface CartItem extends Product {
+export type CartItem = {
+    id: number;
+    name: string;
+    price: number;
+    imageUrl: string;
+    category?: string;
+    description?: string;
     quantity: number;
-}
+    stock?: number;
+};
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-    private readonly STORAGE_KEY = 'eshop_cart';
+    private _items = signal<CartItem[]>([]);
+    items = this._items.asReadonly();
 
-    private readonly _items = signal<CartItem[]>(this.loadFromStorage());
+    openRequested = signal(false);
 
-    readonly items = this._items.asReadonly();
-    readonly total = computed(() =>
-        this._items().reduce((sum, item) => sum + item.price * item.quantity, 0)
+    lastAction = signal<{ type: string; item?: CartItem } | null>(null);
+
+    total = computed(() =>
+        this._items().reduce((acc, i) => acc + i.price * i.quantity, 0)
     );
-    readonly openRequested = signal(false);
 
-    constructor() {
-        effect(() => {
-            this.saveToStorage(this._items());
-        });
-    }
+    constructor(private notify: NotificationService) {}
 
-    addToCart(product: Product): void {
-        const current = this._items();
-        const existing = current.find(p => p.id === product.id);
+    addToCart(item: CartItem): void {
+        const items = this._items();
+        const existing = items.find((i) => i.id === item.id);
 
         if (existing) {
-            existing.quantity++;
-            this._items.set([...current]);
+            existing.quantity += item.quantity;
+            this._items.set([...items]);
+            this.lastAction.set({ type: 'update', item });
+            this.notify.info(`${item.name} → quantité mise à jour`);
         } else {
-            this._items.set([...current, { ...product, quantity: 1 }]);
+            this._items.set([...items, item]);
+            this.lastAction.set({ type: 'add', item });
+            this.notify.success(`${item.name} ajouté au panier 🛒`);
         }
 
         this.openRequested.set(true);
     }
 
+    updateQuantity(id: number, quantity: number): void {
+        this._items.update((items) =>
+            items.map((i) => (i.id === id ? { ...i, quantity } : i))
+        );
+        const updatedItem = this._items().find(i => i.id === id);
+        this.lastAction.set({ type: 'update', item: updatedItem });
+        this.notify.info(`Quantité mise à jour (${quantity})`);
+    }
+
     removeFromCart(id: number): void {
-        const updated = this._items()
-            .map(p => (p.id === id ? { ...p, quantity: p.quantity - 1 } : p))
-            .filter(p => p.quantity > 0);
-        this._items.set(updated);
+        const removedItem = this._items().find(i => i.id === id);
+        this._items.update((items) => items.filter((i) => i.id !== id));
+        this.lastAction.set({ type: 'remove', item: removedItem });
+        this.notify.warn(`${removedItem?.name ?? 'Produit'} supprimé du panier`);
     }
 
     clearCart(): void {
         this._items.set([]);
-        localStorage.removeItem(this.STORAGE_KEY);
+        this.lastAction.set({ type: 'clear' });
+        this.notify.warn(`Panier vidé`);
     }
 
     checkout(): void {
-        this.clearCart(); // on vide tout
-    }
-
-    private saveToStorage(items: CartItem[]): void {
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(items));
-    }
-
-    private loadFromStorage(): CartItem[] {
-        try {
-            const data = localStorage.getItem(this.STORAGE_KEY);
-            return data ? JSON.parse(data) : [];
-        } catch {
-            return [];
-        }
+        this.clearCart();
+        this.lastAction.set({ type: 'checkout' });
+        this.notify.success(`Commande validée`);
     }
 }

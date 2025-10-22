@@ -1,26 +1,28 @@
 import {
     Component,
     ViewChild,
+    ElementRef,
     inject,
     effect,
-    ChangeDetectorRef
+    ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { PopoverModule, Popover } from 'primeng/popover';
 import { RippleModule } from 'primeng/ripple';
+import { Router } from '@angular/router';
 import { CartService } from '../../../cart/services/cart.service';
-import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-cart-popover',
     standalone: true,
     imports: [CommonModule, ButtonModule, PopoverModule, RippleModule],
-    templateUrl: './cart-popover.html',
-    styleUrls: ['./cart-popover.scss']
+    templateUrl: 'cart-popover.html',
+    styleUrls: ['cart-popover.scss'],
 })
 export class CartPopoverComponent {
     @ViewChild('cartPopover') cartPopover!: Popover;
+    @ViewChild('cartButton', { static: true }) cartButton!: ElementRef<HTMLButtonElement>;
 
     private cartService = inject(CartService);
     private cdr = inject(ChangeDetectorRef);
@@ -33,21 +35,7 @@ export class CartPopoverComponent {
         effect(() => {
             const shouldOpen = this.cartService.openRequested();
             if (shouldOpen) {
-                console.log('🔔 Signal reçu → ouverture automatique du popover');
-
-                setTimeout(() => {
-                    this.cdr.detectChanges();
-
-                    const fakeEvent = new MouseEvent('click');
-                    if (this.cartPopover) {
-                        this.cartPopover.show(fakeEvent);
-                        console.log('✅ Popover ouvert automatiquement');
-                    } else {
-                        console.warn('⚠️ Popover pas encore monté, tentative ignorée');
-                    }
-
-                    this.cartService.openRequested.set(false);
-                }, 250);
+                this.openTemporarily();
             }
         });
     }
@@ -65,7 +53,26 @@ export class CartPopoverComponent {
     }
 
     goToCart() {
-        this.hide(); // ferme le popover avant de naviguer
+        this.hide();
         this.router.navigateByUrl('/cart');
+    }
+
+    private openTemporarily(): void {
+        setTimeout(() => {
+            if (!this.cartButton?.nativeElement || !this.cartPopover) {
+                console.warn('⚠️ Popover non prêt');
+                return;
+            }
+
+            const clickEvent = new MouseEvent('click', { bubbles: true });
+            this.cartButton.nativeElement.dispatchEvent(clickEvent);
+
+            console.log('✅ Popover ouvert automatiquement');
+
+            setTimeout(() => {
+                this.cartPopover.hide();
+                this.cartService.openRequested.set(false);
+            }, 3000);
+        }, 100);
     }
 }
