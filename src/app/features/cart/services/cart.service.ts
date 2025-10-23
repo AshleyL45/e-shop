@@ -35,11 +35,11 @@ export class CartService {
             existing.quantity += item.quantity;
             this._items.set([...items]);
             this.lastAction.set({ type: 'update', item });
-            this.notify.info(`${item.name} → quantité mise à jour`);
+            this.notify.info(`${item.name} : quantité mise à jour`);
         } else {
             this._items.set([...items, item]);
             this.lastAction.set({ type: 'add', item });
-            this.notify.success(`${item.name} ajouté au panier 🛒`);
+            this.notify.success(`${item.name} ajouté au panier`);
         }
 
         this.openRequested.set(true);

@@ -14,7 +14,7 @@ export class CartFacade {
 
     add(item: Partial<CartItem>): void {
         CartRules.validateAdd(item, this.cartService.total());
-        this.cartService.addToCart(item as CartItem); // ✅ cast ici
+        this.cartService.addToCart(item as CartItem);
         this.cartApi.persistAdd(item);
         this.notify.success(`${item.name} a été ajouté au panier`);
     }
@@ -44,6 +44,6 @@ export class CartFacade {
         CartRules.validateCheckout(this.cartService.items());
         this.cartService.checkout();
         this.cartApi.persistCheckout();
-        this.notify.success(`Commande validée ✅`);
+        this.notify.success(`Commande validée`);
     }
 }
