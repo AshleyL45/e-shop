@@ -6,6 +6,6 @@ import { Component, input } from '@angular/core';
     templateUrl: './page-title.html',
     styleUrls: ['./page-title.scss']
 })
-export class PageTitleComponent {
+export class PageTitle {
     text = input<string>('');
 }

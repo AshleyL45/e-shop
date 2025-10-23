@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
     templateUrl: 'favorite-button.html',
     styleUrls: ['favorite-button.scss']
 })
-export class FavoriteButtonComponent {
+export class FavoriteButton {
     isFavorite = model<boolean>(false);
     toggle = output<void>();
 

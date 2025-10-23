@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import ProfileForm from "../../components/profile-form.page.ts/profile-form.page";
-import {BackButtonComponent} from "../../../core/components/back-button/back-button";
+import {BackButton} from "../../../core/components/back-button/back-button";
 
 @Component({
     selector: 'app-register',
     standalone: true,
-    imports: [ReactiveFormsModule, ProfileForm, BackButtonComponent],
+    imports: [ReactiveFormsModule, ProfileForm, BackButton],
     template: `
     <section class="register-page">
         <app-back-button targetRoute="/" label="Retour à l'accueil">Retourner sur la page d'accueil</app-back-button>

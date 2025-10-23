@@ -10,7 +10,7 @@ import { Rating } from 'primeng/rating';
     templateUrl: './star-rating.html',
     styleUrls: ['./star-rating.scss']
 })
-export class StarRatingComponent {
+export class StarRating {
     rating!: number;
     comment!: string;
     reviewSubmit = output<{ rating: number; comment: string }>();

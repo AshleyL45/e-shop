@@ -1,19 +1,19 @@
 import { Component, input, signal, computed, effect, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductCardComponent } from '../product-card/product-card.component';
+import { ProductCard } from '../product-card/product-card';
 import { PaginatorModule } from 'primeng/paginator';
 import { Product } from '../../models/product.model';
 import { Review } from '../../models/review.model';
-import { FilterComponent } from '../filter/filter';
+import { Filter } from '../filter/filter';
 
 @Component({
     selector: 'app-product-list',
     standalone: true,
-    imports: [CommonModule, ProductCardComponent, PaginatorModule, FilterComponent],
-    templateUrl: './product-list.component.html',
-    styleUrls: ['./product-list.component.scss']
+    imports: [CommonModule, ProductCard, PaginatorModule, Filter],
+    templateUrl: './product-list.html',
+    styleUrls: ['./product-list.scss']
 })
-export class ProductListComponent {
+export class ProductList{
     products = input<Product[]>([]);
 
     productAddedToCart = output<Product>();

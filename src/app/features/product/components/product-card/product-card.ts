@@ -5,12 +5,12 @@ import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../models/product.model';
-import { FavoriteButtonComponent } from '../favorite-button/favorite-button';
+import { FavoriteButton } from '../favorite-button/favorite-button';
 import { Router } from '@angular/router';
 import { Review } from '../../models/review.model';
-import { ProductReviewDialogComponent } from '../product-review-dialog/product-review-dialog';
+import { ProductReviewDialog } from '../product-review-dialog/product-review-dialog';
 import { Card } from 'primeng/card';
-import { CartService } from '../../../cart/services/cart.service'; // ✅ important
+import { CartService } from '../../../cart/services/cart.service';
 
 @Component({
     selector: 'app-product-card',
@@ -21,14 +21,14 @@ import { CartService } from '../../../cart/services/cart.service'; // ✅ import
         DialogModule,
         RatingModule,
         FormsModule,
-        FavoriteButtonComponent,
-        ProductReviewDialogComponent,
+        FavoriteButton,
+        ProductReviewDialog,
         Card
     ],
-    templateUrl: './product-card.component.html',
-    styleUrls: ['./product-card.component.scss']
+    templateUrl: './product-card.html',
+    styleUrls: ['./product-card.scss']
 })
-export class ProductCardComponent {
+export class ProductCard {
     private router = inject(Router);
     private injector = inject(Injector);
     private cartService = runInInjectionContext(this.injector, () => inject(CartService));

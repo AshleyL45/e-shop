@@ -6,7 +6,7 @@ import { Component, input } from '@angular/core';
     templateUrl: './product-stats.html',
     styleUrls: ['./product-stats.scss']
 })
-export class ProductStatsComponent {
+export class ProductStats {
     cartCount = input(0);
     favoriteCount = input(0);
 }

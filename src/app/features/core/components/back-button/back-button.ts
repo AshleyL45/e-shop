@@ -9,7 +9,7 @@ import { LayoutService } from '../../services/layout-service';
     styleUrls: ['./back-button.scss']
 })
 
-export class BackButtonComponent {
+export class BackButton {
     private router = inject(Router);
     private layout = inject(LayoutService);
 

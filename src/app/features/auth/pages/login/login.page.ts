@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginFormComponent } from "../../components/login-form.component/login-form.component";
-import {BackButtonComponent} from "../../../core/components/back-button/back-button";
+import {BackButton} from "../../../core/components/back-button/back-button";
 
 @Component({
     selector: 'app-login.page',
-    imports: [LoginFormComponent, BackButtonComponent],
+    imports: [LoginFormComponent, BackButton],
     template: `
         <section class="login-page">
             <app-back-button targetRoute="/">Retourner sur la page d'accueil</app-back-button>

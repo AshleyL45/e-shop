@@ -11,7 +11,7 @@ import { ButtonModule } from 'primeng/button';
     templateUrl: './filter.html',
     styleUrls: ['./filter.scss']
 })
-export class FilterComponent {
+export class Filter {
     categorySelected = output<string | null>();
     activeCategory = signal<string | null>(null);
 

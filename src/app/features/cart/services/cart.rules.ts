@@ -33,7 +33,7 @@ export class CartRules {
     }
 
     static validateClear(): void {
-        // ne fait rien — toujours valide
+        // ne fait rien car toujours valide
     }
 
     static validateCheckout(items: CartItem[]): void {

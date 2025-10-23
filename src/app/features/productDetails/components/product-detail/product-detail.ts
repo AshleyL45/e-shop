@@ -2,13 +2,13 @@ import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
-import { ProductReviewDialogComponent } from '../../../product/components/product-review-dialog/product-review-dialog';
+import { ProductReviewDialog } from '../../../product/components/product-review-dialog/product-review-dialog';
 import { Review } from '../../../product/models/review.model';
 import { Product } from '../../../product/models/product.model';
 import { Router } from '@angular/router';
-import { FavoriteButtonComponent } from '../../../product/components/favorite-button/favorite-button';
-import { BackButtonComponent } from '../../../core/components/back-button/back-button';
-import { CartService } from '../../../cart/services/cart.service'; // ✅ import ajouté
+import { FavoriteButton } from '../../../product/components/favorite-button/favorite-button';
+import { BackButton } from '../../../core/components/back-button/back-button';
+import { CartService } from '../../../cart/services/cart.service';
 
 @Component({
     selector: 'app-product-detail',
@@ -17,17 +17,17 @@ import { CartService } from '../../../cart/services/cart.service'; // ✅ import
         CommonModule,
         AccordionModule,
         ButtonModule,
-        ProductReviewDialogComponent,
-        FavoriteButtonComponent,
-        BackButtonComponent,
+        ProductReviewDialog,
+        FavoriteButton,
+        BackButton,
     ],
     templateUrl: './product-detail.html',
     styleUrls: ['./product-detail.scss'],
 })
-export class ProductDetailComponent {
+export class ProductDetail {
     constructor(
         private router: Router,
-        private cartService: CartService // ✅ injection du service
+        private cartService: CartService
     ) {}
 
     productInput = input<Product>(undefined, { alias: 'product' });

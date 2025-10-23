@@ -20,7 +20,7 @@ import { CartService } from '../../../cart/services/cart.service';
     templateUrl: 'cart-popover.html',
     styleUrls: ['cart-popover.scss'],
 })
-export class CartPopoverComponent {
+export class CartPopover {
     @ViewChild('cartPopover') cartPopover!: Popover;
     @ViewChild('cartButton', { static: true }) cartButton!: ElementRef<HTMLButtonElement>;
 

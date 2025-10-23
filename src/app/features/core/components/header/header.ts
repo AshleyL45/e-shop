@@ -6,14 +6,14 @@ import {AvatarModule} from "primeng/avatar";
 import {PopoverModule} from "@coreui/angular";
 import {RippleModule} from "primeng/ripple";
 import {ButtonModule} from "primeng/button";
-import {CartPopoverComponent} from "../cart-popover/cart-popover";
+import {CartPopover} from "../cart-popover/cart-popover";
 
 
 @Component({
     selector: 'app-header',
     standalone: true,
     templateUrl: 'header.html',
-    imports: [MenubarModule, ButtonModule, RippleModule, PopoverModule, InputTextModule, AvatarModule, CartPopoverComponent],
+    imports: [MenubarModule, ButtonModule, RippleModule, PopoverModule, InputTextModule, AvatarModule, CartPopover],
     styleUrls: ['./header.scss']
 })
 export class Header {

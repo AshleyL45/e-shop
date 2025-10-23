@@ -13,7 +13,7 @@ import { Review } from '../../models/review.model';
     templateUrl: './product-review-dialog.html',
     styleUrls: ['./product-review-dialog.scss']
 })
-export class ProductReviewDialogComponent {
+export class ProductReviewDialog {
 
     visible = input<boolean>(false);
     productName = input<string>('');

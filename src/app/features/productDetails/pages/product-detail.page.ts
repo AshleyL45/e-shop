@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductDetailComponent } from '../components/product-detail/product-detail';
+import { ProductDetail } from '../components/product-detail/product-detail';
 import { ActivatedRoute } from '@angular/router';
-import {ProductReviewDialogComponent} from "../../product/components/product-review-dialog/product-review-dialog";
+import {ProductReviewDialog} from "../../product/components/product-review-dialog/product-review-dialog";
 import {Product} from "../../product/models/product.model";
 import {productsMock} from "../../product/mocks/products.mock";
 import {Review} from "../../product/models/review.model";
@@ -10,7 +10,7 @@ import {Review} from "../../product/models/review.model";
 @Component({
     selector: 'app-product-detail-page',
     standalone: true,
-    imports: [CommonModule, ProductDetailComponent, ProductReviewDialogComponent],
+    imports: [CommonModule, ProductDetail, ProductReviewDialog],
     template: `
         @if (product) {
             <app-product-detail
