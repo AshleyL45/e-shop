@@ -19,13 +19,20 @@
 
         <div class="product-info">
             <div class="header">
-                <h1>{{ product?.name }}</h1>
+                <div class="title-section">
+                    <div class="title-row">
+                        <h1>{{ product?.name }}</h1>
+                        <div class="rating" (click)="onRatingClick($event)">
+                            <i class="pi pi-star-fill"></i>
+                            <span>{{ product?.rating }}</span>
+                        </div>
+                    </div>
 
-                <div class="rating" (click)="onRatingClick($event)">
-                    <i class="pi pi-star-fill"></i>
-                    <span>{{ product?.rating }}</span>
+                    <p class="scientific-name">{{ product?.scientificName }}</p>
                 </div>
             </div>
+
+
 
             <div class="price">
                 {{ product?.price | currency:'EUR':'symbol':'1.2-2':'fr' }}
@@ -62,7 +69,6 @@
                 Add to Cart
             </button>
 
-            <!-- 📜 Description -->
             <p-accordion>
                 <ng-template pTemplate="header">About Product</ng-template>
                 <div class="text">{{ product?.description }}</div>
@@ -77,3 +83,8 @@
         (reviewSubmitted)="onReviewSubmitted($event)"
         (closed)="closeReviewDialog()"
 ></app-product-review-dialog>
+
+<div class="product-tabs-container">
+    <app-product-tabs [product]="product"></app-product-tabs>
+</div>
+

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { FavoriteButton } from '../../../product/components/favorite-button/favorite-button';
 import { BackButton } from '../../../core/components/back-button/back-button';
 import { CartService } from '../../../cart/services/cart.service';
+import {ProductTabs} from "../product-tabs/product-tabs";
 
 @Component({
     selector: 'app-product-detail',
@@ -20,6 +21,7 @@ import { CartService } from '../../../cart/services/cart.service';
         ProductReviewDialog,
         FavoriteButton,
         BackButton,
+        ProductTabs,
     ],
     templateUrl: './product-detail.html',
     styleUrls: ['./product-detail.scss'],

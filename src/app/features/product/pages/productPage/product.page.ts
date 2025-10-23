@@ -28,7 +28,7 @@ export default class ProductPage {
     async ngOnInit() {
         try {
             this.loading.show();
-            await new Promise(res => setTimeout(res, 1500));
+            await new Promise(res => setTimeout(res, 0));
             this.products = await this.api.getProducts();
             this.cdr.detectChanges();
         } catch (err) {

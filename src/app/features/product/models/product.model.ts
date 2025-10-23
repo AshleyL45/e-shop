@@ -1,12 +1,25 @@
 export type Product = {
     id: number;
     name: string;
+    scientificName: string;
     description: string;
+    longDescription: string;
     price: number;
     imageUrl: string;
-    category: string;
+    category: 'indoor' | 'outdoor';
     inStock: boolean;
     rating: number;
     isFavorite?: boolean;
     quantity?: number;
+    watering: 'faible' | 'moyen' | 'important';
+    sunlight: 'ombre' | 'mi-ombre' | 'plein-soleil';
+    fertilizer: string;
+    soilType: string;
+    sizeOptions: ('XS' | 'S' | 'M' | 'L' | 'XL')[];
+    family: string;
+    origin: string;
+    lifespan: string;
+    toxicity: string;
+    difficulty: 'Très facile' | 'Facile' | 'Moyenne' | 'Difficile';
+    expertAdvice: string;
 };

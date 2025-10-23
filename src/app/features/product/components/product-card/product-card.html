@@ -19,11 +19,13 @@
             </div>
         </div>
 
+        <span class="scientific-name">{{ product().scientificName }}</span>
+
         <div class="category">
             @if (product().category === 'indoor') {
-                🌿 Intérieur
+                🌿 Plante d’intérieur
             } @else if (product().category === 'outdoor') {
-                🌳 Extérieur
+                🌳 Plante d’extérieur
             } @else {
                 🌸 Autre
             }

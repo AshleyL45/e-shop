@@ -8,6 +8,8 @@
   transition: transform 0.2s ease;
   cursor: pointer;
 
+
+
   &:hover {
     transform: translateY(-5px);
   }
@@ -94,6 +96,15 @@
     margin-bottom: 0.2rem;
   }
 
+  .scientific-name {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: -0.2rem;
+    margin-bottom: 0.7rem;
+  }
+
+
   .product-rating {
     font-size: 0.9rem;
     font-weight: 500;
@@ -124,7 +135,6 @@
 
 
 
-//modal styles
 
 .review-dialog-content {
   display: flex;
@@ -224,5 +234,8 @@
     transform: scale(1.05);
   }
 }
+
+
+
 
 
