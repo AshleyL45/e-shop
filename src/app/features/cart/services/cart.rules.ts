@@ -1,4 +1,4 @@
-import { CartItem } from '../services/cart.service';
+import { CartItem } from './cart.service';
 
 export class CartRules {
     private static readonly LIMIT = 5000;
