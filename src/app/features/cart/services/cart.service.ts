@@ -46,13 +46,14 @@ export class CartService {
     }
 
     updateQuantity(id: number, quantity: number): void {
-        this._items.update((items) =>
-            items.map((i) => (i.id === id ? { ...i, quantity } : i))
+        const items = this._items().map((i) =>
+            i.id === id ? { ...i, quantity } : i
         );
-        const updatedItem = this._items().find(i => i.id === id);
-        this.lastAction.set({ type: 'update', item: updatedItem });
-        this.notify.info(`Quantité mise à jour (${quantity})`);
+        this._items.set(items); // ✅ crée un nouveau tableau = déclenche le signal
+        this.lastAction.set({ type: 'update', item: items.find(i => i.id === id) });
     }
+
+
 
     removeFromCart(id: number): void {
         const removedItem = this._items().find(i => i.id === id);
@@ -68,8 +69,17 @@ export class CartService {
     }
 
     checkout(): void {
+        const items = this._items();
+
+        if (items.length === 0) {
+            this.notify.error(`Impossible de valider un panier vide ⚠️`);
+            this.lastAction.set({ type: 'checkout-error' });
+            return;
+        }
+
         this.clearCart();
         this.lastAction.set({ type: 'checkout' });
         this.notify.success(`Commande validée`);
     }
+
 }

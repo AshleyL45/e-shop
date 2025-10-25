@@ -7,9 +7,12 @@
             <button
                     class="clear-cart-btn"
                     (click)="clearCart()"
-                    [disabled]="!cartItems().length">
+                    [disabled]="!cartItems().length"
+                    data-testid="clear-cart-btn"
+            >
                 <i class="pi pi-trash"></i> Vider
             </button>
+
         </div>
 
         @if (cartItems().length > 0) {
@@ -36,11 +39,21 @@
                                     decrementButtonIcon="pi pi-minus"
                                     incrementButtonClass="p-button-text"
                                     decrementButtonClass="p-button-text"
+                                    data-testid="input-quantity"
+                                    (click)="onManualQuantityChange(item.id, item.quantity)"
                             ></p-inputNumber>
 
-                            <span class="item-price">
-                                {{ item.price * item.quantity | currency:'EUR':'symbol':'1.2-2':'fr-FR' }}
-                            </span>
+
+
+
+
+
+                            <span
+                                    class="item-price"
+                                    data-testid="item-price"
+                            >
+                {{ item.price * item.quantity | currency:'EUR':'symbol':'1.2-2':'fr-FR' }}
+              </span>
                         </div>
 
                         <button
@@ -48,14 +61,15 @@
                                 pRipple
                                 icon="pi pi-trash"
                                 class="delete-btn"
-                                (click)="removeItem(item.id)">
-                        </button>
+                                (click)="removeItem(item.id)"
+                                data-testid="delete-btn"
+                        ></button>
                     </div>
                 </div>
             }
         } @else {
             <div class="empty-cart">
-                <p>Votre panier est vide 🛒</p>
+                <p data-testid="empty-cart">Votre panier est vide 🛒</p>
             </div>
         }
     </div>
@@ -82,15 +96,21 @@
 
         <div class="summary-total">
             <span>Total</span>
-            <span>{{ total | currency:'EUR':'symbol':'1.2-2':'fr-FR' }}</span>
+            <span data-testid="cart-total">
+        {{ total | currency:'EUR':'symbol':'1.2-2':'fr-FR' }}
+      </span>
         </div>
 
         <button
                 class="place-order"
                 [disabled]="!cartItems().length"
-                (click)="onCheckout()">
+                (click)="onCheckout()"
+                data-testid="checkout-btn"
+        >
             Passer la commande
         </button>
+
+
     </div>
 
 </div>

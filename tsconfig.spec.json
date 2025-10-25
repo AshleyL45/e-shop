@@ -3,17 +3,17 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "paths": {
-      "@app/*": [
-        "src/app/*"
-      ]
-    },
     "outDir": "./out-tsc/spec",
-    "types": [
-      "jasmine"
-    ]
+    "types": ["jasmine"],
+    "paths": {
+      "@app/*": ["src/app/*"]
+    }
   },
+  "files": [
+    "src/test.ts"
+  ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
   ]
 }

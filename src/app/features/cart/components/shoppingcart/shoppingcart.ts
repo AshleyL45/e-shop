@@ -20,7 +20,7 @@ export class Shoppingcart implements OnInit {
 
     cartItems!: Signal<CartItem[]>;
 
-    constructor(private cartService: CartService) {}
+    constructor(public cartService: CartService) {}
 
     ngOnInit(): void {
         this.cartItems = this.cartService.items;
@@ -50,4 +50,10 @@ export class Shoppingcart implements OnInit {
     onCheckout(): void {
         this.cartService.checkout();
     }
+
+    onManualQuantityChange(id: number, currentQuantity: number): void {
+        this.cartService.updateQuantity(id, currentQuantity);
+    }
+
+
 }
