@@ -1,0 +1,79 @@
+<div class="orders">
+    @for (order of orders(); track order.id) {
+        <div class="order">
+            <div class="order-header" (click)="toggle(order.id)">
+                <div class="left">
+                    <img [src]="order.items[0].imageUrl" alt="" />
+                    <div>
+                        <h3>{{ order.items[0].name }}</h3>
+                        <p class="muted">{{ order.items[0].category }}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <span class="id">{{ order.id }}</span>
+                    <span>{{ order.date }}</span>
+                    <span [ngClass]="getStatusClass(order.status)">{{ order.status }}</span>
+                    <strong>{{ getCalculatedTotal(order) | currency:'EUR':'symbol':'1.2-2' }}</strong>
+                    <i class="pi" [ngClass]="expanded() === order.id ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+                </div>
+            </div>
+
+            @if (expanded() === order.id) {
+                <div class="order-body">
+
+                    <!-- ✅ ADRESSES -->
+                    <div class="addresses">
+                        <div>
+                            <h4>Adresse de facturation</h4>
+                            <p><b>{{ order.billing.name }}</b></p>
+                            <p>{{ order.billing.address }}</p>
+                            <p>{{ order.billing.city }}, {{ order.billing.country }}</p>
+                            <p>{{ order.billing.zip }}</p>
+                            <p>{{ order.billing.phone }}</p>
+                        </div>
+                        <div>
+                            <h4>Adresse de livraison</h4>
+                            <p><b>{{ order.shipping.name }}</b></p>
+                            <p>{{ order.shipping.address }}</p>
+                            <p>{{ order.shipping.city }}, {{ order.shipping.country }}</p>
+                            <p>{{ order.shipping.zip }}</p>
+                            <p>{{ order.shipping.phone }}</p>
+                        </div>
+                    </div>
+
+                    <!-- ✅ PRODUITS -->
+                    <div class="product-summary">
+                        <h4>Produits de la commande ({{ getTotalQuantity(order) }} articles)</h4>
+
+                        @for (item of order.items; track item.id) {
+                            <div class="product-line">
+                                <div class="product-info">
+                                    <img [src]="item.imageUrl" alt="{{ item.name }}" />
+                                    <div class="details">
+                                        <span class="name">{{ item.name }}</span>
+                                        <span class="qty">× {{ item.quantity }}</span>
+                                    </div>
+                                </div>
+                                <div class="product-price">
+                                    <span>{{ getItemTotal(item.price, item.quantity) | currency:'EUR':'symbol':'1.2-2' }}</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- ✅ PAIEMENT -->
+                    <div class="payment">
+                        <h4>Informations de paiement</h4>
+                        <p>{{ order.payment.card }}</p>
+                        <ul>
+                            <li>Sous-total : {{ order.payment.subtotal | currency:'EUR':'symbol':'1.2-2' }}</li>
+                            <li>Livraison : {{ order.payment.shipping | currency:'EUR':'symbol':'1.2-2' }}</li>
+                            <li>Taxe estimée : {{ order.payment.tax | currency:'EUR':'symbol':'1.2-2' }}</li>
+                            <li><b>Total : {{ order.payment.total | currency:'EUR':'symbol':'1.2-2' }}</b></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
