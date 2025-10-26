@@ -32,11 +32,12 @@ export class Shoppingcart implements OnInit {
     }
 
     get total() {
-        return this.cartItems().length ? this.subtotal + this.tax : 0;
+        return this.subtotal + this.tax;
     }
 
+
     get tax() {
-        return 22;
+        return this.subtotal * 0.2;
     }
 
     removeItem(id: number) {
