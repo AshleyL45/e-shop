@@ -1,9 +1,9 @@
 import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { PageTitle } from '../../../core/components/titles/page-title/page-title';
+import { PageTitle } from '../../../../core/components/titles/page-title/page-title';
 import { ProductList } from '../../components/product-list/product-list';
 import { Product } from '../../models/product.model';
-import { LoadingService } from '../../../core/services/loadingService';
+import { LoadingService } from '../../../../core/services/loadingService';
 import { ProductApiService } from '../../services/product-api.service';
 
 @Component({

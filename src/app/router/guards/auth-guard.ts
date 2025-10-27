@@ -5,5 +5,5 @@ export const authGuard: CanActivateFn = () => {
     const router = inject(Router);
     const ok = localStorage.getItem('iLovePancakes') === 'true';
 
-    return ok ? true : router.createUrlTree(['/error']);
+    return ok ? true : router.navigate(['/error']);
 };

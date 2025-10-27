@@ -39,7 +39,7 @@
     .right {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 3rem;
       flex-wrap: wrap;
       justify-content: flex-end;
       margin-top: 0.75rem;
@@ -108,7 +108,7 @@
           font-size: 1rem;
           font-weight: 600;
           color: #1e293b;
-          margin-bottom: 0.75rem;
+          margin-bottom: 1rem;
         }
 
         p {
@@ -136,7 +136,7 @@
         font-size: 1rem;
         font-weight: 600;
         color: #1e293b;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
       }
 
       p {
@@ -281,4 +281,10 @@
       font-size: 0.9rem;
     }
   }
+}
+
+.filters-bar {
+  display: flex;
+  position: relative;
+  gap: 2rem;
 }

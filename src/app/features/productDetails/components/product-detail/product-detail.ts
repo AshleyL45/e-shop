@@ -7,7 +7,7 @@ import { Review } from '../../../product/models/review.model';
 import { Product } from '../../../product/models/product.model';
 import { Router } from '@angular/router';
 import { FavoriteButton } from '../../../product/components/favorite-button/favorite-button';
-import { BackButton } from '../../../core/components/back-button/back-button';
+import { BackButton } from '../../../../core/components/back-button/back-button';
 import { CartService } from '../../../cart/services/cart.service';
 import {ProductTabs} from "../product-tabs/product-tabs";
 

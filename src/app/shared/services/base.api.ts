@@ -71,4 +71,10 @@ export abstract class BaseApi {
         }
         return new Error('Erreur inconnue');
     }
+
+    // TODO
+    // handleError à revoir
+    // orderModel : séparer shipping, adress, payment
+    // app.ts : loadingService à injecter ailleurs
+    // fichier ??? : injection du service pas comme dans le cours sans inject
 }

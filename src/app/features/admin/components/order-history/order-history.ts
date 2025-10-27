@@ -1,11 +1,13 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderFacade } from '../../../order/services/order.facade';
+import { OrderStatusFilter } from '../order-status-filter/order-status-filter';
+import {SearchBar} from "../search-bar/search-bar";
 
 @Component({
     selector: 'app-order-history',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, OrderStatusFilter, SearchBar],
     templateUrl: './order-history.html',
     styleUrls: ['./order-history.scss']
 })
@@ -16,12 +18,27 @@ export class OrderHistory implements OnInit {
     readonly loading = this.facade.loading;
     expanded = signal<string | null>(null);
 
+    selectedStatus = signal<string | null>(null);
+
+    filteredOrders = computed(() => {
+        const status = this.selectedStatus();
+        const all = this.orders();
+
+        if (!status) return all;
+
+        return all.filter(o => o.status === status);
+    });
+
     ngOnInit() {
         this.facade.loadOrders();
     }
 
     toggle(orderId: string) {
         this.expanded.update(id => id === orderId ? null : orderId);
+    }
+
+    onFilter(status: string | null) {
+        this.selectedStatus.set(status);
     }
 
     getStatusClass(status: 'Pending' | 'In Delivery' | 'Delivered') {
@@ -37,7 +54,10 @@ export class OrderHistory implements OnInit {
     }
 
     getTotalQuantity(order: any): number {
-        return order.items?.reduce((total: number, item: any) => total + (item.quantity ?? 1), 0) ?? 0;
+        return order.items?.reduce(
+            (total: number, item: any) => total + (item.quantity ?? 1),
+            0
+        ) ?? 0;
     }
 
     getCalculatedTotal(order: any): number {

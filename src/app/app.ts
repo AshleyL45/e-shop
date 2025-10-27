@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
-import { Footer } from "./features/core/components/footer/footer";
-import { Header } from "./features/core/components/header/header";
-import { LoadingService } from "./features/core/services/loadingService";
-import { LayoutService } from "./features/core/services/layout-service";
-import {GlobalSpinner} from "./features/core/components/global-spinner/global-spinner";
+import { Footer } from "./core/components/footer/footer";
+import { Header } from "./core/components/header/header";
+import { LoadingService } from "./core/services/loadingService";
+import { LayoutService } from "./core/services/layout-service";
+import {GlobalSpinner} from "./core/components/global-spinner/global-spinner";
 import {ToastError} from "./features/error/components/toast-error/toast-error";
 import {AppNotification} from "./shared/components/app-notification";
 

@@ -1,7 +1,7 @@
 import { ResolveFn } from '@angular/router';
 import { inject } from '@angular/core';
 import { ProductApiService } from '../../features/product/services/product-api.service';
-import { LoadingService } from '../../features/core/services/loadingService';
+import { LoadingService } from '../../core/services/loadingService';
 import { from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { Product } from '../../features/product/models/product.model';

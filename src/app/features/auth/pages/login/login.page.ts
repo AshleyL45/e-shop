@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginFormComponent } from "../../components/login-form.component/login-form.component";
-import {BackButton} from "../../../core/components/back-button/back-button";
+import {BackButton} from "../../../../core/components/back-button/back-button";
 
 @Component({
     selector: 'app-login.page',

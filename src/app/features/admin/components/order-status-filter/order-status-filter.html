@@ -1,0 +1,15 @@
+<div class="status-filter">
+    <label>Statut</label>
+
+    <select [value]="selectedStatus() ?? ''" (change)="onSelect($event)">
+        @for (opt of statusOptions; track opt.value) {
+            <option [value]="opt.value ?? ''">{{ opt.label }}</option>
+        }
+    </select>
+
+    @if (selectedStatus()) {
+        <button class="clear-btn" (click)="clear()">
+            <i class="pi pi-times"></i>
+        </button>
+    }
+</div>

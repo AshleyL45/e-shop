@@ -11,7 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { PopoverModule, Popover } from 'primeng/popover';
 import { RippleModule } from 'primeng/ripple';
 import { Router } from '@angular/router';
-import { CartService } from '../../../cart/services/cart.service';
+import { CartService } from '../../../features/cart/services/cart.service';
 
 @Component({
     selector: 'app-cart-popover',

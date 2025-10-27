@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import ProfileForm from "../../components/profile-form.page.ts/profile-form.page";
-import {BackButton} from "../../../core/components/back-button/back-button";
+import {BackButton} from "../../../../core/components/back-button/back-button";
 
 @Component({
     selector: 'app-register',

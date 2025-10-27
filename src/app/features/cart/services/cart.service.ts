@@ -49,7 +49,7 @@ export class CartService {
         const items = this._items().map((i) =>
             i.id === id ? { ...i, quantity } : i
         );
-        this._items.set(items); // ✅ crée un nouveau tableau = déclenche le signal
+        this._items.set(items);
         this.lastAction.set({ type: 'update', item: items.find(i => i.id === id) });
     }
 

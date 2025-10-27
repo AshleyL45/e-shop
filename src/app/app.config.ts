@@ -11,7 +11,7 @@ import {providePrimeNG} from "primeng/config";
 import Aura from '@primeuix/themes/lara';
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
-import {loadingInterceptor} from "./features/core/interceptors/loading.interceptor";
+import {loadingInterceptor} from "./core/interceptors/loading.interceptor";
 import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 

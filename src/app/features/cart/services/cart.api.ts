@@ -4,7 +4,7 @@ import { BaseApi } from '../../../shared/services/base.api';
 
 @Injectable({ providedIn: 'root' })
 export class CartApi extends BaseApi {
-    protected override readonly BASE_URL = 'https://api.monsite.com/cart';
+    protected override readonly BASE_URL = '/';
 
     async persistAdd(item: Partial<CartItem>): Promise<void> {
         console.log('[API] Produit ajouté :', item);
