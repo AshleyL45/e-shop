@@ -1,17 +1,36 @@
-<div class="hero-container">
+<section
+        class="hero-container"
+        role="region"
+        aria-labelledby="hero-title"
+        aria-describedby="hero-description">
+
     <div class="hero-content">
-        <h1>
+        <h1 id="hero-title">
             <span class="line">Apportez la nature chez vous</span><br />
             <span class="highlight">avec nos plantes d’exception</span>
         </h1>
 
-        <p class="subtitle">Découvrez notre sélection de plantes haut de gamme, choisies pour leur beauté, leur résistance et leur capacité à transformer vos espaces. Offrez à votre intérieur une touche de nature élégante et apaisante.</p>
+        <p id="hero-description" class="subtitle">
+            Découvrez notre sélection de plantes haut de gamme, choisies pour leur beauté, leur résistance
+            et leur capacité à transformer vos espaces. Offrez à votre intérieur une touche de nature
+            élégante et apaisante.
+        </p>
+
         <div class="actions">
-            <button pButton type="button" label="Voir nos produits" [routerLink]="['/product']"></button>
+            <button
+                    pButton
+                    type="button"
+                    [routerLink]="['/products']"
+                    pButtonLabel="Voir nos produits"
+                    aria-label="Voir la liste complète de nos plantes d’intérieur haut de gamme">Découvrez nos plantes disponibles
+            </button>
         </div>
     </div>
 
     <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1583753075968-1236ccb83c66?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGxhbnRlcyUyMGQlRTIlODAlOTlpbnQlQzMlQTlyaWV1cnxlbnwwfHwwfHx8MA%3D%3D">
+        <img
+                src="assets/homepage/homepage.webp"
+                role="img"
+                alt="Photo de nos plantes d'exception"/>
     </div>
-</div>
+</section>

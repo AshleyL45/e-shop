@@ -1,48 +1,55 @@
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MenubarModule } from "primeng/menubar";
-import { InputTextModule } from "primeng/inputtext";
-import {AvatarModule} from "primeng/avatar";
-import {PopoverModule} from "@coreui/angular";
-import {RippleModule} from "primeng/ripple";
-import {ButtonModule} from "primeng/button";
-import {CartPopover} from "../cart-popover/cart-popover";
-
+import { Component, signal } from '@angular/core';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
+import { CartPopover } from '../cart-popover/cart-popover';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-header',
     standalone: true,
     templateUrl: 'header.html',
-    imports: [MenubarModule, ButtonModule, RippleModule, PopoverModule, InputTextModule, AvatarModule, CartPopover],
-    styleUrls: ['./header.scss']
+    styleUrls: ['header.scss'],
+    imports: [CommonModule, CartPopover, RouterLinkActive, RouterLink]
 })
 export class Header {
-    items: MenuItem[] = [];
+    items = signal([
+        { label: 'Accueil', icon: 'pi pi-home', path: '/' },
+        { label: 'Hello', icon: 'pi pi-smile', path: '/hello' },
+        {
+            label: 'Produits',
+            icon: 'pi pi-shopping-cart',
+            children: [
+                { label: 'Tous les produits', path: '/products' },
+                { label: 'Produit 1', path: '/products/1' }
+            ]
+        },
+        { label: 'À Propos', icon: 'pi pi-info-circle', path: '/about' },
+        { label: 'Paramètres', icon: 'pi pi-cog', path: '/setting' },
+        { label: 'Admin', icon: 'pi pi-shield', path: '/admin' },
+        { label: 'Panier', icon: 'pi pi-cart-arrow-down', path: '/cart' },
+        { label: 'Erreur', icon: 'pi pi-times-circle', path: '/error' },
+        {
+            label: 'Auth',
+            icon: 'pi pi-user',
+            children: [
+                { label: 'Connexion', path: '/auth/login' },
+                { label: 'Inscription', path: '/auth/register' }
+            ]
+        }
+    ]);
 
+    private openDropdown = signal<string | null>(null);
 
-    ngOnInit() {
-        this.items = [
-            { label: 'Accueil', icon: 'pi pi-home', routerLink: '/' },
-            { label: 'Hello', icon: 'pi pi-smile', routerLink: '/hello' },
-            {
-                label: 'Produits', icon: 'pi pi-shopping-cart',
-                items: [
-                    { label: 'Tous les produits', routerLink: '/products' },
-                    { label: 'Produit 1', routerLink: ['/products', 1] }
-                ]
-            },
-            { label: 'À Propos', icon: 'pi pi-info-user', routerLink: '/about' },
-            { label: 'Paramètres', icon: 'pi pi-cog', routerLink: '/setting' },
-            { label: 'Admin', icon: 'pi pi-shield', routerLink: '/admin' },
-            { label: 'Panier', icon: 'pi pi-cart-arrow-down', routerLink: '/cart' },
-            { label: 'Erreur', icon: 'pi pi-times-circle', routerLink: '/error' },
-            {
-                label: 'Auth', icon: 'pi pi-user',
-                items: [
-                    { label: 'Register', routerLink: '/auth/register' },
-                    { label: 'Login', routerLink: ['/auth/login'] }
-                ]
-            }
-        ];
+    constructor(private router: Router) {}
+
+    toggleDropdown(name: string) {
+        this.openDropdown.set(this.openDropdown() === name ? null : name);
+    }
+
+    closeDropdown() {
+        this.openDropdown.set(null);
+    }
+
+    activeDropdown() {
+        return this.openDropdown();
     }
 }

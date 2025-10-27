@@ -1,5 +1,6 @@
 /tmp
 /out-tsc
+/public
 
 .angular/
 /node_modules
