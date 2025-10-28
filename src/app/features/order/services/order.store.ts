@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Order } from '../models/order.model';
+import {Order} from "../../../core/models/order.model";
 
 @Injectable({ providedIn: 'root' })
 export class OrderStore {

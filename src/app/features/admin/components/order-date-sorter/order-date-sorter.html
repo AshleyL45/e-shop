@@ -1,0 +1,18 @@
+<div class="date-sorter">
+    <label>Trier par date</label>
+
+    <div class="select-wrapper">
+        <select [value]="selectedSort() ?? ''" (change)="onSelect($event)">
+            <option value="">Aucune</option>
+            @for (opt of sortOptions; track opt.value) {
+                <option [value]="opt.value">{{ opt.label }}</option>
+            }
+        </select>
+
+        <span class="dropdown-icon">
+      <i class="pi pi-chevron-down"></i>
+    </span>
+    </div>
+
+
+</div>

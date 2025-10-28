@@ -15,6 +15,7 @@ export class SearchBar {
 
     onInputChange(value: string) {
         this.searchTerm.set(value);
+        this.search.emit(value);
     }
 
     onEnter(event: KeyboardEvent) {

@@ -16,25 +16,10 @@
                     </a>
                 </li>
 
-                <li role="none">
-                    <a
-                            routerLink="/hello"
-                            routerLinkActive="active"
-                            class="nav-item"
-                            role="menuitem"
-                    >
-                        <i class="pi pi-smile" aria-hidden="true"></i>
-                        <span>Hello</span>
-                    </a>
-                </li>
 
-                <li
-                        class="dropdown"
-                        (mouseenter)="toggleDropdown('products')"
-                        (mouseleave)="closeDropdown()"
-                        role="none"
-                >
-                    <button
+
+                <li role="none">
+                    <a routerLink="/products" routerLinkActive="active" class="nav-item" role="menuitem"
                             [class.active]="activeDropdown() === 'products'"
                             class="nav-item"
                             aria-haspopup="true"
@@ -44,28 +29,7 @@
                     >
                         <i class="pi pi-shopping-cart" aria-hidden="true"></i>
                         <span>Produits</span>
-                        <i class="pi pi-chevron-down" aria-hidden="true"></i>
-                    </button>
-
-                    @if (activeDropdown() === 'products') {
-                        <ul
-                                class="dropdown-menu"
-                                id="menu-products"
-                                role="menu"
-                                aria-label="Sous-menu Produits"
-                        >
-                            <li role="none">
-                                <a routerLink="/products" class="nav-item" role="menuitem">
-                                    Tous les produits
-                                </a>
-                            </li>
-                            <li role="none">
-                                <a [routerLink]="['/products', 1]" class="nav-item" role="menuitem">
-                                    Produit 1
-                                </a>
-                            </li>
-                        </ul>
-                    }
+                    </a>
                 </li>
 
                 <li role="none">

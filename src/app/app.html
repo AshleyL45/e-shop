@@ -1,16 +1,16 @@
-@if (layoutService.showHeader()) {
-    <app-header />
-}
+<div class="page-wrapper">
+    @if (layoutService.showHeader()) {
+        <app-header />
+    }
 
-<app-notification></app-notification>
+    <main class="main-content">
+        <app-notification></app-notification>
+        <router-outlet />
+        <global-spinner></global-spinner>
+        <toast-error></toast-error>
+    </main>
 
-<router-outlet />
-
-<global-spinner></global-spinner>
-
-<toast-error></toast-error>
-
-
-@if (layoutService.showFooter()) {
-    <app-footer />
-}
+    @if (layoutService.showFooter()) {
+        <app-footer />
+    }
+</div>

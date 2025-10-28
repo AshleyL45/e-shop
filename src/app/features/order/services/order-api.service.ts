@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseApi } from '../../../shared/services/base.api';
-import { Order } from '../models/order.model';
+import {Order} from "../../../core/models/order.model";
 
 @Injectable({ providedIn: 'root' })
 export class OrderApi extends BaseApi {

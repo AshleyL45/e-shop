@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 export class Header {
     items = signal([
         { label: 'Accueil', icon: 'pi pi-home', path: '/' },
-        { label: 'Hello', icon: 'pi pi-smile', path: '/hello' },
         {
             label: 'Produits',
             icon: 'pi pi-shopping-cart',

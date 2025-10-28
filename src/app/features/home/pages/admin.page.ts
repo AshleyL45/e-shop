@@ -8,7 +8,7 @@ import { OrderHistory } from '../../admin/components/order-history/order-history
     imports: [OrderHistory],
     template: `
         <section class="admin-container">
-            <h2>Historique des commandes</h2>
+            <h2 id="orders-title">Historique des commandes</h2>
             <app-order-history></app-order-history>
         </section>
     `,

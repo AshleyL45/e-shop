@@ -1,16 +1,49 @@
+<section class="orders" aria-labelledby="orders-title">
+    <div class="filters-bar" role="region" aria-label="Filtres de commandes">
+        <div class="filters-left">
+            <app-order-status-filter
+                    (filter)="onFilter($event)"
+                    aria-label="Filtrer les commandes par statut">
+            </app-order-status-filter>
 
+            <app-order-date-sorter
+                #sorter
+                aria-label="Trier les commandes par date">
+            </app-order-date-sorter>
+        </div>
 
-<div class="orders">
-    <div class="filters-bar">
-        <app-order-status-filter (filter)="onFilter($event)"></app-order-status-filter>
-        <app-search-bar></app-search-bar>
+        <div class="filters-right">
+            <app-search-bar
+                    (search)="onSearch($event)"
+                    aria-label="Rechercher une commande par numéro">
+            </app-search-bar>
+        </div>
     </div>
 
-    @for (order of filteredOrders(); track order.id) {
-        <div class="order">
-            <div class="order-header" (click)="toggle(order.id)">
+    @for (order of filteredOrders(sorter.selectedSort()); track order.id) {
+        <article
+                class="order"
+                [attr.aria-expanded]="expanded() === order.id"
+                [attr.aria-controls]="'order-' + order.id"
+                role="group"
+                [attr.aria-label]="'Commande ' + order.id">
+
+            <header
+                    class="order-header"
+                    role="button"
+                    tabindex="0"
+                    (click)="toggle(order.id)"
+                    (keydown.enter)="toggle(order.id)"
+                    [attr.aria-label]="'Afficher les détails de la commande ' + order.id">
+
                 <div class="left">
-                    <img [src]="order.items[0].imageUrl" alt="{{ order.items[0].name }}" />
+                    <img
+                            [src]="order.items[0].imageUrl"
+                            [alt]="'Photo du produit ' + order.items[0].name"
+                            width="55"
+                            height="55"
+                            loading="lazy"
+                    />
                     <div>
                         <h3>{{ order.items[0].name }}</h3>
                         <p class="muted">{{ order.items[0].category }}</p>
@@ -18,62 +51,85 @@
                 </div>
 
                 <div class="right">
-                    <span class="id">{{ order.id }}</span>
-                    <span>{{ order.date | date:'dd/MM/yyyy' }}</span>
-                    <span [ngClass]="getStatusClass(order.status)">
-                    {{ order.status }}
+                    <span class="id" aria-label="Numéro de commande">{{ order.id }}</span>
+                    <time
+                            [attr.datetime]="order.date | date:'yyyy-MM-dd'"
+                            aria-label="Date de commande">
+                        {{ order.date | date:'dd/MM/yyyy' }}
+                    </time>
+                    <span
+                            [ngClass]="getStatusClass(order.status)"
+                            [attr.aria-label]="'Statut : ' + order.status">
+            {{ order.status }}
           </span>
-                    <strong>
+                    <strong aria-label="Montant total">
                         {{ getCalculatedTotal(order) | currency:'EUR':'symbol':'1.2-2' }}
                     </strong>
                     <i
                             class="pi"
-                            [ngClass]="expanded() === order.id ? 'pi-chevron-up' : 'pi-chevron-down'">
+                            [ngClass]="expanded() === order.id ? 'pi-chevron-up' : 'pi-chevron-down'"
+                            aria-hidden="true">
                     </i>
                 </div>
-            </div>
+            </header>
 
             @if (expanded() === order.id) {
-                <div class="order-body">
+                <div
+                        class="order-body"
+                        [id]="'order-' + order.id"
+                        role="region"
+                        [attr.aria-label]="'Détails de la commande ' + order.id">
+
                     <div class="addresses">
                         <div>
                             <h4>Adresse de facturation</h4>
-                            <p><b>{{ order.billing.name }}</b></p>
-                            <p>{{ order.billing.address }}</p>
-                            <p>{{ order.billing.city }}, {{ order.billing.country }}</p>
-                            <p>{{ order.billing.zip }}</p>
-                            <p>{{ order.billing.phone }}</p>
+                            <address>
+                                <p><strong>{{ order.billing.name }}</strong></p>
+                                <p>{{ order.billing.address }}</p>
+                                <p>{{ order.billing.city }}, {{ order.billing.country }}</p>
+                                <p>{{ order.billing.zip }}</p>
+                                <p>{{ order.billing.phone }}</p>
+                            </address>
                         </div>
 
                         <div>
                             <h4>Adresse de livraison</h4>
-                            <p><b>{{ order.shipping.name }}</b></p>
-                            <p>{{ order.shipping.address }}</p>
-                            <p>{{ order.shipping.city }}, {{ order.shipping.country }}</p>
-                            <p>{{ order.shipping.zip }}</p>
-                            <p>{{ order.shipping.phone }}</p>
+                            <address>
+                                <p><strong>{{ order.shipping.name }}</strong></p>
+                                <p>{{ order.shipping.address }}</p>
+                                <p>{{ order.shipping.city }}, {{ order.shipping.country }}</p>
+                                <p>{{ order.shipping.zip }}</p>
+                                <p>{{ order.shipping.phone }}</p>
+                            </address>
                         </div>
                     </div>
 
                     <div class="product-summary">
                         <h4>Produits de la commande ({{ getTotalQuantity(order) }} articles)</h4>
-
-                        @for (item of order.items; track item.id) {
-                            <div class="product-line">
-                                <div class="product-info">
-                                    <img [src]="item.imageUrl" alt="{{ item.name }}" />
-                                    <div class="details">
-                                        <span class="name">{{ item.name }}</span>
-                                        <span class="qty">× {{ item.quantity }}</span>
+                        <ul>
+                            @for (item of order.items; track item.id) {
+                                <li class="product-line">
+                                    <div class="product-info">
+                                        <img
+                                                [src]="item.imageUrl"
+                                                [alt]="'Photo du produit ' + item.name"
+                                                width="45"
+                                                height="45"
+                                                loading="lazy"
+                                        />
+                                        <div class="details">
+                                            <span class="name">{{ item.name }}</span>
+                                            <span class="qty">× {{ item.quantity }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="product-price">
-                  <span>
-                    {{ getItemTotal(item.price, item.quantity) | currency:'EUR':'symbol':'1.2-2' }}
-                  </span>
-                                </div>
-                            </div>
-                        }
+                                    <div class="product-price">
+                    <span>
+                      {{ getItemTotal(item.price, item.quantity) | currency:'EUR':'symbol':'1.2-2' }}
+                    </span>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
                     </div>
 
                     <div class="payment">
@@ -93,21 +149,21 @@
                                 {{ order.payment.tax | currency:'EUR':'symbol':'1.2-2' }}
                             </li>
                             <li>
-                                <b>
+                                <strong>
                                     Total :
                                     {{ order.payment.total | currency:'EUR':'symbol':'1.2-2' }}
-                                </b>
+                                </strong>
                             </li>
                         </ul>
                     </div>
                 </div>
             }
-        </div>
+        </article>
     }
 
-    @if (!filteredOrders().length) {
-        <div class="no-orders">
-            <p>Aucune commande trouvée pour ce statut.</p>
-        </div>
+    @if (!filteredOrders(sorter.selectedSort()).length) {
+        <p class="no-orders" role="status">
+            Aucune commande trouvée pour ce statut.
+        </p>
     }
-</div>
+</section>

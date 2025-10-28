@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = function (config) {
     baseConfig(config, {
-        files: ['../unit/**/*.spec.ts'],
+        files: ['../../../*.spec.ts'],
         coverageReporter: {
             dir: path.resolve(__dirname, '../../../../coverage/unit'),
             subdir: '.',
