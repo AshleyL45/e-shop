@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {OrderApi} from './order-api.service';
 import { OrderStore } from './order.store';
+import {Order} from "../../../core/models/order.model";
 
 @Injectable({ providedIn: 'root' })
 export class OrderFacade {
@@ -21,5 +22,9 @@ export class OrderFacade {
         } finally {
             this.store.setLoading(false);
         }
+    }
+
+    updateOrderStatus(orderId: string, newStatus: Order['status']) {
+        this.store.updateOrderStatus(orderId, newStatus);
     }
 }

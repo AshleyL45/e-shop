@@ -59,8 +59,8 @@
                     </time>
                     <span
                             [ngClass]="getStatusClass(order.status)"
-                            [attr.aria-label]="'Statut : ' + order.status">
-            {{ order.status }}
+                            [attr.aria-label]="'Statut : ' + getStatusLabel(order.status)">
+            {{ getStatusLabel(order.status) }}
           </span>
                     <strong aria-label="Montant total">
                         {{ getCalculatedTotal(order) | currency:'EUR':'symbol':'1.2-2' }}
@@ -79,6 +79,16 @@
                         [id]="'order-' + order.id"
                         role="region"
                         [attr.aria-label]="'Détails de la commande ' + order.id">
+
+                    <div class="order-actions">
+                        <button
+                                type="button"
+                                class="btn-status"
+                                (click)="openStatusModal(order)"
+                                aria-label="Modifier le statut de la commande {{ order.id }}">
+                            Modifier le statut
+                        </button>
+                    </div>
 
                     <div class="addresses">
                         <div>
@@ -166,4 +176,11 @@
             Aucune commande trouvée pour ce statut.
         </p>
     }
+
+    <app-change-status-modal
+            [isOpen]="isModalOpen()"
+            [order]="selectedOrder()!"
+            (close)="closeModal()"
+            (saveStatus)="updateOrderStatus($event)">
+    </app-change-status-modal>
 </section>

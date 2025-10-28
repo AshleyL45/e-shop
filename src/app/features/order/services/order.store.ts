@@ -18,4 +18,12 @@ export class OrderStore {
     setError(message: string | null) {
         this.error.set(message);
     }
+
+    updateOrderStatus(orderId: string, newStatus: Order['status']): void {
+        this.orders.update((orders) =>
+            orders.map((order) =>
+                order.id === orderId ? { ...order, status: newStatus } : order
+            )
+        );
+    }
 }

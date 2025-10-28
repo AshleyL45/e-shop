@@ -77,4 +77,5 @@ export abstract class BaseApi {
     // orderModel : séparer shipping, adress, payment
     // app.ts : loadingService à injecter ailleurs
     // fichier ??? : injection du service pas comme dans le cours sans inject
+    // intégrer les notifications primeng ou alors le même design
 }

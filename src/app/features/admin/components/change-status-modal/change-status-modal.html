@@ -1,0 +1,35 @@
+@if (isOpen && order) {
+    <div class="modal-backdrop" (click)="onCancel()"></div>
+
+    <div class="modal-window" role="dialog" aria-modal="true">
+        <header class="modal-header">
+            <h3>Modifier le statut de la commande {{ order.id }}</h3>
+        </header>
+
+        <section class="modal-body">
+            <div class="current-status">
+                <label>Statut actuel :</label>
+                <span
+                        class="badge"
+                        [ngClass]="getStatusClass(order.status)">
+    {{ getStatusLabel(order.status) }}
+  </span>
+            </div>
+
+
+            <div class="new-status">
+                <label for="status-select">Nouveau statut :</label>
+                <select id="status-select" [(ngModel)]="selectedStatus">
+                    @for (option of statusOptions; track option.value) {
+                        <option [value]="option.value">{{ option.label }}</option>
+                    }
+                </select>
+            </div>
+        </section>
+
+        <footer class="modal-actions">
+            <button class="cancel" (click)="onCancel()">Annuler</button>
+            <button class="save" (click)="onSave()">Enregistrer</button>
+        </footer>
+    </div>
+}
