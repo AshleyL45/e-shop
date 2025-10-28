@@ -64,6 +64,22 @@ export const routes: Routes = [
     },
 
     {
+        path: 'profile',
+        children: [
+            {
+                path: 'account',
+                title: 'Mon Compte',
+                loadComponent: () => import('../features/home/pages/account.page'),
+            },
+            {
+                path: 'setting',
+                title: 'Paramètres',
+                loadComponent: () => import('../features/home/pages/setting.page'),
+            },
+        ],
+    },
+
+    {
         path: 'cart',
         title: 'Cart',
         loadComponent: () => import('../features/cart/pages/cart.page'),

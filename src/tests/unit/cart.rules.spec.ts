@@ -1,5 +1,5 @@
-import { CartRules } from '@app/features/cart/services/cart.rules';
-import { CartItem } from '@app/features/cart/services/cart.service';
+import {CartItem} from "@app/features/cart/services/cart.service";
+import {CartRules} from "@app/features/cart/services/cart.rules";
 
 describe('CartRules (unit tests)', () => {
     let product: Partial<CartItem>;

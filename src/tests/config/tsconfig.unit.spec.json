@@ -1,8 +1,4 @@
 {
   "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "types": ["jasmine"]
-  },
-  "include": ["../unit/**/*.spec.ts"],
-  "files": []
+  "include": ["../unit/**/*.spec.ts"]
 }

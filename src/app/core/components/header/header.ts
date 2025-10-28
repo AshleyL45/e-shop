@@ -33,6 +33,14 @@ export class Header {
                 { label: 'Connexion', path: '/auth/login' },
                 { label: 'Inscription', path: '/auth/register' }
             ]
+        },
+        {
+            label: 'Profile',
+            icon: 'pi pi-user',
+            children: [
+                { label: 'Mon Compte', path: '/profile/account' },
+                { label: 'Inscription', path: '/profile/setting' }
+            ]
         }
     ]);
 

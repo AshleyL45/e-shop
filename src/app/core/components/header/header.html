@@ -16,10 +16,10 @@
                     </a>
                 </li>
 
-
-
                 <li role="none">
-                    <a routerLink="/products" routerLinkActive="active" class="nav-item" role="menuitem"
+                    <a
+                            routerLink="/products"
+                            routerLinkActive="active"
                             [class.active]="activeDropdown() === 'products'"
                             class="nav-item"
                             aria-haspopup="true"
@@ -94,14 +94,10 @@
                                 aria-label="Sous-menu Authentification"
                         >
                             <li role="none">
-                                <a routerLink="/auth/login" class="nav-item" role="menuitem">
-                                    Connexion
-                                </a>
+                                <a routerLink="/auth/login" class="nav-item" role="menuitem">Connexion</a>
                             </li>
                             <li role="none">
-                                <a routerLink="/auth/register" class="nav-item" role="menuitem">
-                                    Inscription
-                                </a>
+                                <a routerLink="/auth/register" class="nav-item" role="menuitem">Inscription</a>
                             </li>
                         </ul>
                     }
@@ -120,16 +116,44 @@
                 />
             </div>
 
-            <app-cart-popover
-                    role="region"
-                    aria-label="Aperçu du panier"
-            ></app-cart-popover>
+            <app-cart-popover role="region" aria-label="Aperçu du panier"></app-cart-popover>
 
-            <img
-                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                    alt="Photo de profil de l’utilisateur"
-                    class="avatar"
-            />
+            <div
+                    class="dropdown avatar-dropdown"
+                    (mouseenter)="toggleDropdown('profile')"
+                    (mouseleave)="closeDropdown()"
+                    role="none"
+            >
+                <button
+                        class="avatar-button"
+                        aria-haspopup="true"
+                        [attr.aria-expanded]="activeDropdown() === 'profile'"
+                        aria-controls="menu-profile"
+                        role="menuitem"
+                >
+                    <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                            alt="Photo de profil de l’utilisateur"
+                            class="avatar"
+                    />
+                </button>
+
+                @if (activeDropdown() === 'profile') {
+                    <ul
+                            class="dropdown-menu"
+                            id="menu-profile"
+                            role="menu"
+                            aria-label="Sous-menu Profil"
+                    >
+                        <li role="none">
+                            <a routerLink="/profile/account" class="nav-item" role="menuitem">Mon Compte</a>
+                        </li>
+                        <li role="none">
+                            <a routerLink="/profile/setting" class="nav-item" role="menuitem">Paramètres</a>
+                        </li>
+                    </ul>
+                }
+            </div>
         </div>
     </nav>
 </header>

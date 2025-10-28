@@ -1,17 +1,15 @@
+// src/tests/config/karma.unit.conf.js
 const baseConfig = require('./karma.base.conf');
 const path = require('path');
 
 module.exports = function (config) {
     baseConfig(config, {
-        files: ['../../../*.spec.ts'],
+        files: ['../unit/*.spec.ts'],
         coverageReporter: {
-            dir: path.resolve(__dirname, '../../../../coverage/unit'),
+            dir: path.resolve(__dirname, '../../../coverage/unit'),
             subdir: '.',
-            reporters: [
-                { type: 'html' },
-                { type: 'text-summary' }
-            ],
+            reporters: [{ type: 'html' }, { type: 'text-summary' }],
         },
-        tsConfig: '../config/tsconfig.unit.spec.json',
+        tsConfig: './tsconfig.unit.spec.json',
     });
 };
