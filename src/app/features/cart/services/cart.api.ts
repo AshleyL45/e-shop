@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from './cart.service';
 import { BaseApi } from '../../../shared/services/base.api';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CartApi extends BaseApi {
-    protected override readonly BASE_URL = '/';
+    protected override readonly BASE_URL = `${environment.apiUrl}/cart`;
 
     async persistAdd(item: Partial<CartItem>): Promise<void> {
         console.log('[API] Produit ajouté :', item);
-        await this.post<void>('/', item);
+        await this.post<void>('', item); // ✅ retiré le slash final
     }
 
     async persistUpdate(id: number, qty: number): Promise<void> {
