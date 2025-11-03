@@ -1,0 +1,130 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.modal-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  width: 600px;
+  max-width: 90vw;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.current-status {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  label {
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .status {
+    &.pending {
+      background-color: #e5e7eb;
+      color: #374151;
+    }
+
+    &.delivery {
+      background-color: #ffedd5;
+      color: #9a3412;
+    }
+
+    &.delivered {
+      background-color: #dcfce7;
+      color: #065f46;
+    }
+  }
+
+  .badge {
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-block;
+  }
+
+
+}
+
+.new-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  select {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+    font-size: 1rem;
+    color: #111827;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: #0081a7;
+      box-shadow: 0 0 0 2px rgba(0, 129, 167, 0.2);
+      outline: none;
+    }
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-top: 4rem;
+  }
+
+  .cancel {
+    background: #e5e7eb;
+    color: #374151;
+
+    &:hover {
+      background: #d1d5db;
+    }
+  }
+
+  .save {
+    background: #65a648;
+    color: white;
+
+    &:hover {
+      background: #146220;
+    }
+  }
+}
+

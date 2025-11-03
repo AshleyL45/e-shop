@@ -1,0 +1,90 @@
+<app-back-button targetRoute="/products" label="Retour à la liste des produits"></app-back-button>
+
+
+<section class="product-detail-container">
+<div class="product-detail-grid">
+
+        <div class="product-media">
+            <img
+                    [src]="product?.imageUrl"
+                    [alt]="product?.name"
+                    class="main-image"
+            />
+
+            <app-favorite-button
+                    [isFavorite]="product?.isFavorite ?? false"
+                    (toggle)="onToggleFavorite()"
+            ></app-favorite-button>
+        </div>
+
+        <div class="product-info">
+            <div class="header">
+                <div class="title-section">
+                    <div class="title-row">
+                        <h1>{{ product?.name }}</h1>
+                        <div class="rating" (click)="onRatingClick($event)">
+                            <i class="pi pi-star-fill"></i>
+                            <span>{{ product?.rating }}</span>
+                        </div>
+                    </div>
+
+                    <p class="scientific-name">{{ product?.scientificName }}</p>
+                </div>
+            </div>
+
+
+
+            <div class="price">
+                {{ product?.price | currency:'EUR':'symbol':'1.2-2':'fr' }}
+            </div>
+
+            <div class="size">
+                <label>Size</label>
+                <div class="size-options">
+                    @for (size of sizes; track size) {
+                        <div
+                                class="size-option"
+                                [class.active]="selectedSize === size"
+                                (click)="selectSize(size)"
+                        >
+                            {{ size }}
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="stock-status">
+                @if (product?.inStock) {
+                    <span class="in-stock">✅ En stock</span>
+                } @else {
+                    <span class="out-of-stock">❌ Rupture de stock</span>
+                }
+            </div>
+            <button
+                    pButton
+                    class="add-btn"
+                    (click)="addToCart()"
+                    [disabled]="!product?.inStock"
+            >
+                <i class="pi pi-shopping-cart mr-2"></i>
+                Add to Cart
+            </button>
+
+            <p-accordion>
+                <ng-template pTemplate="header">About Product</ng-template>
+                <div class="text">{{ product?.description }}</div>
+            </p-accordion>
+        </div>
+    </div>
+</section>
+
+<app-product-review-dialog
+        [visible]="showReviewDialog"
+        [productName]="productNameSafe"
+        (reviewSubmitted)="onReviewSubmitted($event)"
+        (closed)="closeReviewDialog()"
+></app-product-review-dialog>
+
+<div class="product-tabs-container">
+    <app-product-tabs [product]="product"></app-product-tabs>
+</div>
+

@@ -1,0 +1,16 @@
+<div class="search-bar" [class.focused]="isFocused()">
+    <i class="pi pi-search"></i>
+
+    <input
+            type="text"
+            placeholder="Search"
+            [ngModel]="searchTerm()"
+            (ngModelChange)="onInputChange($event)"
+            (keydown)="onEnter($event)"
+            (focus)="onFocus(true)"
+            (blur)="onFocus(false)"
+    />
+
+
+
+</div>

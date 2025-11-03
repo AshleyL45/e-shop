@@ -1,0 +1,30 @@
+<div class="product-list-container">
+
+    <app-filter (categorySelected)="onFilterChange($event)"></app-filter>
+
+
+<div class="product-grid">
+    @for (p of filteredProducts(); track p.id) {
+        <app-product-card
+                [product]="getProductWithRating(p)"
+                (reviewSubmitted)="onReviewAdded($event)"
+                (productAddedToCart)="productAddedToCart.emit($event)"
+                (productAddedToFavorites)="productAddedToFavorites.emit($event)"
+                (productRemovedFromFavorites)="productRemovedFromFavorites.emit($event)"
+        ></app-product-card>
+    }
+
+
+
+    <div class="product-grid__paginator">
+        <div class="product-grid__paginator-box">
+            <p-paginator
+                    (onPageChange)="onPageChange($event)"
+                    [first]="first"
+                    [rows]="rows"
+                    [totalRecords]="120"
+            ></p-paginator>
+        </div>
+    </div>
+</div>
+</div>

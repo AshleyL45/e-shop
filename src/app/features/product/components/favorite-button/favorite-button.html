@@ -1,0 +1,8 @@
+<button
+        pButton
+        type="button"
+        class="favorite-btn"
+        [icon]="isFavorite() ? 'pi pi-heart-fill' : 'pi pi-heart'"
+        (click)="onToggle($event)"
+        [ngClass]="{ 'favorite-active': isFavorite() }"
+></button>

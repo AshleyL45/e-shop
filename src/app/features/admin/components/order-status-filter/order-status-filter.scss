@@ -1,0 +1,58 @@
+.status-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+
+  .select-wrapper {
+    position: relative;
+    display: inline-block;
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      padding: 0.4rem 1.8rem 0.4rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+      cursor: pointer;
+      background-color: #fff;
+      color: #333;
+      min-width: 140px;
+
+      &:focus {
+        outline: none;
+        border-color: #15803d;
+        box-shadow: 0 0 0 2px rgba(0, 129, 167, 0.2);
+      }
+    }
+
+    .dropdown-icon {
+      position: absolute;
+      right: 0.6rem;
+      top: 60%;
+      transform: translateY(-50%);
+      color: #888;
+      font-size: 0.8rem;
+      pointer-events: none;
+    }
+  }
+
+  .clear-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    font-size: 1rem;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}

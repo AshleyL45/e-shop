@@ -1,0 +1,17 @@
+<div class="status-filter">
+    <label>Statut</label>
+
+    <div class="select-wrapper">
+        <select [value]="selectedStatus() ?? ''" (change)="onSelect($event)">
+            @for (opt of statusOptions; track opt.value) {
+                <option [value]="opt.value ?? ''">{{ opt.label }}</option>
+            }
+        </select>
+
+        <span class="dropdown-icon">
+      <i class="pi pi-chevron-down"></i>
+    </span>
+    </div>
+
+
+</div>

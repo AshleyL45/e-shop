@@ -1,0 +1,33 @@
+.filters {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+button {
+  background-color: #B94949;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #833333;
+    border-color: #833333;
+    transform: scale(1.03);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+button.active {
+  background-color: #B94949;
+}

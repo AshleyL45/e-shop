@@ -1,0 +1,61 @@
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.3s, transform 0.2s;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+
+  &:hover {
+    color: #1b5e20;
+    transform: translateX(-3px);
+    background-color: rgba(27, 94, 32, 0.05);
+  }
+
+  .pi {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .back-button {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1b5e20;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 0.55rem 0.9rem;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    outline: none;
+    cursor: pointer;
+    z-index: 1000;
+
+    transition: background-color 0.15s ease, transform 0.1s ease;
+  }
+
+  .back-button:active {
+    background-color: #f1f1f1;
+    transform: scale(0.97);
+  }
+
+  .back-button .pi {
+    font-size: 1.1rem;
+  }
+}

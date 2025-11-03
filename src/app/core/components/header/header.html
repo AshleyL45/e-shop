@@ -1,0 +1,159 @@
+<header role="banner" aria-label="En-tête principal du site">
+    <nav class="navbar" role="navigation" aria-label="Navigation principale du site">
+        <div class="nav-left">
+            <ul role="menubar" aria-label="Liens principaux">
+                <li role="none">
+                    <a
+                            routerLink="/"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="nav-item"
+                            role="menuitem"
+                            aria-current="page"
+                    >
+                        <i class="pi pi-home" aria-hidden="true"></i>
+                        <span>Accueil</span>
+                    </a>
+                </li>
+
+                <li role="none">
+                    <a
+                            routerLink="/products"
+                            routerLinkActive="active"
+                            [class.active]="activeDropdown() === 'products'"
+                            class="nav-item"
+                            aria-haspopup="true"
+                            [attr.aria-expanded]="activeDropdown() === 'products'"
+                            aria-controls="menu-products"
+                            role="menuitem"
+                    >
+                        <i class="pi pi-shopping-cart" aria-hidden="true"></i>
+                        <span>Produits</span>
+                    </a>
+                </li>
+
+                <li role="none">
+                    <a routerLink="/about" routerLinkActive="active" class="nav-item" role="menuitem">
+                        <i class="pi pi-info-circle" aria-hidden="true"></i>
+                        <span>À propos</span>
+                    </a>
+                </li>
+
+                <li role="none">
+                    <a routerLink="/setting" routerLinkActive="active" class="nav-item" role="menuitem">
+                        <i class="pi pi-cog" aria-hidden="true"></i>
+                        <span>Paramètres</span>
+                    </a>
+                </li>
+
+                <li role="none">
+                    <a routerLink="/admin" routerLinkActive="active" class="nav-item" role="menuitem">
+                        <i class="pi pi-shield" aria-hidden="true"></i>
+                        <span>Admin</span>
+                    </a>
+                </li>
+
+                <li role="none">
+                    <a routerLink="/cart" routerLinkActive="active" class="nav-item" role="menuitem">
+                        <i class="pi pi-cart-arrow-down" aria-hidden="true"></i>
+                        <span>Panier</span>
+                    </a>
+                </li>
+
+                <li role="none">
+                    <a routerLink="/error" routerLinkActive="active" class="nav-item" role="menuitem">
+                        <i class="pi pi-times-circle" aria-hidden="true"></i>
+                        <span>Erreur</span>
+                    </a>
+                </li>
+
+                <li
+                        class="dropdown"
+                        (mouseenter)="toggleDropdown('auth')"
+                        (mouseleave)="closeDropdown()"
+                        role="none"
+                >
+                    <button
+                            [class.active]="activeDropdown() === 'auth'"
+                            class="nav-item"
+                            aria-haspopup="true"
+                            [attr.aria-expanded]="activeDropdown() === 'auth'"
+                            aria-controls="menu-auth"
+                            role="menuitem"
+                    >
+                        <i class="pi pi-user" aria-hidden="true"></i>
+                        <span>Auth</span>
+                        <i class="pi pi-chevron-down" aria-hidden="true"></i>
+                    </button>
+
+                    @if (activeDropdown() === 'auth') {
+                        <ul
+                                class="dropdown-menu"
+                                id="menu-auth"
+                                role="menu"
+                                aria-label="Sous-menu Authentification"
+                        >
+                            <li role="none">
+                                <a routerLink="/auth/login" class="nav-item" role="menuitem">Connexion</a>
+                            </li>
+                            <li role="none">
+                                <a routerLink="/auth/register" class="nav-item" role="menuitem">Inscription</a>
+                            </li>
+                        </ul>
+                    }
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav-right" role="group" aria-label="Outils utilisateur">
+            <div class="search-container">
+                <label for="site-search" class="sr-only">Rechercher sur le site</label>
+                <input
+                        id="site-search"
+                        type="search"
+                        placeholder="Rechercher..."
+                        aria-label="Champ de recherche"
+                />
+            </div>
+
+            <app-cart-popover role="region" aria-label="Aperçu du panier"></app-cart-popover>
+
+            <div
+                    class="dropdown avatar-dropdown"
+                    (mouseenter)="toggleDropdown('profile')"
+                    (mouseleave)="closeDropdown()"
+                    role="none"
+            >
+                <button
+                        class="avatar-button"
+                        aria-haspopup="true"
+                        [attr.aria-expanded]="activeDropdown() === 'profile'"
+                        aria-controls="menu-profile"
+                        role="menuitem"
+                >
+                    <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                            alt="Photo de profil de l’utilisateur"
+                            class="avatar"
+                    />
+                </button>
+
+                @if (activeDropdown() === 'profile') {
+                    <ul
+                            class="dropdown-menu"
+                            id="menu-profile"
+                            role="menu"
+                            aria-label="Sous-menu Profil"
+                    >
+                        <li role="none">
+                            <a routerLink="/profile/account" class="nav-item" role="menuitem">Mon Compte</a>
+                        </li>
+                        <li role="none">
+                            <a routerLink="/profile/setting" class="nav-item" role="menuitem">Paramètres</a>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </nav>
+</header>

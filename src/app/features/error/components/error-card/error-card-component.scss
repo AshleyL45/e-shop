@@ -1,0 +1,54 @@
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #F5F7FA;
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+}
+
+.error-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  max-width: 500px;
+}
+
+.error-title {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #40573F;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.error-subtitle {
+  font-size: 1.8rem;
+  margin: 0.5rem 0 1rem;
+  color: #333;
+}
+
+.error-text {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+:host ::ng-deep .custom-btn {
+  background-color: #52784d !important;
+  border: none !important;
+  color: #fff !important;
+  font-weight: 500;
+  padding: 0.8rem 2rem !important;
+  border-radius: 25px !important;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #40573f !important;
+    transform: scale(1.05);
+  }
+}
+

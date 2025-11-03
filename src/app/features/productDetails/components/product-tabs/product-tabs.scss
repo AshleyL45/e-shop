@@ -1,0 +1,171 @@
+.product-tabs-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.product-tabs-root .p-tablist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  border-bottom: 1px solid #e5e7eb;
+  background: transparent;
+  padding: 0.75rem 0;
+  flex-wrap: wrap;
+}
+
+.product-tabs-root .p-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: #4b5563;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.product-tabs-root .p-tab:hover {
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.product-tabs-root .p-tab.p-highlight {
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.product-tabs-root .p-tab.p-highlight::after {
+  content: none !important;
+  display: none !important;
+  border: none !important;
+}
+
+.product-tabs-root .p-tab i {
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+.product-tabs-root .p-tabpanels {
+  margin-top: 1.25rem;
+  width: 100%;
+  color: #374151;
+  line-height: 1.6;
+  text-align: left;
+  padding: 0 0.5rem;
+}
+
+.tabs-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.tabs-wrapper .p-tabs {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  padding: 24px 32px 32px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1000px;
+}
+
+@media (max-width: 768px) {
+  .product-tabs-root .p-tablist {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .product-tabs-root .p-tab {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+}
+
+
+
+:host ::ng-deep .p-tablist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  border-bottom: none;
+  padding: 0.75rem 0;
+  flex-wrap: wrap;
+}
+
+:host ::ng-deep .p-tab > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #4b5563;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+:host ::ng-deep .p-tab > button:hover {
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #1f2937;
+}
+
+:host ::ng-deep .p-tab.p-highlight > button {
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+:host ::ng-deep .p-tab.p-highlight::after {
+  content: none !important;
+  display: none !important;
+  border: none !important;
+}
+
+:host ::ng-deep .p-tab i {
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+
+:host ::ng-deep [data-pc-name="tabs"] [data-pc-section="tab"] > button {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+
+:host ::ng-deep [data-pc-name="tabs"] [data-pc-section="tab"] > button:hover {
+  background-color: #f3f4f6 !important;
+  border-color: #e5e7eb !important;
+  color: #1f2937 !important;
+}
+
+:host ::ng-deep [data-pc-name="tabs"] [data-pc-section="tab"][aria-selected="true"] > button {
+  background-color: #f3f4f6 !important;
+  border-color: #e5e7eb !important;
+  color: #1f2937 !important;
+  font-weight: 600;
+}
+
+:host ::ng-deep [data-pc-name="tabs"] [data-pc-section="tab"][aria-selected="true"]::after {
+  content: none !important;
+  display: none !important;
+}

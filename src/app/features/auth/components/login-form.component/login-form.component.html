@@ -1,0 +1,82 @@
+<div class="login-container">
+    <div class="login-box">
+        <div class="login-illustration">
+            <img src="https://www.greennursery.ma/wp-content/uploads/2023/02/livraison_plantes_interieur_calathea_lagreentouch_fe8fe777-ab6d-4e66-b071-5c3550b9ef3c.webp" alt="Student Illustration">
+        </div>
+
+        <div class="login-form">
+            <h1>Connexion</h1>
+            <p class="subtitle">Accédez à votre espace client pour suivre vos commandes</p>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="field">
+                    <input
+                            pInputText
+                            formControlName="email"
+                            placeholder="Entrez votre e-mail"
+                            [ngClass]="{'invalid': loginForm.controls.email.invalid && loginForm.controls.email.touched}"
+                    />
+                    @if (loginForm.controls.email.errors?.['required'] && loginForm.controls.email.touched) {
+                        <small class="error">L'email est requis</small>
+                    }
+                    @if (loginForm.controls.email.errors?.['email'] && loginForm.controls.email.touched) {
+                        <small class="error">Email invalide</small>
+                    }
+                </div>
+
+                <div class="field">
+                    <input
+                            pInputText
+                            type="password"
+                            formControlName="password"
+                            placeholder="Entrez votre mot de passe"
+                            [ngClass]="{'invalid': loginForm.controls.password.invalid && loginForm.controls.password.touched}"
+                    />
+                    @if (loginForm.controls.password.errors?.['required'] && loginForm.controls.password.touched) {
+                        <small class="error">Le mot de passe est requis</small>
+                    }
+                    @if (loginForm.controls.password.errors?.['minlength'] && loginForm.controls.password.touched) {
+                        <small class="error">Minimum 6 characters</small>
+                    }
+                </div>
+
+                <button
+                        pButton
+                        type="submit"
+                        label="Log In"
+                        class="btn-login"
+                        [disabled]="loginForm.invalid"
+                >Se connecter</button>
+            </form>
+
+            <p-divider align="center">Ou connectez-vous avec</p-divider>
+
+            <div class="social-buttons">
+                <button pButton class="p-button-outlined p-button-rounded google-btn">
+                    <img
+                            src="https://www.svgrepo.com/show/475656/google-color.svg"
+                            alt="Google logo"
+                    />
+                    <span>Google</span>
+                </button>
+
+                <button pButton class="p-button-outlined p-button-rounded facebook-btn">
+                    <img
+                            src="https://www.svgrepo.com/show/475647/facebook-color.svg"
+                            alt="Facebook logo"
+                    />
+                    <span>Facebook</span>
+                </button>
+            </div>
+
+
+
+            <p class="footer-text">
+                Vous n’avez pas encore de compte ?
+                <a routerLink="/auth/register">Inscrivez-vous</a>
+            </p>
+
+
+        </div>
+    </div>
+</div>

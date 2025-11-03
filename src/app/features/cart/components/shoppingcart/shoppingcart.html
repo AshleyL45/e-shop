@@ -1,0 +1,116 @@
+<div class="shoppingcart-wrapper">
+
+    <div class="cart-card">
+
+        <div class="cart-header">
+            <span>Votre panier</span>
+            <button
+                    class="clear-cart-btn"
+                    (click)="clearCart()"
+                    [disabled]="!cartItems().length"
+                    data-testid="clear-cart-btn"
+            >
+                <i class="pi pi-trash"></i> Vider
+            </button>
+
+        </div>
+
+        @if (cartItems().length > 0) {
+            @for (item of cartItems(); track item.id) {
+                <div class="cart-item">
+                    <div class="item-left">
+                        <img [src]="item.imageUrl" [alt]="item.name" class="item-image" />
+                        <div class="item-text">
+                            <div class="item-name">{{ item.name }}</div>
+                            <div class="item-description">{{ item.description }}</div>
+                        </div>
+                    </div>
+
+                    <div class="item-right">
+                        <div class="quantity-price">
+                            <p-inputNumber
+                                    [(ngModel)]="item.quantity"
+                                    [min]="1"
+                                    [showButtons]="true"
+                                    buttonLayout="horizontal"
+                                    spinnerMode="horizontal"
+                                    inputStyleClass="qty-input"
+                                    incrementButtonIcon="pi pi-plus"
+                                    decrementButtonIcon="pi pi-minus"
+                                    incrementButtonClass="p-button-text"
+                                    decrementButtonClass="p-button-text"
+                                    data-testid="input-quantity"
+                                    (click)="onManualQuantityChange(item.id, item.quantity)"
+                            ></p-inputNumber>
+
+
+
+
+
+
+                            <span
+                                    class="item-price"
+                                    data-testid="item-price"
+                            >
+                {{ item.price * item.quantity | currency:'EUR':'symbol':'1.2-2':'fr-FR' }}
+              </span>
+                        </div>
+
+                        <button
+                                pButton
+                                pRipple
+                                icon="pi pi-trash"
+                                class="delete-btn"
+                                (click)="removeItem(item.id)"
+                                data-testid="delete-btn"
+                        ></button>
+                    </div>
+                </div>
+            }
+        } @else {
+            <div class="empty-cart">
+                <p data-testid="empty-cart">Votre panier est vide 🛒</p>
+            </div>
+        }
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-header">Récapitulatif</div>
+
+        <div class="summary-row">
+            <span>Sous-total</span>
+            <span>{{ subtotal | currency:'EUR':'symbol':'1.2-2':'fr-FR' }}</span>
+        </div>
+
+        <div class="summary-row">
+            <span>Livraison</span>
+            <span>Gratuite</span>
+        </div>
+
+        <div class="summary-row">
+            <span>TVA</span>
+            <span>{{ tax | currency:'EUR':'symbol':'1.2-2':'fr-FR' }}</span>
+        </div>
+
+        <div class="summary-separator"></div>
+
+        <div class="summary-total">
+            <span>Total</span>
+            <span data-testid="cart-total">
+        {{ total | currency:'EUR':'symbol':'1.2-2':'fr-FR' }}
+      </span>
+        </div>
+
+        <button
+                class="place-order"
+                [disabled]="!cartItems().length"
+                (click)="onCheckout()"
+                data-testid="checkout-btn"
+        >
+            Passer la commande
+        </button>
+
+
+    </div>
+
+</div>

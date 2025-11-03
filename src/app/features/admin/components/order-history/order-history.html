@@ -1,0 +1,186 @@
+<section class="orders" aria-labelledby="orders-title">
+    <div class="filters-bar" role="region" aria-label="Filtres de commandes">
+        <div class="filters-left">
+            <app-order-status-filter
+                    (filter)="onFilter($event)"
+                    aria-label="Filtrer les commandes par statut">
+            </app-order-status-filter>
+
+            <app-order-date-sorter
+                #sorter
+                aria-label="Trier les commandes par date">
+            </app-order-date-sorter>
+        </div>
+
+        <div class="filters-right">
+            <app-search-bar
+                    (search)="onSearch($event)"
+                    aria-label="Rechercher une commande par numéro">
+            </app-search-bar>
+        </div>
+    </div>
+
+    @for (order of filteredOrders(sorter.selectedSort()); track order.id) {
+        <article
+                class="order"
+                [attr.aria-expanded]="expanded() === order.id"
+                [attr.aria-controls]="'order-' + order.id"
+                role="group"
+                [attr.aria-label]="'Commande ' + order.id">
+
+            <header
+                    class="order-header"
+                    role="button"
+                    tabindex="0"
+                    (click)="toggle(order.id)"
+                    (keydown.enter)="toggle(order.id)"
+                    [attr.aria-label]="'Afficher les détails de la commande ' + order.id">
+
+                <div class="left">
+                    <img
+                            [src]="order.items[0].imageUrl"
+                            [alt]="'Photo du produit ' + order.items[0].name"
+                            width="55"
+                            height="55"
+                            loading="lazy"
+                    />
+                    <div>
+                        <h3>{{ order.items[0].name }}</h3>
+                        <p class="muted">{{ order.items[0].category }}</p>
+                    </div>
+                </div>
+
+                <div class="right">
+                    <span class="id" aria-label="Numéro de commande">{{ order.id }}</span>
+                    <time
+                            [attr.datetime]="order.date | date:'yyyy-MM-dd'"
+                            aria-label="Date de commande">
+                        {{ order.date | date:'dd/MM/yyyy' }}
+                    </time>
+                    <span
+                            [ngClass]="getStatusClass(order.status)"
+                            [attr.aria-label]="'Statut : ' + getStatusLabel(order.status)">
+            {{ getStatusLabel(order.status) }}
+          </span>
+                    <strong aria-label="Montant total">
+                        {{ getCalculatedTotal(order) | currency:'EUR':'symbol':'1.2-2' }}
+                    </strong>
+                    <i
+                            class="pi"
+                            [ngClass]="expanded() === order.id ? 'pi-chevron-up' : 'pi-chevron-down'"
+                            aria-hidden="true">
+                    </i>
+                </div>
+            </header>
+
+            @if (expanded() === order.id) {
+                <div
+                        class="order-body"
+                        [id]="'order-' + order.id"
+                        role="region"
+                        [attr.aria-label]="'Détails de la commande ' + order.id">
+
+                    <div class="order-actions">
+                        <button
+                                type="button"
+                                class="btn-status"
+                                (click)="openStatusModal(order)"
+                                aria-label="Modifier le statut de la commande {{ order.id }}">
+                            Modifier le statut
+                        </button>
+                    </div>
+
+                    <div class="addresses">
+                        <div>
+                            <h4>Adresse de facturation</h4>
+                            <address>
+                                <p><strong>{{ order.billing.name }}</strong></p>
+                                <p>{{ order.billing.address }}</p>
+                                <p>{{ order.billing.city }}, {{ order.billing.country }}</p>
+                                <p>{{ order.billing.zip }}</p>
+                                <p>{{ order.billing.phone }}</p>
+                            </address>
+                        </div>
+
+                        <div>
+                            <h4>Adresse de livraison</h4>
+                            <address>
+                                <p><strong>{{ order.shipping.name }}</strong></p>
+                                <p>{{ order.shipping.address }}</p>
+                                <p>{{ order.shipping.city }}, {{ order.shipping.country }}</p>
+                                <p>{{ order.shipping.zip }}</p>
+                                <p>{{ order.shipping.phone }}</p>
+                            </address>
+                        </div>
+                    </div>
+
+                    <div class="product-summary">
+                        <h4>Produits de la commande ({{ getTotalQuantity(order) }} articles)</h4>
+                        <ul>
+                            @for (item of order.items; track item.id) {
+                                <li class="product-line">
+                                    <div class="product-info">
+                                        <img
+                                                [src]="item.imageUrl"
+                                                [alt]="'Photo du produit ' + item.name"
+                                                width="45"
+                                                height="45"
+                                                loading="lazy"
+                                        />
+                                        <div class="details">
+                                            <span class="name">{{ item.name }}</span>
+                                            <span class="qty">× {{ item.quantity }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                    <span>
+                      {{ getItemTotal(item.price, item.quantity) | currency:'EUR':'symbol':'1.2-2' }}
+                    </span>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="payment">
+                        <h4>Informations de paiement</h4>
+                        <p>{{ order.payment.card }}</p>
+                        <ul>
+                            <li>
+                                Sous-total :
+                                {{ order.payment.subtotal | currency:'EUR':'symbol':'1.2-2' }}
+                            </li>
+                            <li>
+                                Livraison :
+                                {{ order.payment.shipping | currency:'EUR':'symbol':'1.2-2' }}
+                            </li>
+                            <li>
+                                Taxe estimée :
+                                {{ order.payment.tax | currency:'EUR':'symbol':'1.2-2' }}
+                            </li>
+                            <li>
+                                <strong>
+                                    Total :
+                                    {{ order.payment.total | currency:'EUR':'symbol':'1.2-2' }}
+                                </strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </article>
+    }
+
+    @if (!filteredOrders(sorter.selectedSort()).length) {
+        <p class="no-orders" role="status">
+            Aucune commande trouvée pour ce statut.
+        </p>
+    }
+
+    <app-change-status-modal
+            [isOpen]="isModalOpen()"
+            [order]="selectedOrder()!"
+            (close)="closeModal()"
+            (saveStatus)="updateOrderStatus($event)">
+    </app-change-status-modal>
+</section>

@@ -1,0 +1,40 @@
+<p-dialog
+        [visible]="visible()"
+        (onHide)="closed.emit()"
+        [modal]="true"
+        [closable]="false"
+        [draggable]="false"
+        [resizable]="false"
+        header="Donnez votre avis"
+        [style]="{ width: '30rem' }"
+>
+    <div class="review-dialog-content">
+        <h3 class="product-title">{{ productName() }}</h3>
+
+        <p-rating [(ngModel)]="rating"></p-rating>
+
+        <textarea
+                class="review-comment"
+                placeholder="Écrivez votre commentaire (facultatif)..."
+                [(ngModel)]="comment"
+                rows="4"
+        ></textarea>
+
+        <div class="actions">
+            <p-button
+                    label="Annuler"
+                    styleClass="cancel-btn"
+                    (onClick)="close()"
+            ></p-button>
+
+            <p-button
+                    label="Envoyer"
+                    icon="pi pi-send"
+                    iconPos="right"
+                    styleClass="submit-btn"
+                    [disabled]="rating === 0"
+                    (onClick)="submitReview()"
+            ></p-button>
+        </div>
+    </div>
+</p-dialog>

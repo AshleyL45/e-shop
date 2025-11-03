@@ -1,0 +1,14 @@
+<app-page-title title="Nos plantes"></app-page-title>
+
+
+
+<app-product-list
+        [products]="products"
+        (productAddedToCart)="onProductAddedToCart($event)"
+        (productAddedToFavorites)="onProductAddedToFavorites($event)"
+        (productRemovedFromFavorites)="onProductRemovedFromFavorites($event)"
+></app-product-list>
+
+<div class="stats">
+    🛒 {{ cartCount }} | ❤️ {{ favoriteCount }}
+</div>

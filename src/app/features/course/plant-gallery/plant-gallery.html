@@ -1,0 +1,43 @@
+<div class="gallery-container">
+    <div class="header">
+        <h2>🌿 Galerie de plantes</h2>
+        <button
+                (click)="refresh()"
+                [disabled]="isLoading()"
+                class="refresh-btn">
+            {{ isLoading() ? 'Chargement...' : 'Actualiser' }}
+        </button>
+    </div>
+
+    @if (isLoading()) {
+        <div class="loading">Chargement des plantes...</div>
+    }
+
+    @if (error()) {
+        <div class="error">
+            <p>{{ error() }}</p>
+            <button (click)="refresh()">Réessayer</button>
+        </div>
+    }
+
+    @if (!isLoading() && !error() && plants().length > 0) {
+        <div class="grid">
+            @for (plant of plants(); track plant.id) {
+                <div class="card">
+                    <img [src]="plant.image_url" [alt]="plant.common_name" />
+                    <h3>{{ plant.common_name }}</h3>
+                    <p><em>{{ plant.scientific_name.join(', ') }}</em></p>
+                    <p>☀️ {{ plant.sunlight.join(', ') || 'N/A' }}</p>
+                    <p>💧 {{ plant.watering }}</p>
+
+                    <button
+                            (click)="toggleLike(plant.id)"
+                            [class.liked]="plant.liked">
+                        {{ plant.liked ? '❤️ Aimée' : '🤍 Aimer' }}
+                    </button>
+                    <p class="like-count">{{ plant.likes }} likes</p>
+                </div>
+            }
+        </div>
+    }
+</div>

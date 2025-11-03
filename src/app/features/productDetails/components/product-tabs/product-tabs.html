@@ -1,0 +1,52 @@
+@if (product()) {
+    <div class="tabs-wrapper">
+        <p-tabs value="desc">
+            <p-tablist>
+                <p-tab value="desc">
+                    <i class="pi pi-align-left mr-2"></i>Description
+                </p-tab>
+                <p-tab value="care">
+                    <i class="pi pi-sparkles mr-2"></i>Entretien
+                </p-tab>
+                <p-tab value="info">
+                    <i class="pi pi-info-circle mr-2"></i>Infos
+                </p-tab>
+                <p-tab value="advice">
+                    <i class="pi pi-lightbulb mr-2"></i>Conseils
+                </p-tab>
+            </p-tablist>
+
+            <p-tabpanels>
+                <p-tabpanel value="desc">
+                    <p class="text-gray-700">{{ product()?.longDescription }}</p>
+                </p-tabpanel>
+
+                <p-tabpanel value="care">
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>Arrosage :</strong> {{ product()?.watering }}</li>
+                        <li><strong>Exposition :</strong> {{ product()?.sunlight }}</li>
+                        <li><strong>Engrais :</strong> {{ product()?.fertilizer }}</li>
+                        <li><strong>Type de sol :</strong> {{ product()?.soilType }}</li>
+                    </ul>
+                </p-tabpanel>
+
+                <p-tabpanel value="info">
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>Famille :</strong> {{ product()?.family }}</li>
+                        <li><strong>Origine :</strong> {{ product()?.origin }}</li>
+                        <li><strong>Durée de vie :</strong> {{ product()?.lifespan }}</li>
+                        <li><strong>Toxicité :</strong> {{ product()?.toxicity }}</li>
+                        <li><strong>Niveau d’entretien :</strong> {{ product()?.difficulty }}</li>
+                    </ul>
+                </p-tabpanel>
+
+                <p-tabpanel value="advice">
+                    <div class="text-gray-700 leading-relaxed italic">
+                        <i class="pi pi-leaf mr-2 text-green-700"></i>
+                        {{ product()?.expertAdvice }}
+                    </div>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
+    </div>
+}

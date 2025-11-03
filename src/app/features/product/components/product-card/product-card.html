@@ -1,0 +1,64 @@
+<p-card class="product-card" (click)="goToProductDetails()">
+    <ng-template pTemplate="header">
+        <div class="image-container">
+            <img [src]="product().imageUrl" [alt]="product().name" />
+            <app-favorite-button
+                    (toggle)="onToggleFavorite()"
+                    [isFavorite]="isFavorite()"
+            ></app-favorite-button>
+        </div>
+    </ng-template>
+
+    <div class="title-block">
+        <div class="title-row">
+            <span class="product-name">{{ product().name }}</span>
+
+            <div class="rating" (click)="openReviewDialog($event)" title="Donner un avis">
+                <i class="pi pi-star-fill"></i>
+                <span>{{ product().rating | number: '1.1-1' }}</span>
+            </div>
+        </div>
+
+        <span class="scientific-name">{{ product().scientificName }}</span>
+
+        <div class="category">
+            @if (product().category === 'indoor') {
+                🌿 Plante d’intérieur
+            } @else if (product().category === 'outdoor') {
+                🌳 Plante d’extérieur
+            } @else {
+                🌸 Autre
+            }
+        </div>
+    </div>
+
+    <p>{{ product().description }}</p>
+
+    <p class="price">
+        {{ product().price | currency: 'EUR':'symbol':'1.2-2':'fr' }}
+    </p>
+
+    @if (product().inStock) {
+        <p class="stock in-stock">En stock</p>
+    } @else {
+        <p class="stock out-of-stock">Rupture</p>
+    }
+
+    <ng-template pTemplate="footer">
+        <div class="actions">
+            <p-button
+                    label="Ajouter au panier"
+                    styleClass="custom-btn"
+                    [disabled]="!product().inStock"
+                    (onClick)="addToCart($event)">
+            </p-button>
+        </div>
+    </ng-template>
+</p-card>
+
+<app-product-review-dialog
+        [visible]="showDialog"
+        [productName]="product().name"
+        (reviewSubmitted)="onReviewSubmitted($event)"
+        (closed)="onDialogClosed()"
+></app-product-review-dialog>

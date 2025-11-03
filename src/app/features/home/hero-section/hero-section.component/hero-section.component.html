@@ -1,0 +1,36 @@
+<section
+        class="hero-container"
+        role="region"
+        aria-labelledby="hero-title"
+        aria-describedby="hero-description">
+
+    <div class="hero-content">
+        <h1 id="hero-title">
+            <span class="line">Apportez la nature chez vous</span><br />
+            <span class="highlight">avec nos plantes d’exception</span>
+        </h1>
+
+        <p id="hero-description" class="subtitle">
+            Découvrez notre sélection de plantes haut de gamme, choisies pour leur beauté, leur résistance
+            et leur capacité à transformer vos espaces. Offrez à votre intérieur une touche de nature
+            élégante et apaisante.
+        </p>
+
+        <div class="actions">
+            <button
+                    pButton
+                    type="button"
+                    [routerLink]="['/products']"
+                    pButtonLabel="Voir nos produits"
+                    aria-label="Voir la liste de nos plantes d’intérieur haut de gamme">Découvrez nos plantes disponibles
+            </button>
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img
+                src="assets/homepage/homepage.webp"
+                role="img"
+                alt="Photo de nos plantes d'exception"/>
+    </div>
+</section>
