@@ -9,7 +9,7 @@ export class CartApi extends BaseApi {
 
     async persistAdd(item: Partial<CartItem>): Promise<void> {
         console.log('[API] Produit ajouté :', item);
-        await this.post<void>('/', item);
+        await this.post<void>('', item);
     }
 
     async persistUpdate(id: number, qty: number): Promise<void> {
