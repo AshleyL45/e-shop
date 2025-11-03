@@ -7,6 +7,8 @@ import { CartFacade } from '@app/features/cart/services/cart.facade';
 import { CartApi } from '@app/features/cart/services/cart.api';
 import { CartService } from '@app/features/cart/services/cart.service';
 import { NotificationService } from '@app/shared/services/notification.service';
+import {environment} from "../../environments/environment";
+
 
 describe('CartFacade (integration)', () => {
     let facade: CartFacade;
@@ -42,7 +44,7 @@ describe('CartFacade (integration)', () => {
 
         facade.add(dto);
 
-        const req = http.expectOne('//');
+        const req = http.expectOne(`${environment.apiUrl}/cart`);
         expect(req.request.method).toBe('POST');
         expect(req.request.body).toEqual(dto);
 
@@ -58,7 +60,7 @@ describe('CartFacade (integration)', () => {
 
         facade.updateQuantity(2, 3);
 
-        const req = http.expectOne('//2');
+        const req = http.expectOne(`${environment.apiUrl}/cart/2`);
         expect(req.request.method).toBe('PUT');
         expect(req.request.body).toEqual({ quantity: 3 });
 
@@ -72,7 +74,7 @@ describe('CartFacade (integration)', () => {
 
         facade.remove(3);
 
-        const req = http.expectOne('//3');
+        const req = http.expectOne(`${environment.apiUrl}/cart/3`);
         expect(req.request.method).toBe('DELETE');
         req.flush({});
 
@@ -85,7 +87,7 @@ describe('CartFacade (integration)', () => {
 
         facade.clear();
 
-        const req = http.expectOne('//clear');
+        const req = http.expectOne(`${environment.apiUrl}/cart/clear`);
         expect(req.request.method).toBe('DELETE');
         req.flush({});
 
@@ -98,7 +100,7 @@ describe('CartFacade (integration)', () => {
 
         facade.checkout();
 
-        const req = http.expectOne('//checkout');
+        const req = http.expectOne(`${environment.apiUrl}/cart/checkout`);
         expect(req.request.method).toBe('POST');
         expect(req.request.body).toEqual({});
 
