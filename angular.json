@@ -105,13 +105,25 @@
             "exclude": ["src/tests/integration/**/*.spec.ts"],
             "inlineStyleLanguage": "scss",
             "assets": [{ "glob": "**/*", "input": "public" }],
-            "styles": ["src/styles.scss"]
+            "styles": ["src/styles.scss"],
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.test.ts"
+              }
+            ]
           },
           "configurations": {
             "integration": {
               "tsConfig": "src/tests/config/tsconfig.integration.spec.json",
               "karmaConfig": "src/tests/config/karma.integration.conf.js",
-              "exclude": ["src/tests/unit/**/*.spec.ts"]
+              "exclude": ["src/tests/unit/**/*.spec.ts"],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
             }
           }
         }

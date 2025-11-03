@@ -16,6 +16,7 @@ describe('CartFacade (integration)', () => {
     let store: CartService;
 
     beforeEach(() => {
+        environment.apiUrl = 'http://localhost:8080/api';
         TestBed.configureTestingModule({
             imports: [],
             providers: [
