@@ -9,7 +9,7 @@ export class CartApi extends BaseApi {
 
     async persistAdd(item: Partial<CartItem>): Promise<void> {
         console.log('[API] Produit ajouté :', item);
-        await this.post<void>('', item); // ✅ retiré le slash final
+        await this.post<void>('', item);
     }
 
     async persistUpdate(id: number, qty: number): Promise<void> {
@@ -32,3 +32,4 @@ export class CartApi extends BaseApi {
         await this.post<void>('/checkout', {});
     }
 }
+

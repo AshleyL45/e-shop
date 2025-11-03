@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export abstract class BaseApi {
     protected http = inject(HttpClient);
-    protected readonly BASE_URL: string = environment.apiUrl;
+    protected readonly BASE_URL: string = environment.apiUrl || '';
 
     protected getHeaders(): HttpHeaders {
         return new HttpHeaders({
