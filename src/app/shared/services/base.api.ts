@@ -1,11 +1,12 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export abstract class BaseApi {
     protected http = inject(HttpClient);
-    protected readonly BASE_URL: string = '';
+    protected readonly BASE_URL: string = environment.apiUrl || '';
 
     protected getHeaders(): HttpHeaders {
         return new HttpHeaders({
@@ -20,13 +21,11 @@ export abstract class BaseApi {
             );
 
             await new Promise(res => setTimeout(res, 0));
-
             return response;
         } catch (error) {
             throw this.handleError(error);
         }
     }
-
 
     protected async post<T>(endpoint: string, body: any): Promise<T> {
         try {
@@ -72,10 +71,10 @@ export abstract class BaseApi {
         return new Error('Erreur inconnue');
     }
 
-    // TODO
-    // handleError à revoir
-    // orderModel : séparer shipping, adress, payment
-    // app.ts : loadingService à injecter ailleurs
-    // fichier ??? : injection du service pas comme dans le cours sans inject
-    // intégrer les notifications primeng ou alors le même design
+    // TODO :
+    // - handleError à revoir
+    // - orderModel : séparer shipping, adress, payment
+    // - app.ts : loadingService à injecter ailleurs
+    // - injection du service à vérifier (utiliser inject() proprement)
+    // - intégrer les notifications PrimeNG ou design similaire
 }
