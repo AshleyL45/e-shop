@@ -8,7 +8,7 @@ export class OrderApi extends BaseApi {
     override readonly BASE_URL = '/';
 
     async getOrders(): Promise<Order[]> {
-        return this.get<Order[]>('orders.json');
+        return this.get<Order[]>('assets/data/orders.json');
     }
 
     async updateOrderStatus(orderId: string, status: Order['status']): Promise<void> {
