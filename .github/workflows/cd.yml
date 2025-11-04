@@ -8,6 +8,8 @@ on:
 
 jobs:
 
+
+
   build-and-push:
     name: 🛠️ Build & Push Docker image
     runs-on: ubuntu-latest
@@ -48,6 +50,7 @@ jobs:
           push: true
           tags: docker.io/ashleylby/e-shop-front:${{ steps.set_tag.outputs.tag }}
 
+
   deploy:
     name: 🚀 Deploy to VPS
     needs: build-and-push
@@ -59,8 +62,6 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.VPS_PRIVATE_KEY }}" > ~/.ssh/id_ed25519_frontend
           chmod 600 ~/.ssh/id_ed25519_frontend
-          eval $(ssh-agent -s)
-          ssh-add ~/.ssh/id_ed25519_frontend
 
       - name: SSH to VPS and deploy
         run: |
