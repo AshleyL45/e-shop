@@ -4,7 +4,7 @@ import { Product } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductApiService extends BaseApi {
-    private readonly endpoint = '/products.json';
+    private readonly endpoint = 'assets/data/products.json';
 
     async getProducts(): Promise<Product[]> {
         return this.get<Product[]>(this.endpoint);
