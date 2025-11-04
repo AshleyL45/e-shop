@@ -48,7 +48,7 @@ jobs:
           context: .
           file: ${{ steps.set_tag.outputs.dockerfile }}
           push: true
-          tags: docker.io/ashleylby/e-shop-front:${{ steps.set_tag.outputs.tag }}
+          tags: ashleylby/e-shop-front:${{ steps.set_tag.outputs.tag }}
 
 
   deploy:
