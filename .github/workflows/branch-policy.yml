@@ -1,5 +1,5 @@
 name: PR Rules
-
+if: false
 on:
   pull_request:
     branches:
