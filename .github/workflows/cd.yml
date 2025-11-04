@@ -58,15 +58,19 @@ jobs:
 
     steps:
       - name: Set up SSH key
+        env:
+          DISPLAY: :0
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.VPS_PRIVATE_KEY }}" > ~/.ssh/id_ed25519_frontend
           chmod 600 ~/.ssh/id_ed25519_frontend
+          eval $(ssh-agent -s)
+          echo "${{ secrets.VPS_PASSPHRASE }}" | SSH_ASKPASS=/bin/echo ssh-add ~/.ssh/id_ed25519_frontend
 
       - name: SSH to VPS and deploy
         run: |
           TAG=${{ needs.build-and-push.outputs.tag }}
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519_frontend ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF
             cd /home/${{ secrets.VPS_USER }}/frontend/$TAG
             docker compose pull
             docker compose down && docker compose up -d
