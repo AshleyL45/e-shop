@@ -1,14 +1,14 @@
 import { Component, signal } from '@angular/core';
-import {Router, RouterLink, RouterLinkActive} from '@angular/router';
-import { CartPopover } from '../cart-popover/cart-popover';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CartPopover } from '../cart-popover/cart-popover';
 
 @Component({
     selector: 'app-header',
     standalone: true,
     templateUrl: 'header.html',
     styleUrls: ['header.scss'],
-    imports: [CommonModule, CartPopover, RouterLinkActive, RouterLink]
+    imports: [CommonModule, RouterLink, RouterLinkActive, CartPopover]
 })
 export class Header {
     items = signal([
@@ -39,12 +39,13 @@ export class Header {
             icon: 'pi pi-user',
             children: [
                 { label: 'Mon Compte', path: '/profile/account' },
-                { label: 'Inscription', path: '/profile/setting' }
+                { label: 'Paramètres', path: '/profile/setting' }
             ]
         }
     ]);
 
     private openDropdown = signal<string | null>(null);
+    isMenuOpen = signal(false);
 
     constructor(private router: Router) {}
 
@@ -58,5 +59,13 @@ export class Header {
 
     activeDropdown() {
         return this.openDropdown();
+    }
+
+    toggleMobileMenu() {
+        this.isMenuOpen.set(!this.isMenuOpen());
+    }
+
+    closeMobileMenu() {
+        this.isMenuOpen.set(false);
     }
 }
