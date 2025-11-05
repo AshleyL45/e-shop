@@ -1,6 +1,5 @@
 <header role="banner" aria-label="En-tête principal du site">
     <nav class="navbar" role="navigation" aria-label="Navigation principale du site">
-        <!-- === BOUTON HAMBURGER (mobile only) === -->
         <button
                 class="hamburger-button"
                 (click)="toggleMobileMenu()"
@@ -10,7 +9,6 @@
             <i class="pi" [class.pi-bars]="!isMenuOpen()" [class.pi-times]="isMenuOpen()" aria-hidden="true"></i>
         </button>
 
-        <!-- === NAVBAR DESKTOP === -->
         <div class="nav-left desktop-nav">
             <ul role="menubar" aria-label="Liens principaux">
                 <li role="none">
@@ -78,7 +76,6 @@
                     </a>
                 </li>
 
-                <!-- DROPDOWN AUTH -->
                 <li
                         class="dropdown"
                         (mouseenter)="toggleDropdown('auth')"
@@ -117,7 +114,6 @@
             </ul>
         </div>
 
-        <!-- === SECTION DROITE (desktop et mobile) === -->
         <div class="nav-right" role="group" aria-label="Outils utilisateur">
             <app-cart-popover role="region" aria-label="Aperçu du panier"></app-cart-popover>
 
@@ -159,7 +155,6 @@
             </div>
         </div>
 
-        <!-- === MENU MOBILE (plein écran) === -->
         @if (isMenuOpen()) {
             <div class="mobile-menu" role="menu">
                 <a routerLink="/" (click)="closeMobileMenu()">Accueil</a>
