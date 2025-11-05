@@ -1,6 +1,15 @@
 <header role="banner" aria-label="En-tête principal du site">
     <nav class="navbar" role="navigation" aria-label="Navigation principale du site">
-        <div class="nav-left">
+        <button
+                class="hamburger-button"
+                (click)="toggleMobileMenu()"
+                [attr.aria-expanded]="isMenuOpen()"
+                aria-label="Ouvrir le menu principal"
+        >
+            <i class="pi" [class.pi-bars]="!isMenuOpen()" [class.pi-times]="isMenuOpen()" aria-hidden="true"></i>
+        </button>
+
+        <div class="nav-left desktop-nav">
             <ul role="menubar" aria-label="Liens principaux">
                 <li role="none">
                     <a
@@ -106,16 +115,6 @@
         </div>
 
         <div class="nav-right" role="group" aria-label="Outils utilisateur">
-            <div class="search-container">
-                <label for="site-search" class="sr-only">Rechercher sur le site</label>
-                <input
-                        id="site-search"
-                        type="search"
-                        placeholder="Rechercher..."
-                        aria-label="Champ de recherche"
-                />
-            </div>
-
             <app-cart-popover role="region" aria-label="Aperçu du panier"></app-cart-popover>
 
             <div
@@ -155,5 +154,21 @@
                 }
             </div>
         </div>
+
+        @if (isMenuOpen()) {
+            <div class="mobile-menu" role="menu">
+                <a routerLink="/" (click)="closeMobileMenu()">Accueil</a>
+                <a routerLink="/products" (click)="closeMobileMenu()">Produits</a>
+                <a routerLink="/about" (click)="closeMobileMenu()">À propos</a>
+                <a routerLink="/setting" (click)="closeMobileMenu()">Paramètres</a>
+                <a routerLink="/admin" (click)="closeMobileMenu()">Admin</a>
+                <a routerLink="/cart" (click)="closeMobileMenu()">Panier</a>
+                <a routerLink="/error" (click)="closeMobileMenu()">Erreur</a>
+                <a routerLink="/auth/login" (click)="closeMobileMenu()">Connexion</a>
+                <a routerLink="/auth/register" (click)="closeMobileMenu()">Inscription</a>
+                <a routerLink="/profile/account" (click)="closeMobileMenu()">Mon Compte</a>
+                <a routerLink="/profile/setting" (click)="closeMobileMenu()">Paramètres Profil</a>
+            </div>
+        }
     </nav>
 </header>
