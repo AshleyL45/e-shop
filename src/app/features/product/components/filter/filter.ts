@@ -17,8 +17,8 @@ export class Filter {
 
     activeCategoryModel: string | null = null;
     categories = [
-        { label: 'Indoor', value: 'indoor' },
-        { label: 'Outdoor', value: 'outdoor' }
+        { label: 'Intérieur', value: 'indoor' },
+        { label: 'Extérieur', value: 'outdoor' }
     ];
 
     onSelect(event: any) {

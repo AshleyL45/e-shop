@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { OrderHistory } from '../../admin/components/order-history/order-history';
 
-
 @Component({
     selector: 'app-admin.page',
     standalone: true,
@@ -13,9 +12,9 @@ import { OrderHistory } from '../../admin/components/order-history/order-history
         </section>
     `,
     styles: [`
-    .admin-container {
-      padding: 2rem;
-    }
-  `]
+      .admin-container {
+        padding: 2rem;
+      }
+    `]
 })
 export default class AdminPage {}
