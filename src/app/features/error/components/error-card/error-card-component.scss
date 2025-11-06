@@ -6,6 +6,7 @@
   background-color: #F5F7FA;
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
+  padding: 1rem;
 }
 
 .error-card {
@@ -15,6 +16,7 @@
   text-align: center;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   max-width: 500px;
+  width: 100%;
 }
 
 .error-title {
@@ -45,10 +47,40 @@
   padding: 0.8rem 2rem !important;
   border-radius: 25px !important;
   transition: background-color 0.2s ease, transform 0.2s ease;
-
-  &:hover {
-    background-color: #40573f !important;
-    transform: scale(1.05);
-  }
 }
 
+:host ::ng-deep .custom-btn:hover {
+  background-color: #40573f !important;
+  transform: scale(1.05);
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 600px) {
+  .error-container {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .error-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .error-title {
+    font-size: 4rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .error-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .error-text {
+    font-size: 0.95rem;
+  }
+
+  :host ::ng-deep .custom-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

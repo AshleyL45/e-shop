@@ -15,8 +15,9 @@ export class SearchBar {
 
     onInputChange(value: string) {
         this.searchTerm.set(value);
-        this.search.emit(value);
+        this.search.emit(value.trim().toLowerCase());
     }
+
 
     onEnter(event: KeyboardEvent) {
         if (event.key === 'Enter') {
