@@ -89,7 +89,7 @@ export class OrderHistory implements OnInit {
 
     filteredOrders(sortDirection: string | null): Order[] {
         const status = this.selectedStatus();
-        const search = this.searchTerm();
+        const search = this.searchTerm().trim().toLowerCase();
         let filtered = this.orders();
 
         if (status) {
@@ -97,9 +97,16 @@ export class OrderHistory implements OnInit {
         }
 
         if (search) {
-            filtered = filtered.filter(o =>
-                o.id.replace('#', '').toLowerCase().includes(search)
-            );
+            filtered = filtered.filter(o => {
+                const id = o.id.replace('#', '').toLowerCase();
+                const shippingName = o.shipping?.name?.toLowerCase() || '';
+                const billingName = o.billing?.name?.toLowerCase() || '';
+                return (
+                    id.includes(search) ||
+                    shippingName.includes(search) ||
+                    billingName.includes(search)
+                );
+            });
         }
 
         if (sortDirection === 'asc') {
@@ -119,7 +126,6 @@ export class OrderHistory implements OnInit {
         this.searchTerm.set(term.trim().toLowerCase());
     }
 
-    // ✅ Nouvelle ouverture de modale (sans PrimeNG)
     openStatusModal(order: Order): void {
         this.selectedOrder.set(order);
         this.isModalOpen.set(true);

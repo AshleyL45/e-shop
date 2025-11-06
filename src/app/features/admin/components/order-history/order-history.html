@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    @for (order of filteredOrders(sorter.selectedSort()); track order.id) {
+    @for (order of filteredOrders(sorter.selectedSort()); track order.id || $index) {
         <article
                 class="order"
                 [attr.aria-expanded]="expanded() === order.id"
@@ -42,13 +42,12 @@
                             [alt]="'Photo du produit ' + order.items[0].name"
                             width="55"
                             height="55"
-                            loading="lazy"
-                    />
+                            loading="lazy" />
                     <div>
-                        <h3>{{ order.items[0].name }}</h3>
-                        <p class="muted">{{ order.items[0].category }}</p>
+                        <h3>{{ order.shipping.name }}</h3>
                     </div>
                 </div>
+
 
                 <div class="right">
                     <span class="id" aria-label="Numéro de commande">{{ order.id }}</span>
@@ -117,7 +116,7 @@
                     <div class="product-summary">
                         <h4>Produits de la commande ({{ getTotalQuantity(order) }} articles)</h4>
                         <ul>
-                            @for (item of order.items; track item.id) {
+                            @for (item of order.items; track item.id || $index) {
                                 <li class="product-line">
                                     <div class="product-info">
                                         <img
@@ -125,8 +124,7 @@
                                                 [alt]="'Photo du produit ' + item.name"
                                                 width="45"
                                                 height="45"
-                                                loading="lazy"
-                                        />
+                                                loading="lazy" />
                                         <div class="details">
                                             <span class="name">{{ item.name }}</span>
                                             <span class="qty">× {{ item.quantity }}</span>
@@ -173,7 +171,7 @@
 
     @if (!filteredOrders(sorter.selectedSort()).length) {
         <p class="no-orders" role="status">
-            Aucune commande trouvée pour ce statut.
+            Aucune commande trouvée pour cette recherche.
         </p>
     }
 
