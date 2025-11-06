@@ -1,0 +1,10 @@
+<div class="filters-bar" role="region" aria-label="Filtres de commandes">
+    <div class="filters-left">
+        <app-order-status-filter (filter)="onFilter($event)"></app-order-status-filter>
+        <app-order-date-sorter (sort)="onSortChange($event)"></app-order-date-sorter>
+    </div>
+
+    <div class="filters-right">
+        <app-search-bar (search)="onSearch($event)"></app-search-bar>
+    </div>
+</div>
