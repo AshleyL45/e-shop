@@ -7,6 +7,9 @@
   flex-wrap: wrap;
   gap: 1rem;
   position: relative;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .filters-left {
@@ -27,19 +30,43 @@
   }
 }
 
-
-@media (max-width: 640px) {
+/* === Tablette (768 px) === */
+@media (max-width: 768px) {
   .filters-bar {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 0.75rem 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .filters-left,
   .filters-right {
-    flex: 1 1 100%;
-    display: flex;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  app-search-bar {
+    width: 100%;
+  }
+}
+
+/* === Mobile (≤640 px) === */
+@media (max-width: 640px) {
+  .filters-bar {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .filters-left,
+  .filters-right {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
   }
 
   .filters-left {
@@ -48,13 +75,19 @@
 
   .filters-right {
     order: 2;
-    justify-content: flex-start;
 
     app-search-bar {
       width: 100%;
       max-width: none;
     }
   }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  select {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.5rem;
+  }
 }
-
-

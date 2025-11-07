@@ -37,13 +37,16 @@
     }
 
     .right {
-      display: grid;
-      grid-template-columns: repeat(5, auto);
+      display: flex;
       align-items: center;
-      justify-content: end;
-      gap: 2rem;
-      min-width: 450px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      min-width: 0;
+      flex: 1;
       text-align: right;
+      margin-top: 1rem;
+
 
       .id {
         background: #f1f5f9;
